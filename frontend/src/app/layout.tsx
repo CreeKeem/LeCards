@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Retainr",
+  title: "LeCards",
   description: "AI Flashcard Application",
 };
 
