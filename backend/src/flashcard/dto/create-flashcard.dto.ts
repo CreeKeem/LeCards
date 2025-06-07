@@ -1,7 +1,7 @@
 import { Optional } from '@nestjs/common';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class FlashcardDto {
+export class CreateDto {
   @IsNumber()
   @IsNotEmpty()
   set_id: number;
