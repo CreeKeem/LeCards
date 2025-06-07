@@ -32,7 +32,10 @@ export default function Home() {
 
 
       {/* Section 1 */}
-      <div className="mt-[600px]">
+      <div className="mt-[600px] relative">
+        <h1 className="absolute text-7xl text-[#FFF9E0] m">
+          Say LeF*ck you to bad study guides!
+        </h1>
         <video
           src='/LeFu3.mp4'
           autoPlay
@@ -42,7 +45,6 @@ export default function Home() {
         >
           Your browswer does not support the video tag.
         </video>
-        
       </div>
 
       {/* Section 2 */}
