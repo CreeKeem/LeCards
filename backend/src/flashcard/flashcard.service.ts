@@ -21,26 +21,23 @@ export class FlashcardService {
     return flashcard;
   }
 
-  async delete(id: number) {
-    try {
-      const flashcard = await this.prisma.flashcard.delete({
-        where: {
-          card_id: id,
-        },
-      });
+  async read(id: number) {
+    const flashcard = await this.prisma.flashcard.findUnique({
+      where: { card_id: id },
+    });
 
-      return flashcard;
-    } catch (error) {
+    if (!flashcard) {
       throw new NotFoundException('Flashcard does not exist');
     }
+
+    return flashcard;
   }
 
-  async update(dto: UpdateDto) {
+  async update(card_id: number, dto: UpdateDto) {
     try {
-      const { card_id, ...updateData } = dto;
       const flashcard = await this.prisma.flashcard.update({
         where: { card_id },
-        data: updateData,
+        data: dto,
       });
 
       return flashcard;
@@ -52,9 +49,9 @@ export class FlashcardService {
     }
   }
 
-  async read(id: number) {
+  async delete(id: number) {
     try {
-      const flashcard = await this.prisma.flashcard.findUnique({
+      const flashcard = await this.prisma.flashcard.delete({
         where: {
           card_id: id,
         },
@@ -62,7 +59,10 @@ export class FlashcardService {
 
       return flashcard;
     } catch (error) {
-      throw new NotFoundException('Flashcard does not exist');
+      if (error.code === 'P2025') {
+        throw new NotFoundException('Flashcard does not exist');
+      }
+      throw error;
     }
   }
 }

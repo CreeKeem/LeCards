@@ -1,5 +1,4 @@
-import { Optional } from '@nestjs/common';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateDto {
   @IsNumber()
@@ -14,12 +13,12 @@ export class CreateDto {
   @IsNotEmpty()
   definition: string;
 
-  @Optional()
+  @IsOptional()
   video?: string;
 
-  @Optional()
+  @IsOptional()
   audio?: string;
 
-  @Optional()
+  @IsOptional()
   image?: string;
 }

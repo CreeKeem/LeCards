@@ -14,23 +14,23 @@ import { CreateDto, UpdateDto } from './dto/index';
 export class FlashcardController {
   constructor(private flashcardService: FlashcardService) {}
 
-  @Post('create')
+  @Post('')
   create(@Body() dto: CreateDto) {
     return this.flashcardService.create(dto);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.flashcardService.delete(+id);
-  }
-
-  @Patch('update')
-  update(@Body() dto: UpdateDto) {
-    return this.flashcardService.update(dto);
   }
 
   @Get(':id')
   read(@Param('id') id: string) {
     return this.flashcardService.read(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateDto) {
+    return this.flashcardService.update(+id, dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.flashcardService.delete(+id);
   }
 }
