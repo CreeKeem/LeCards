@@ -1,4 +1,9 @@
 import { Module } from '@nestjs/common';
+import { SetController } from './set.controller';
+import { SetService } from './set.service';
 
-@Module({})
+@Module({
+  controllers: [SetController],
+  providers: [SetService]
+})
 export class SetModule {}

@@ -22,14 +22,17 @@ model set {
   user_id     Int
   name        String
   description String?
-  users        users        @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  users       users       @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   flashcard   flashcard[]
 }
 
 model flashcard {
-  card_id    Int    @id @default(autoincrement())
+  card_id    Int     @id @default(autoincrement())
   set_id     Int
   term       String
   definition String
-  set        set    @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
+  image      String?
+  video      String?
+  audio      String?
+  set        set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
 }

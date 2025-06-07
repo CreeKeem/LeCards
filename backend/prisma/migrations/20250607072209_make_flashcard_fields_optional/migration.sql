@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "flashcard" ALTER COLUMN "audio" DROP NOT NULL,
+ALTER COLUMN "image" DROP NOT NULL,
+ALTER COLUMN "video" DROP NOT NULL;
