@@ -6,11 +6,12 @@ export default function Navbar() {
     <div className="bg-[#552583] w-screen h-[72px] drop-shadow-xl px-[24px] md:px-[80px] font-oswald font-bold">
       <div className="h-full flex items-center justify-between text-white">
         {/* Logo + Brand */}
-        <Link href='/' className="flex items-center flex-shrink-0 select-none w-auto">
+        <Link
+          href="/"
+          className="flex items-center flex-shrink-0 select-none w-auto"
+        >
           <Image src="/Logo.svg" alt="LeCards Logo" width={32} height={32} />
-          <h1 className="text-[24px] ml-[12px] whitespace-nowrap">
-            LeCards
-          </h1>
+          <h1 className="text-[24px] ml-[12px] whitespace-nowrap">LeCards</h1>
         </Link>
 
         {/* Nav Links */}

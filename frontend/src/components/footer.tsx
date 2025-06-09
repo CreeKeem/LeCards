@@ -43,10 +43,20 @@ export default function Footer() {
               <Image src="/twitter.svg" alt="Twitter" width={20} height={20} />
             </li>
             <li>
-              <Image src="/instagram.svg" alt="Instagram" width={20} height={20} />
+              <Image
+                src="/instagram.svg"
+                alt="Instagram"
+                width={20}
+                height={20}
+              />
             </li>
             <li>
-              <Image src="/facebook.svg" alt="Facebook" width={20} height={20} />
+              <Image
+                src="/facebook.svg"
+                alt="Facebook"
+                width={20}
+                height={20}
+              />
             </li>
           </ul>
         </div>
