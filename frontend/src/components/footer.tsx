@@ -2,48 +2,58 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className="bg-[#552583] w-screen h-[313px] font-oswald font-bold text-[#E9D5FF] px-[104px] flex-col py-[48px]">
+    <div className="bg-[#552583] w-full font-oswald font-bold text-[#E9D5FF] px-6 md:px-[80px] py-[48px]">
       {/* Footer content */}
-      <div className="flex justify-between h-[128px]">
-
-        <div className="h-[128px] w-[284px]">
-          <div className="flex items-center flex-shrink-0 select-none w-auto">
+      <div className="flex flex-wrap justify-between gap-y-10 md:gap-y-0">
+        {/* Brand */}
+        <div className="w-full md:w-[284px]">
+          <div className="flex items-center select-none">
             <Image src="/Logo.svg" alt="LeCards Logo" width={32} height={32} />
             <h1 className="text-[24px] ml-[12px] whitespace-nowrap">LeCards</h1>
           </div>
-          <h1 className="mt-[21px] font-normal">Learn with the mindset of greatness.</h1>
+          <h1 className="mt-[21px] font-normal text-sm md:text-base">
+            Learn with the mindset of greatness.
+          </h1>
         </div>
 
-        <div className="h-[128px] w-[284px] flex flex-col justify-between">
+        {/* Product Links */}
+        <div className="w-1/2 sm:w-1/3 md:w-[284px] flex flex-col space-y-4">
           <h1>Product</h1>
-          <ul className="font-normal h-[88px] flex flex-col justify-between text-normal">
+          <ul className="font-normal text-sm md:text-base space-y-2">
             <li>Flashcards</li>
             <li>Study Tools</li>
             <li>Mobile App?</li>
           </ul>
         </div>
 
-        <div className="h-[128px] w-[284px] flex flex-col justify-between">
+        {/* Company Links */}
+        <div className="w-1/2 sm:w-1/3 md:w-[284px] flex flex-col space-y-4">
           <h1>Company</h1>
-          <ul className="font-normal h-[88px] flex flex-col justify-between text-normal">
+          <ul className="font-normal text-sm md:text-base space-y-2">
             <li>About Us</li>
             <li>Contact</li>
-            <li></li>
           </ul>
         </div>
 
-        <div className="h-[128px] w-[284px] flex flex-col justify-between">
+        {/* Social Links */}
+        <div className="w-full sm:w-auto md:w-[284px] flex flex-col space-y-4">
           <h1>Follow Us</h1>
-          <ul className="font-normal h-[88px] flex">
-            <li><Image src={'./twitter.svg'} alt="Twitter Logo" width={20} height={20}></Image></li>
-            <li><Image src={'./instagram.svg'} alt="Twitter Logo" width={20} height={20} className="ml-4"></Image></li>
-            <li><Image src={'./facebook.svg'} alt="Twitter Logo" width={20} height={20} className="ml-4"></Image></li>
+          <ul className="flex space-x-4">
+            <li>
+              <Image src="/twitter.svg" alt="Twitter" width={20} height={20} />
+            </li>
+            <li>
+              <Image src="/instagram.svg" alt="Instagram" width={20} height={20} />
+            </li>
+            <li>
+              <Image src="/facebook.svg" alt="Facebook" width={20} height={20} />
+            </li>
           </ul>
         </div>
       </div>
 
-      {/* Copyrights */}
-      <div className="border-t border-solid border-[#9333EA] flex justify-end flex-col h-[57px] items-center mt-[32px]">
+      {/* Divider & Copyright */}
+      <div className="border-t border-solid border-[#9333EA] flex justify-center items-center h-[57px] mt-[32px] text-sm md:text-base">
         <h1 className="font-normal">© 2025 LeCards. All rights reserved.</h1>
       </div>
     </div>

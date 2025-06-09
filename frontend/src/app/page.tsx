@@ -8,10 +8,10 @@ export default function Home() {
 
       {/* Section 1 */}
       <div className="bg-[#552583] h-[600px] flex justify-center items-center">
-        <div className="w-[86%] h-[53%] bg-white">
+        <div className="w-[86%] h-[53%]">
           <div>
             <div>
-
+              <h1 className="text-white font-bold text-[48px]">Master Your Knowledge Like <span className="text-[#FDB927]">The King</span></h1>
             </div>
             <div>
 
