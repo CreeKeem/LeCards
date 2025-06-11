@@ -40,45 +40,56 @@ export default function Home() {
       </div>
 
       {/* Section 2 */}
-      <div className="h-[580px] bg-white p-[80px]">
-        <div className="w-full h-[420px] px-[24px] bg-black flex flex-col justify-between items-center">
-          {/* Why LeCards? */}
-          <div className="flex flex-col items-center justify-end gap-[14px] bg-white">
-            <h1 className="text-[#552583] font-bold text-[36px]">
+      <div className="bg-white min-h-[580px] px-6 py-20 sm:px-10 md:px-20">
+        <div className="max-w-[1280px] mx-auto flex flex-col items-center space-y-18">
+          {/* Header Section */}
+          <div className="flex flex-col items-center gap-6 text-center">
+            <h1 className="text-[#552583] font-bold text-3xl sm:text-4xl">
               Why Choose LeCards?
             </h1>
-            <h2 className="text-[#4B5563] h-[30px] font-normal text-[20px]">
+            <h2 className="text-[#4B5563] text-lg sm:text-xl font-normal">
               Learn with the mindset of a champion
             </h2>
           </div>
 
           {/* 3 Reasons */}
-          <div className="bg-white w-[96%] h-[272px] flex justify-between">
-            {/* 1st Reason */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-              <h4>Smart Learning</h4>
-              <p>
-                AI-powered spaced repition helps you retain information like
-                LeBron retains his championship mentality
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Reason 1 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
+              <Image src="/brainIcon.svg" alt="Brain" width={64} height={64} />
+              <h4 className="text-[#552583] text-xl sm:text-2xl font-bold mt-4">
+                Smart Learning
+              </h4>
+              <p className="text-sm sm:text-base mt-2">
+                AI-powered spaced repetition helps you retain information like
+                LeBron retains his championship mentality.
               </p>
             </div>
 
-            {/* 2nd Reason */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-              <h4>Achievement System</h4>
-              <p>
-                Unlock badges and track your progress. Every Study session gets
-                you closer to greatness
+            {/* Reason 2 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
+              <Image
+                src="/trophyIcon.svg"
+                alt="Trophy"
+                width={64}
+                height={64}
+              />
+              <h4 className="text-[#552583] text-xl sm:text-2xl font-bold mt-4">
+                Achievement System
+              </h4>
+              <p className="text-sm sm:text-base mt-2">
+                Unlock badges and track your progress. Every study session gets
+                you closer to greatness.
               </p>
             </div>
 
-            {/* 3rd Reason */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-              <h4>Team Learning</h4>
-              <p>
+            {/* Reason 3 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
+              <Image src="/teamIcon.svg" alt="Team" width={64} height={64} />
+              <h4 className="text-[#552583] text-xl sm:text-2xl font-bold mt-4">
+                Team Learning
+              </h4>
+              <p className="text-sm sm:text-base mt-2">
                 Study with friends and compete. Just like LeBron, greatness is
                 achieved together.
               </p>
@@ -88,13 +99,22 @@ export default function Home() {
       </div>
 
       {/* Section 3 */}
-      <div className="h-[652px] bg-[#552583]">
-        <div>
-          <div>
-            <h1>Experience the Cards</h1>
-            <h3>Interactive flashcards withe LeBron's winning philosophy</h3>
+      <div className="bg-[#552583] flex justify-center px-6 py-20 sm:py-24">
+        <div className="w-full max-w-7xl flex flex-col items-center space-y-12">
+          {/* Text */}
+          <div className="text-center text-white flex flex-col gap-3">
+            <h1 className="text-3xl sm:text-4xl font-bold">
+              Experience the Cards
+            </h1>
+            <h3 className="text-lg sm:text-xl font-normal">
+              Interactive flashcards with LeBron's winning philosophy
+            </h3>
           </div>
-          <div>Need To Create Flashcard Component</div>
+
+          {/* Flashcard Box Placeholder */}
+          <div className="w-full max-w-md sm:max-w-lg md:max-w-xl bg-white rounded-2xl h-[300px] sm:h-[360px] md:h-[420px] flex items-center justify-center text-center text-[#552583] font-medium">
+            Need To Create Flashcard Component
+          </div>
         </div>
       </div>
 
