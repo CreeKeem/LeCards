@@ -17,11 +17,11 @@ export default function Navbar() {
         {/* Nav Links */}
         <nav className="hidden md:flex items-center gap-[24px] text-[16px]">
           <Link href="/">Home</Link>
-          <Link href="/flashcards">Flashcards</Link>
-          <Link href="/study">Study</Link>
-          <Link href="/about">About</Link>
+          <Link href="/">Flashcards</Link>
+          <Link href="/">Study</Link>
+          <Link href="/">About</Link>
           <Link
-            href="/signup"
+            href="/login"
             className="bg-[#FDB927] text-[#552583] py-[6px] px-[20px] rounded-[8px] whitespace-nowrap hover:bg-[#B97C10] duration-300"
           >
             Get Started

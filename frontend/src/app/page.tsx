@@ -22,7 +22,7 @@ export default function Home() {
               to life lessons, learn with the GOAT's wisdom.
             </h2>
             <Link
-              href="/signup"
+              href="/login"
               className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-[#FDB927] text-[#552583] rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-2"
             >
               <Image src="/arrow.svg" alt="Arrow" width={13.5} height={18} />
@@ -255,7 +255,7 @@ export default function Home() {
           </div>
 
           <Link
-            href="/signup"
+            href="/login"
             className="bg-[#FDB927] text-[#552583] text-base sm:text-lg font-black h-14 w-48 rounded-lg cursor-pointer hover:bg-[#B97C10] transition duration-300 flex items-center justify-center gap-3"
           >
             <Image
