@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
   const [signUp, setSignUp] = useState(true);
+  const router = useRouter();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push('/dashboard');
+  };
 
   return (
     <div className=" flex items-center justify-center h-screen bg-gradient-to-r from-[#552583] via-[#6B21A8] to-[#552583]">
