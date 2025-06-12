@@ -119,82 +119,115 @@ export default function Home() {
       </div>
 
       {/* Section 4 */}
-      <div className="h-[232px] bg-[#FDB927]">
-        <div>
-          <div>
-            <h1>1</h1>
-            <h2>Active Learner</h2>
+      <div className="bg-[#FDB927] min-h-[232px] sm:px-10 text-[#552583] flex justify-items-center">
+        <div className="w-full max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-6">
+          {/* Stat 1 */}
+          <div className="w-[140px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col items-center space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-bold">1</h1>
+            <h2 className="text-sm sm:text-base font-semibold">
+              Active Learner
+            </h2>
           </div>
 
-          <div>
-            <h1>1</h1>
-            <h2>Flashcard Set</h2>
+          {/* Stat 2 */}
+          <div className="w-[140px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col items-center space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-bold">1</h1>
+            <h2 className="text-sm sm:text-base font-semibold">
+              Flashcard Set
+            </h2>
           </div>
 
-          <div>
-            <h1>100%</h1>
-            <h2>Success Rate</h2>
+          {/* Stat 3 */}
+          <div className="w-[140px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col items-center space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-bold">100%</h1>
+            <h2 className="text-sm sm:text-base font-semibold">Success Rate</h2>
           </div>
 
-          <div>
-            <h1>5.0</h1>
-            <h2>User Rating</h2>
+          {/* Stat 4 */}
+          <div className="w-[140px] sm:w-[200px] md:w-[220px] lg:w-[260px] flex flex-col items-center space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-bold">5.0 ★</h1>
+            <h2 className="text-sm sm:text-base font-semibold">User Rating</h2>
           </div>
         </div>
       </div>
 
       {/* Section 5 */}
-      <div className="h-[472px] bg-white">
-        <div className="w-full h-[420px] px-[24px] bg-black flex flex-col justify-evenly items-center">
-          {/* What Our Champions Say? */}
-          <h1 className="text-[#552583] font-bold text-[36px]">
-            What Our Champions Say
-          </h1>
+      <div className="bg-white px-6 py-16 sm:px-10 md:px-20 min-h-[472px]">
+        <div className="max-w-7xl mx-auto flex flex-col items-center space-y-16">
+          {/* Header Section */}
+          <div className="flex flex-col items-center gap-4 text-center">
+            <h1 className="text-[#552583] font-bold text-3xl sm:text-4xl">
+              What Our Champions Say
+            </h1>
+          </div>
 
-          {/* 3 Quotes */}
-          <div className="bg-white w-[96%] h-[272px] flex justify-between">
-            {/* 1st User */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <div>
-                <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-                <div>
-                  <h3>Bronny James</h3>
-                  <h4>Future Face of the League</h4>
+          {/* Testimonial Cards */}
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/brainIcon.svg"
+                  alt="Brain"
+                  width={64}
+                  height={64}
+                />
+                <div className="flex flex-col -mt-1">
+                  <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
+                    Bronny James
+                  </h3>
+                  <h2 className="text-sm sm:text-base font-normal">NBA Star</h2>
                 </div>
               </div>
-              <p>
-                AI-powered spaced repition helps you retain information like
-                LeBron retains his championship mentality
+              <p className="text-sm sm:text-base font-normal">
+                "Daddy's cards will make me the next GOAT"
               </p>
             </div>
 
-            {/* 2nd User */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <div>
-                <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-                <div>
-                  <h3>Michael Jordan</h3>
-                  <h4>Second Greatest Basketball Player</h4>
+            {/* Card 2 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/brainIcon.svg"
+                  alt="Brain"
+                  width={64}
+                  height={64}
+                />
+                <div className="flex flex-col -mt-1">
+                  <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
+                    Michael Jordan
+                  </h3>
+                  <h2 className="text-sm sm:text-base font-normal">
+                    2nd Greatest Player of All Time
+                  </h2>
                 </div>
               </div>
-              <p>
-                Unlock badges and track your progress. Every Study session gets
-                you closer to greatness
+              <p className="text-sm sm:text-base font-normal">
+                "LeGoat got me learning a thing or two about winning. I wish I
+                were as good as he was, but I got carried by Pippen."
               </p>
             </div>
 
-            {/* 3rd User */}
-            <div className="w-[32%] bg-[#F0F0F0]">
-              <div>
-                <Image src={"/arrow.svg"} alt="Brain" width={64} height={64} />
-                <div>
-                  <h3>John Doe</h3>
-                  <h4>Student</h4>
+            {/* Card 3 */}
+            <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/brainIcon.svg"
+                  alt="Brain"
+                  width={64}
+                  height={64}
+                />
+                <div className="flex flex-col -mt-1">
+                  <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
+                    John Doe
+                  </h3>
+                  <h2 className="text-sm sm:text-base font-normal">Student</h2>
                 </div>
               </div>
-              <p>
-                Study with friends and compete. Just like LeBron, greatness is
-                achieved together.
+              <p className="text-sm sm:text-base font-normal">
+                "LeDaddy, I would do anything for him. mmmmhhhhmmmmm yes gimme
+                his cards and make all his knowledge spray all over my face. I
+                love LeCards."
               </p>
             </div>
           </div>
@@ -202,14 +235,27 @@ export default function Home() {
       </div>
 
       {/* Section 6 */}
-      <div className="h-[348px] bg-[#552583]">
-        <div>
-          <h1>Ready to Learn Like a Champion</h1>
-          <h3>
-            Join the one learner who kinda elevated their game with King James
-            Cards
-          </h3>
-          <button>Start Now</button>
+      <div className="h-[348px] bg-[#552583] flex justify-center items-center">
+        <div className="h-[188px] flex flex-col items-center gap-10">
+          <div className="flex flex-col items-center text-white gap-5">
+            <h1 className="font-bold text-[36px]">
+              Ready to Learn Like a Champion?
+            </h1>
+            <h2 className="font-normal text-[20px]">
+              Join the one learner who kinda elevated their game with King James
+              Cards
+            </h2>
+          </div>
+          <button className="bg-[#FDB927] text-[#552583] text-[18px] font-black h-[64px] w-[200px] rounded-[8px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-3">
+            <Image
+                  src="/rocketIcon.svg"
+                  alt="Rocket Ship"
+                  width={18}
+                  height={26}
+                  className="-ml-2"
+                />
+            Start Now
+          </button>
         </div>
       </div>
 
