@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -20,10 +21,13 @@ export default function Home() {
               Study smarter with custom made flashcards. From basketball history
               to life lessons, learn with the GOAT's wisdom.
             </h2>
-            <button className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-[#FDB927] text-[#552583] rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-2">
+            <Link
+              href="/signup"
+              className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-[#FDB927] text-[#552583] rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-2"
+            >
               <Image src="/arrow.svg" alt="Arrow" width={13.5} height={18} />
               <span>Start Learning</span>
-            </button>
+            </Link>
           </div>
 
           {/* Image Section */}
@@ -167,10 +171,11 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/brainIcon.svg"
-                  alt="Brain"
+                  src="/bronny.svg"
+                  alt="Bornny James"
                   width={64}
                   height={64}
+                  className="rounded-full object-cover w-[64px] h-[64px]"
                 />
                 <div className="flex flex-col -mt-1">
                   <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
@@ -188,10 +193,11 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/brainIcon.svg"
-                  alt="Brain"
+                  src="/michael.svg"
+                  alt="Michael Jordan"
                   width={64}
                   height={64}
+                  className="rounded-full object-cover w-[64px] h-[64px]"
                 />
                 <div className="flex flex-col -mt-1">
                   <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
@@ -212,10 +218,11 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/brainIcon.svg"
-                  alt="Brain"
+                  src="/john.svg"
+                  alt="Random White Man"
                   width={64}
                   height={64}
+                  className="rounded-full object-cover w-[64px] h-[64px]"
                 />
                 <div className="flex flex-col -mt-1">
                   <h3 className="text-[#552583] text-lg sm:text-2xl font-bold">
@@ -235,27 +242,31 @@ export default function Home() {
       </div>
 
       {/* Section 6 */}
-      <div className="h-[348px] bg-[#552583] flex justify-center items-center">
-        <div className="h-[188px] flex flex-col items-center gap-10">
-          <div className="flex flex-col items-center text-white gap-5">
-            <h1 className="font-bold text-[36px]">
+      <div className="bg-[#552583] flex justify-center items-center px-6 py-16 sm:py-20">
+        <div className="flex flex-col items-center text-center gap-10 max-w-3xl w-full">
+          <div className="flex flex-col items-center text-white gap-4">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl">
               Ready to Learn Like a Champion?
             </h1>
-            <h2 className="font-normal text-[20px]">
+            <h2 className="font-normal text-base sm:text-lg md:text-xl">
               Join the one learner who kinda elevated their game with King James
               Cards
             </h2>
           </div>
-          <button className="bg-[#FDB927] text-[#552583] text-[18px] font-black h-[64px] w-[200px] rounded-[8px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-3">
+
+          <Link
+            href="/signup"
+            className="bg-[#FDB927] text-[#552583] text-base sm:text-lg font-black h-14 w-48 rounded-lg cursor-pointer hover:bg-[#B97C10] transition duration-300 flex items-center justify-center gap-3"
+          >
             <Image
-                  src="/rocketIcon.svg"
-                  alt="Rocket Ship"
-                  width={18}
-                  height={26}
-                  className="-ml-2"
-                />
+              src="/rocketIcon.svg"
+              alt="Rocket Ship"
+              width={18}
+              height={26}
+              className="-ml-2"
+            />
             Start Now
-          </button>
+          </Link>
         </div>
       </div>
 
