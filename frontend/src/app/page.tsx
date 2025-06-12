@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import HomeNavbar from "@/components/home-navbar";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="w-screen font-oswald">
-      <Navbar />
+      <HomeNavbar />
 
       {/* Section 1 */}
       <div className="bg-[#552583] min-h-[600px] flex justify-center items-center px-4">

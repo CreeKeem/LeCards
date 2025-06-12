@@ -85,7 +85,7 @@ export default function Login() {
                     type="text"
                     name=""
                     id=""
-                    placeholder="Lebron"
+                    placeholder="LeBron"
                   />
                 </div>
 
