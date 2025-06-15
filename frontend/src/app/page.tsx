@@ -1,5 +1,5 @@
-import HomeNavbar from "@/components/home-navbar";
-import Footer from "@/components/footer";
+import HomeNavbar from "@/components/navigation/home-navbar";
+import Footer from "@/components/navigation/footer";
 import Image from "next/image";
 import Link from "next/link";
 

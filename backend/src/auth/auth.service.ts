@@ -3,12 +3,68 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { SignInDto, SignUpDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
+import { Tokens } from './types';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwwtService: JwtService,
+  ) {}
 
-  async signup(dto: SignUpDto) {
+  async getTokens(
+    user_id: number,
+    email: string,
+    f_name: string,
+    l_name: string,
+  ): Promise<Tokens> {
+    const [at, rt] = await Promise.all([
+      this.jwwtService.signAsync(
+        {
+          sub: user_id,
+          email,
+          f_name,
+          l_name,
+        },
+        {
+          secret: 'at-secret',
+          expiresIn: 60 * 15,
+        },
+      ),
+      this.jwwtService.signAsync(
+        {
+          sub: user_id,
+          email,
+          f_name,
+          l_name,
+        },
+        {
+          secret: 'rt-secret',
+          expiresIn: 60 * 60 * 24 * 7,
+        },
+      ),
+    ]);
+
+    return {
+      access_token: at,
+      refresh_token: rt,
+    };
+  }
+
+  async updateRtHash(userId: number, rt: string) {
+    const hash = await argon.hash(rt);
+    await this.prisma.users.update({
+      where: {
+        user_id: userId
+      },
+      data: {
+        hashedRt: hash
+      }
+    })
+  };
+
+  async signup(dto: SignUpDto): Promise<Tokens> {
     // generate the password hash
     const hash = await argon.hash(dto.password);
 
@@ -28,8 +84,15 @@ export class AuthService {
           l_name: true,
         },
       });
+      const tokens = await this.getTokens(
+        user.user_id,
+        user.email,
+        user.f_name,
+        user.l_name,
+      );
       // return the saved user
-      return user;
+      await this.updateRtHash(user.user_id, tokens.refresh_token)
+      return tokens;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
@@ -64,4 +127,8 @@ export class AuthService {
     // return user email
     return user.email;
   }
+
+  async logout() {}
+
+  async refreshTokens() {}
 }
