@@ -1,29 +1,45 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto, SignUpDto } from './dto';
 import { Tokens } from './types';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  signup(@Body() dto: SignUpDto): Promise<Tokens> {
+  @HttpCode(HttpStatus.CREATED)
+  signup(@Body() dto: SignUpDto) {
     return this.authService.signup(dto);
   }
 
   @Post('signin')
+  @HttpCode(HttpStatus.OK)
   signin(@Body() dto: SignInDto) {
     return this.authService.signin(dto);
   }
 
-  @Post('logout')
-  logout() {
-    this.authService.logout()
-  }
+  // @UseGuards(AuthGuard('jwt'))
+  // @Post('logout')
+  // @HttpCode(HttpStatus.OK)
+  // logout(@Req() req: Request) {
+  //   const user = req.
+  //   this.authService.logout();
+  // }
 
-  @Post('refresh')
-  refreshTokens() {
-    this.authService.refreshTokens()
-  }
+  // @UseGuards(AuthGuard('jwt-refresh'))
+  // @Post('refresh')
+  // @HttpCode(HttpStatus.OK)
+  // refreshTokens() {
+  //   this.authService.refreshTokens();
+  // }
 }
