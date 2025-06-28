@@ -9,42 +9,45 @@ datasource db {
 }
 
 model users {
-  user_id     Int      @id @default(autoincrement())
-  email       String   @unique
-  f_name      String
-  l_name      String
-  password    String
-  createdAt   DateTime @default(now())
+  user_id   Int      @id @default(autoincrement())
+  email     String   @unique
+  f_name    String
+  l_name    String
+  password  String
+  createdAt DateTime @default(now())
 
-  hashedRt    String?
-  
-  cardStudied Int      @default(0)
-  correct     Int      @default(0)
-  
-  Set         set[]
+  hashedRt String?
+
+  cardStudied Int @default(0)
+  correct     Int @default(0)
+
+  Set set[]
 }
 
 model set {
-  set_id      Int      @id @default(autoincrement())
-  user_id     Int
+  set_id  Int @id @default(autoincrement())
+  user_id Int
 
   name        String
   description String?
-  color       String   @default("#552583")
-  
-  lastAccess  DateTime @default(now())
+  color       String  @default("#552583")
 
-  users       users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  lastAccess DateTime @default(now())
+
+  users     users       @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   flashcard flashcard[]
 }
 
 model flashcard {
-  card_id    Int     @id @default(autoincrement())
-  set_id     Int
-  term       String
-  definition String
-  image      String?
-  video      String?
-  audio      String?
-  set        set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
+  card_id          Int     @id @default(autoincrement())
+  set_id           Int
+  term             String
+  definition       String
+  image_definition String?
+  video_definition String?
+  audio_definition String?
+  image_term       String?
+  video_term       String?
+  audio_term       String?
+  set              set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
 }

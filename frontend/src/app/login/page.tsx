@@ -3,13 +3,20 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signup } from "@/api/auth/index";
 
 export default function Login() {
   const [signUp, setSignUp] = useState(true);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (signUp) {
+      const user = await signup();
+      // if (user) {
+
+      // }
+    }
     router.push('/dashboard');
   };
 
@@ -51,6 +58,7 @@ export default function Login() {
                 ? "border-b-3 border-[#552583] border-solid text-[#552583]"
                 : "text-[#4B5563]"
             }  cursor-pointer`}
+            suppressHydrationWarning={true}
           >
             Sign In
           </button>

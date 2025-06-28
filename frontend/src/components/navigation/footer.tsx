@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Footer() {
+export function Footer() {
   return (
     <div className="bg-[#552583] w-full font-oswald font-bold text-[#E9D5FF] px-6 md:px-[80px] py-[48px]">
       {/* Footer content */}

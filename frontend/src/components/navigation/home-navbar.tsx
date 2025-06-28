@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomeNavbar() {
+export function HomeNavbar() {
   return (
     <div className="bg-[#552583] w-screen h-[72px] drop-shadow-xl px-[24px] md:px-[80px] font-oswald font-bold">
       <div className="h-full flex items-center justify-between text-white">

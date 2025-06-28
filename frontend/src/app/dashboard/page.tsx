@@ -1,7 +1,6 @@
 "use client";
 
-import DashboardNavbar from "@/components/navigation/dashboard-navbar";
-import Footer from "@/components/navigation/footer";
+import { DashboardNavbar, Footer } from "@/components/navigation/index";
 import Image from "next/image";
 import SetGrid from "@/components/set/setGrid";
 import Recent from "@/components/set/recent";
