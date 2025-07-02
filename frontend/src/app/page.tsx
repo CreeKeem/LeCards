@@ -1,6 +1,15 @@
 import { Footer, HomeNavbar } from "@/components/navigation/index";
 import Image from "next/image";
 import Link from "next/link";
+import { Flashcard } from "@/components/flashcard/index";
+import { FlashcardInfo } from "@/components/flashcard/flashcard-info";
+
+const exampleFlashCard: FlashcardInfo = {
+  card_id: -1,
+  set_id: -1,
+  term: "Who is the greatest basketball player ever?",
+  definition: "Lebron James",
+};
 
 export default function Home() {
   return (
@@ -115,8 +124,8 @@ export default function Home() {
           </div>
 
           {/* Flashcard Box Placeholder */}
-          <div className="w-full max-w-md sm:max-w-lg md:max-w-xl bg-white rounded-2xl h-[300px] sm:h-[360px] md:h-[420px] flex items-center justify-center text-center text-[#552583] font-medium">
-            Need To Create Flashcard Component
+          <div className="h-[300px] sm:h-[360px] md:h-[420px] max-w-md sm:max-w-lg md:max-w-xl w-[600px]">
+            <Flashcard flashcardInfo={exampleFlashCard} />
           </div>
         </div>
       </div>

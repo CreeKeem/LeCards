@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function DashboardNavbar({ userName }: { userName: string }) {
+export function DashboardNavbar({ userName }: { userName: string }) {
   return (
     <div className="bg-white w-full h-[72px] drop-shadow-sm px-4 sm:px-6 md:px-[80px]">
       <div className="h-full flex items-center justify-between flex-wrap gap-y-2">
