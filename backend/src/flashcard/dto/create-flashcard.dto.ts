@@ -14,11 +14,18 @@ export class CreateDto {
   definition: string;
 
   @IsOptional()
-  video?: string;
+  @IsString()
+  contentDefinition?: string;
 
   @IsOptional()
-  audio?: string;
+  @IsString()
+  audioDefinition?: string;
 
   @IsOptional()
-  image?: string;
+  @IsString()
+  contentTerm?: string;
+
+  @IsOptional()
+  @IsString()
+  audioTerm?: string;
 }

@@ -11,9 +11,10 @@ export class FlashcardService {
       data: {
         term: dto.term,
         definition: dto.definition,
-        audio: dto.audio,
-        video: dto.video,
-        image: dto.image,
+        audio_definition: dto.audioDefinition,
+        content_definition: dto.contentDefinition,
+        audio_term: dto.audioTerm,
+        content_term: dto.contentTerm,
         set: { connect: { set_id: dto.set_id } },
       },
     });

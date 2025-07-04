@@ -11,13 +11,17 @@ export class UpdateDto {
 
   @IsOptional()
   @IsString()
-  audio?: string;
+  contentDefinition?: string;
 
   @IsOptional()
   @IsString()
-  image?: string;
+  audioDefinition?: string;
 
   @IsOptional()
   @IsString()
-  video?: string;
+  contentTerm?: string;
+
+  @IsOptional()
+  @IsString()
+  audioTerm?: string;
 }

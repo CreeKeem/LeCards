@@ -1,4 +1,4 @@
 export * from "./recent";
-export * from "./set-interface";
+export * from "./set-info";
 export * from "./setCard";
 export * from "./setGrid";

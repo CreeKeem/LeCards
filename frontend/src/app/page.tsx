@@ -9,6 +9,7 @@ const exampleFlashCard: FlashcardInfo = {
   set_id: -1,
   term: "Who is the greatest basketball player ever?",
   definition: "Lebron James",
+  imageDef: "./Lebron.svg",
 };
 
 export default function Home() {

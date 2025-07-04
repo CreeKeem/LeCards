@@ -39,15 +39,13 @@ model set {
 }
 
 model flashcard {
-  card_id          Int     @id @default(autoincrement())
-  set_id           Int
-  term             String
-  definition       String
-  image_definition String?
-  video_definition String?
-  audio_definition String?
-  image_term       String?
-  video_term       String?
-  audio_term       String?
-  set              set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
+  card_id            Int     @id @default(autoincrement())
+  set_id             Int
+  term               String
+  definition         String
+  content_definition String?
+  audio_definition   String?
+  content_term       String?
+  audio_term         String?
+  set                set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
 }
