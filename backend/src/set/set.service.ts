@@ -9,7 +9,7 @@ export class SetService {
   async create(dto: CreateDto) {
     const set = await this.prisma.set.create({
       data: {
-        user_id: dto.user_id,
+        user_id: dto.userId,
         name: dto.name,
         description: dto.description,
       },

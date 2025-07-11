@@ -4,7 +4,17 @@ import { DashboardNavbar, Footer } from "@/components/navigation/index";
 import Image from "next/image";
 import SetGrid from "@/components/set/setGrid";
 import Recent from "@/components/set/recent";
-import { SetCard } from "@/components/set/index";
+import { SetCard, SetInfo } from "@/components/set/index";
+
+const exampleSet: SetInfo = {
+  setId: 1,
+  userId: 1,
+  name: "Example Set",
+  description: "This is an example set",
+  color: "#FDB927",
+  numCards: 10,
+  cardsLearned: 50,
+}
 
 export default function Dashboard() {
   const userName = "LeBron James";
@@ -110,7 +120,7 @@ export default function Dashboard() {
 
           {/* Sets */}
           <SetGrid />
-          <SetCard />
+          <SetCard setInfo={exampleSet} />
 
           {/* Recent Activity */}
           <Recent />

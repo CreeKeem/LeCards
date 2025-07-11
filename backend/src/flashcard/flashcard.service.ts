@@ -15,7 +15,7 @@ export class FlashcardService {
         content_definition: dto.contentDefinition,
         audio_term: dto.audioTerm,
         content_term: dto.contentTerm,
-        set: { connect: { set_id: dto.set_id } },
+        set: { connect: { set_id: dto.setId } },
       },
     });
 

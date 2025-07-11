@@ -1,7 +1,9 @@
 export interface SetInfo {
-  set_id: number;
-  user_id: number;
+  setId: number;
+  userId: number;
   name: string;
   description: string;
   color: string;
+  numCards: number;
+  cardsLearned: number;
 };

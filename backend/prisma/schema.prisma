@@ -9,17 +9,17 @@ datasource db {
 }
 
 model users {
-  user_id   Int      @id @default(autoincrement())
-  email     String   @unique
-  f_name    String
-  l_name    String
-  password  String
-  createdAt DateTime @default(now())
+  user_id    Int      @id @default(autoincrement())
+  email      String   @unique
+  f_name     String
+  l_name     String
+  password   String
+  created_at DateTime @default(now())
 
   hashedRt String?
 
-  cardStudied Int @default(0)
-  correct     Int @default(0)
+  card_studied Int @default(0)
+  correct      Int @default(0)
 
   Set set[]
 }
@@ -32,7 +32,9 @@ model set {
   description String?
   color       String  @default("#552583")
 
-  lastAccess DateTime @default(now())
+  last_access   DateTime @default(now())
+  num_cards     Int      @default(0)
+  cards_learned Int      @default(0)
 
   users     users       @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   flashcard flashcard[]

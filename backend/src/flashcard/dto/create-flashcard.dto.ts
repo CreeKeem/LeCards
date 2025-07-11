@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 export class CreateDto {
   @IsNumber()
   @IsNotEmpty()
-  set_id: number;
+  setId: number;
 
   @IsString()
   @IsNotEmpty()

@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 export class CreateDto {
   @IsNotEmpty()
   @IsNumber()
-  user_id: number;
+  userId: number;
 
   @IsNotEmpty()
   @IsString()
@@ -12,4 +12,9 @@ export class CreateDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  color: string;
+  
 }
