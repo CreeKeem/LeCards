@@ -8,7 +8,7 @@ const exampleFlashCard: FlashcardInfo = {
   card_id: -1,
   set_id: -1,
   term: "Who is the greatest basketball player ever?",
-  definition: "Lebron James",
+  definition: "Lebron Raymone James",
   imageDef: "./Lebron.svg",
 };
 
@@ -125,7 +125,7 @@ export default function Home() {
           </div>
 
           {/* Flashcard Box Placeholder */}
-          <div className="h-[300px] sm:h-[360px] md:h-[420px] max-w-md sm:max-w-lg md:max-w-xl w-[600px]">
+          <div className="h-[500px] sm:h-[360px] md:h-[420px] max-w-md sm:max-w-lg md:max-w-xl w-[600px]">
             <Flashcard flashcardInfo={exampleFlashCard} />
           </div>
         </div>

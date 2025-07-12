@@ -13,7 +13,7 @@ const exampleSet: SetInfo = {
   description: "This is an example set",
   color: "#FDB927",
   numCards: 10,
-  cardsLearned: 50,
+  cardsLearned: 5,
 }
 
 export default function Dashboard() {

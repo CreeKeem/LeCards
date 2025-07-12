@@ -7,62 +7,76 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
   const [learnedColorText, setLearnedColorText] = useState("#991B1B");
 
   useEffect(() => {
-    const percent = setInfo.cardsLearned / setInfo.numCards;
-    setPercentLearned(percent);
+    const percent = (setInfo.cardsLearned / setInfo.numCards) * 100;
+    setPercentLearned(Math.round(percent));
     if (percent >= 90) {
       setLearnedColorBg("#DCFCE7");
       setLearnedColorText("#166534");
-    } else if (percent < 90 && percent >= 70) {
+    } else if (percent >= 70) {
       setLearnedColorBg("#FEF9C3");
       setLearnedColorText("#854D0E");
     } else {
       setLearnedColorBg("#FEE2E2");
       setLearnedColorText("#991B1B");
     }
-  });
+  }, [setInfo]);
 
   return (
-    <div className="bg-white w-[390px] h-[204px] drop-shadow-lg rounded-[12px]">
-      {/* Little color thing at the top */}
+    <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
+      {/* Colored top bar */}
       <div
-        className={`bg-[${setInfo.color}] w-full h-[12px] rounded-t-[12px]`}
+        className="w-full h-[12px] rounded-t-[12px]"
+        style={{ backgroundColor: setInfo.color }}
       ></div>
 
-      {/* The title, description, and image */}
-      <div className="flex flex-col mx-[24px] my-[26px]">
-        <div className="flex justify-between h-[44px] items-center">
-          <div className="flex items-center gap-3">
+      <div className="flex flex-col px-4 py-5 sm:py-6 gap-4">
+        {/* Header: Avatar + Title/Description + Ellipsis */}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-3 relative">
             <div
-              className={`h-[40px] w-[40px] bg-[${setInfo.color}] rounded-[8px] opacity-20 absolute`}
+              className="h-10 w-10 rounded-[8px] absolute opacity-20"
+              style={{ backgroundColor: setInfo.color }}
             ></div>
-            <div className="h-[40px] w-[40px] flex items-center justify-center">
+            <div className="h-10 w-10 flex items-center justify-center relative z-10">
               <img
                 src="./Lebron.svg"
                 alt=""
-                className="h-[24px] w-[24px] rounded-[50%] opacity-100"
+                className="h-6 w-6 rounded-full"
               />
             </div>
-
-            <div className="flex flex-col justify-between">
-              <h3 className="text-[16px] font-semibold text-[#111827]">
+            <div className="flex flex-col">
+              <h3 className="text-base font-semibold text-[#111827]">
                 {setInfo.name}
               </h3>
-              <h4 className="text-[14px] font-normal text-[#6B7280]">
+              <h4 className="text-sm text-[#6B7280]">
                 {setInfo.description}
               </h4>
             </div>
           </div>
-          <button className="cursor-pointer">...</button>
+          <button className="cursor-pointer text-xl">⋯</button>
         </div>
 
-        {/* Cards info */}
-        <div className="flex justify-between">
-          <h3></h3>
-          <h3 style={{ backgroundColor: learnedColorBg }} className="">{percentLearned}% mastered</h3>
+        {/* Card count & percent mastered */}
+        <div className="flex justify-between items-center text-sm text-[#4B5563]">
+          <p>{setInfo.numCards} cards</p>
+          <p
+            style={{ backgroundColor: learnedColorBg, color: learnedColorText }}
+            className="rounded-2xl px-2 py-0.5"
+          >
+            {percentLearned}% mastered
+          </p>
         </div>
 
-        {/* Study Button */}
-        <div></div>
+        {/* Action buttons */}
+        <div className="flex gap-3 sm:gap-4">
+          <button className="flex flex-1 h-[42px] bg-[#552583] rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0">
+            <img src="./arrowWhite.svg" alt="White Arrow Icon" className="h-4 w-4 sm:h-5 sm:w-5" />
+            <p>Study</p>
+          </button>
+          <button className="h-[42px] w-[42px] sm:w-[50px] border border-[#D1D5DB] flex items-center justify-center rounded-xl cursor-pointer">
+            <img src="./editIcon.svg" alt="Edit icon" className="h-4 w-4 sm:h-5 sm:w-5" />
+          </button>
+        </div>
       </div>
     </div>
   );
