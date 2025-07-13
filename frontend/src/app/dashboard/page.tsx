@@ -1,20 +1,9 @@
 "use client";
 
-import { DashboardNavbar, Footer } from "@/components/navigation/index";
+import { DashboardNavbar, Footer } from "@/components/navigation";
 import Image from "next/image";
 import SetGrid from "@/components/set/setGrid";
 import Recent from "@/components/set/recent";
-import { SetCard, SetInfo } from "@/components/set/index";
-
-const exampleSet: SetInfo = {
-  setId: 1,
-  userId: 1,
-  name: "Example Set",
-  description: "This is an example set",
-  color: "#FDB927",
-  numCards: 10,
-  cardsLearned: 5,
-}
 
 export default function Dashboard() {
   const userName = "LeBron James";
@@ -43,35 +32,35 @@ export default function Dashboard() {
                   height={24}
                   alt="Trophy"
                 />
-                <h1 className="text-white font-bold text-[24px] sm:text-[30px]">
+                <h1 className="text-white font-bold text-[24px] sm:text-[24px]">
                   Welcome back, {userName}!
                 </h1>
               </div>
-              <h2 className="text-white font-normal text-[16px] sm:text-[18px]">
+              <h2 className="text-white font-normal text-[16px] sm:text-[16px]">
                 Ready to dominate your studies like LeBron dominates the court?
               </h2>
               <div className="flex gap-6 flex-wrap">
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[24px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
                     {totalSet}
                   </h3>
-                  <h4 className="font-normal text-[12px] sm:text-[14px] text-[#E9D5FF]">
+                  <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
                     Total Sets
                   </h4>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[24px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
                     {cardsStudied}
                   </h3>
-                  <h4 className="font-normal text-[12px] sm:text-[14px] text-[#E9D5FF]">
+                  <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
                     Cards Studied
                   </h4>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[24px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
                     {successRate}%
                   </h3>
-                  <h4 className="font-normal text-[12px] sm:text-[14px] text-[#E9D5FF]">
+                  <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
                     Success Rate
                   </h4>
                 </div>
@@ -120,7 +109,6 @@ export default function Dashboard() {
 
           {/* Sets */}
           <SetGrid />
-          <SetCard setInfo={exampleSet} />
 
           {/* Recent Activity */}
           <Recent />

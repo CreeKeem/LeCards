@@ -1,10 +1,14 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { SetInfo } from "./set-info";
+import { useRouter } from "next/navigation";
 
 export function SetCard({ setInfo }: { setInfo: SetInfo }) {
   const [percentLearned, setPercentLearned] = useState<number>(NaN);
   const [learnedColorBg, setLearnedColorBg] = useState("#FEE2E2");
   const [learnedColorText, setLearnedColorText] = useState("#991B1B");
+  const router = useRouter();
 
   useEffect(() => {
     const percent = (setInfo.cardsLearned / setInfo.numCards) * 100;
@@ -21,6 +25,9 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
     }
   }, [setInfo]);
 
+  const handleStudyClick = () => {
+      router.push(`/study?setId=${setInfo.setId}`);
+  };
   return (
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
       {/* Colored top bar */}
@@ -38,19 +45,13 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
               style={{ backgroundColor: setInfo.color }}
             ></div>
             <div className="h-10 w-10 flex items-center justify-center relative z-10">
-              <img
-                src="./Lebron.svg"
-                alt=""
-                className="h-6 w-6 rounded-full"
-              />
+              <img src="./Lebron.svg" alt="" className="h-6 w-6 rounded-full" />
             </div>
             <div className="flex flex-col">
               <h3 className="text-base font-semibold text-[#111827]">
                 {setInfo.name}
               </h3>
-              <h4 className="text-sm text-[#6B7280]">
-                {setInfo.description}
-              </h4>
+              <h4 className="text-sm text-[#6B7280]">{setInfo.description}</h4>
             </div>
           </div>
           <button className="cursor-pointer text-xl">⋯</button>
@@ -69,12 +70,23 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
 
         {/* Action buttons */}
         <div className="flex gap-3 sm:gap-4">
-          <button className="flex flex-1 h-[42px] bg-[#552583] rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0">
-            <img src="./arrowWhite.svg" alt="White Arrow Icon" className="h-4 w-4 sm:h-5 sm:w-5" />
+          <button
+            className="flex flex-1 h-[42px] bg-[#552583] rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0"
+            onClick={handleStudyClick}
+          >
+            <img
+              src="./arrowWhite.svg"
+              alt="White Arrow Icon"
+              className="h-4 w-4 sm:h-5 sm:w-5"
+            />
             <p>Study</p>
           </button>
           <button className="h-[42px] w-[42px] sm:w-[50px] border border-[#D1D5DB] flex items-center justify-center rounded-xl cursor-pointer">
-            <img src="./editIcon.svg" alt="Edit icon" className="h-4 w-4 sm:h-5 sm:w-5" />
+            <img
+              src="./editIcon.svg"
+              alt="Edit icon"
+              className="h-4 w-4 sm:h-5 sm:w-5"
+            />
           </button>
         </div>
       </div>

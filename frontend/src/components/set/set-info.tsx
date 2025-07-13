@@ -1,4 +1,4 @@
-export interface SetInfo {
+export type SetInfo = {
   setId: number;
   userId: number;
   name: string;
