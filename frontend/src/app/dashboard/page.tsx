@@ -14,7 +14,7 @@ export default function Dashboard() {
     <div>
       <DashboardNavbar userName={userName} />
       <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
-        <div className="min-h-screen p-4 sm:p-6 md:p-8 lg:p-[32px] w-full flex flex-col items-center gap-[32px]">
+        <div className="min-h-screen p-4 sm:p-6 md:p-8 lg:p-[32px] w-full flex flex-col items-center gap-[32px] max-w-[1216px]">
           {/* Welcome Back Banner */}
           <div className="relative bg-gradient-to-r from-[#552583] to-[#6B21A8] h-[220px] w-full max-w-[1216px] rounded-[16px] overflow-hidden p-4 sm:p-6 md:p-8 lg:p-[32px]">
             {/* Top-right quarter circle */}
