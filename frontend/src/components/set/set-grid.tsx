@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SetInfo, ExampleSets, SetCard } from "./index";
+import { SetInfo, ExampleSets, SetCard } from ".";
 import { fetchSets } from "@/api/set";
 
 export function SetGrid() {

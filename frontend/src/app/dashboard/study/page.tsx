@@ -4,6 +4,7 @@ import { DashboardNavbar, Footer } from "@/components/navigation";
 import { SetInfo } from "@/components/set";
 import { useEffect, useState } from "react";
 import { fetchSet } from "@/api/set";
+import { FlashcardGrid } from "@/components/flashcard";
 
 export default function Study() {
   const [set, setSet] = useState<SetInfo>();
@@ -27,7 +28,7 @@ export default function Study() {
         {/* Four Options: Learn, Flashcards, Quiz, Match */}
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-[1248px] px-4">
           {/* Learn */}
-          <div className="bg-laker-purple rounded-2xl text-white flex flex-col items-center justify-center cursor-pointer h-[164px]">
+          <div className="bg-laker-purple rounded-2xl text-white flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-white opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/learnIcon.svg" alt="Learn Icon" />
@@ -37,7 +38,7 @@ export default function Study() {
           </div>
 
           {/* Flashcards */}
-          <div className="bg-laker-gold rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px]">
+          <div className="bg-laker-gold rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/flashcardIcon.svg" alt="Flashcard Icon" />
@@ -47,7 +48,7 @@ export default function Study() {
           </div>
 
           {/* Quiz */}
-          <div className="bg-white border-laker-purple border-2 rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px]">
+          <div className="bg-white border-laker-purple border-2 rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/quizIcon.svg" alt="Quiz Icon" />
@@ -57,7 +58,7 @@ export default function Study() {
           </div>
 
           {/* Match */}
-          <div className="bg-white border-laker-gold border-2 rounded-2xl text-laker-gold flex flex-col items-center justify-center cursor-pointer h-[164px]">
+          <div className="bg-white border-laker-gold border-2 rounded-2xl text-laker-gold flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-gold opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/trophyIcon2.svg" alt="Trophy Icon" />
@@ -68,8 +69,8 @@ export default function Study() {
         </div>
 
         {/* Set Overview */}
-        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[144px] p-6 rounded-2xl drop-shadow-lg gap-4">
-          {/* Title */}
+        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[180px] p-6 rounded-2xl drop-shadow-lg gap-8">
+          {/* Heading */}
           <div className="flex justify-between">
             <h1 className="font-semibold text-xl">Set Overview</h1>
             <h2 className="bg-laker-gold text-laker-purple px-2 rounded-2xl">
@@ -79,11 +80,15 @@ export default function Study() {
           {/* Stats */}
           <div className="flex justify-around items-center w-full text-[#374151]">
             <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold text-laker-purple">{cardsLearned}%</h1>
+              <h1 className="text-2xl font-bold text-laker-purple">
+                {cardsLearned}%
+              </h1>
               <h2>Mastered</h2>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold text-laker-gold">{cardsLearned}</h1>
+              <h1 className="text-2xl font-bold text-laker-gold">
+                {cardsLearned}
+              </h1>
               <h2>Studied</h2>
             </div>
             <div className="flex flex-col items-center justify-center">
@@ -92,6 +97,8 @@ export default function Study() {
             </div>
           </div>
         </div>
+
+        <FlashcardGrid />
       </div>
       <Footer />
     </div>

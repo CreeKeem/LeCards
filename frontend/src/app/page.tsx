@@ -1,16 +1,7 @@
-import { Footer, HomeNavbar } from "@/components/navigation/index";
+import { Footer, HomeNavbar } from "@/components/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Flashcard } from "@/components/flashcard/index";
-import { FlashcardInfo } from "@/components/flashcard/flashcard-info";
-
-const exampleFlashCard: FlashcardInfo = {
-  card_id: -1,
-  set_id: -1,
-  term: "Who is the greatest basketball player ever?",
-  definition: "Lebron Raymone James",
-  imageDef: "./Lebron.svg",
-};
+import { FlashcardFlip, exampleFlashCard } from "@/components/flashcard";
 
 export default function Home() {
   return (
@@ -126,7 +117,7 @@ export default function Home() {
 
           {/* Flashcard Box Placeholder */}
           <div className="h-[500px] sm:h-[360px] md:h-[420px] max-w-md sm:max-w-lg md:max-w-xl w-[600px]">
-            <Flashcard flashcardInfo={exampleFlashCard} />
+            <FlashcardFlip flashcardInfo={exampleFlashCard} />
           </div>
         </div>
       </div>
