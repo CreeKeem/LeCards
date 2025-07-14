@@ -2,8 +2,7 @@
 
 import { DashboardNavbar, Footer } from "@/components/navigation";
 import Image from "next/image";
-import SetGrid from "@/components/set/setGrid";
-import Recent from "@/components/set/recent";
+import {SetGrid, Recent, EditSetModal} from "@/components/set/";
 
 export default function Dashboard() {
   const userName = "LeBron James";
@@ -12,16 +11,16 @@ export default function Dashboard() {
   const cardsStudied = 50;
   return (
     <div>
-      <DashboardNavbar userName={userName} />
+      <DashboardNavbar userName={userName} dashboardHome={true} />
       <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
         <div className="min-h-screen p-4 sm:p-6 md:p-8 lg:p-[32px] w-full flex flex-col items-center gap-[32px] max-w-[1216px]">
           {/* Welcome Back Banner */}
-          <div className="relative bg-gradient-to-r from-[#552583] to-[#6B21A8] h-[220px] w-full max-w-[1216px] rounded-[16px] overflow-hidden p-4 sm:p-6 md:p-8 lg:p-[32px]">
+          <div className="relative bg-gradient-to-r from-laker-purple to-[#6B21A8] h-[220px] w-full max-w-[1216px] rounded-[16px] overflow-hidden p-4 sm:p-6 md:p-8 lg:p-[32px]">
             {/* Top-right quarter circle */}
-            <div className="absolute -top-[48px] -right-[48px] w-[96px] h-[96px] bg-[#FDB927] opacity-[10%] rounded-full"></div>
+            <div className="absolute -top-[48px] -right-[48px] w-[96px] h-[96px] bg-laker-gold opacity-[10%] rounded-full"></div>
 
             {/* Bottom-left quarter circle */}
-            <div className="absolute -bottom-[48px] -left-[48px] w-[96px] h-[96px] bg-[#FDB927] opacity-[10%] rounded-full"></div>
+            <div className="absolute -bottom-[48px] -left-[48px] w-[96px] h-[96px] bg-laker-gold opacity-[10%] rounded-full"></div>
 
             {/* Content */}
             <div className="w-full h-full flex flex-col gap-2">
@@ -41,7 +40,7 @@ export default function Dashboard() {
               </h2>
               <div className="flex gap-6 flex-wrap">
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
                     {totalSet}
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
@@ -49,7 +48,7 @@ export default function Dashboard() {
                   </h4>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
                     {cardsStudied}
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
@@ -57,7 +56,7 @@ export default function Dashboard() {
                   </h4>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h3 className="font-bold text-[20px] sm:text-[20px] text-[#FDB927]">
+                  <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
                     {successRate}%
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
@@ -71,7 +70,7 @@ export default function Dashboard() {
           {/* Create new + Quick Study */}
           <div className="w-full max-w-[1216px] flex flex-col md:flex-row justify-between h-auto md:h-[96px] gap-[16px] md:gap-[32px]">
             {/* Create New */}
-            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-[#FDB927] h-[96px] rounded-[12px] cursor-pointer">
+            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-gold h-[96px] rounded-[12px] cursor-pointer">
               <div className="text-white flex gap-5">
                 <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                   <Image
@@ -89,7 +88,7 @@ export default function Dashboard() {
             </button>
 
             {/* Quick Study */}
-            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-[#552583] h-[96px] rounded-[12px] cursor-pointer">
+            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-purple h-[96px] rounded-[12px] cursor-pointer">
               <div className="text-white flex gap-5">
                 <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                   <Image

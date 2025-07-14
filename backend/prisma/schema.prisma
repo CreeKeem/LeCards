@@ -8,46 +8,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  user_id    Int      @id @default(autoincrement())
-  email      String   @unique
-  f_name     String
-  l_name     String
-  password   String
-  created_at DateTime @default(now())
-
-  hashedRt String?
-
-  card_studied Int @default(0)
-  correct      Int @default(0)
-
-  Set set[]
+enum LearningStatus {
+  NOT_LEARNED
+  LEARNING
+  MASTERED
 }
 
-model set {
-  set_id  Int @id @default(autoincrement())
-  user_id Int
+model User {
+  userId    Int      @id @default(autoincrement())
+  email     String   @unique
+  fName     String
+  lName     String
+  password  String
+  createdAt DateTime @default(now())
+  hashedRt  String?
+
+  cardStudied Int @default(0)
+  correct     Int @default(0)
+
+  sets         Set[]
+  userCardInfo UserCardInfo[]
+}
+
+model Set {
+  setId  Int @id @default(autoincrement())
+  userId Int
 
   name        String
   description String?
   color       String  @default("#552583")
 
-  last_access   DateTime @default(now())
-  num_cards     Int      @default(0)
-  cards_learned Int      @default(0)
+  createdAt    DateTime @default(now())
+  lastAccess   DateTime @default(now())
+  numCards     Int      @default(0)
+  cardsLearned Int      @default(0)
 
-  users     users       @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
-  flashcard flashcard[]
+  user       User        @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  flashcards Flashcard[]
 }
 
-model flashcard {
-  card_id            Int     @id @default(autoincrement())
-  set_id             Int
-  term               String
-  definition         String
-  content_definition String?
-  audio_definition   String?
-  content_term       String?
-  audio_term         String?
-  set                set     @relation(fields: [set_id], references: [set_id], onDelete: Cascade)
+model Flashcard {
+  cardId Int @id @default(autoincrement())
+  setId  Int
+
+  term              String
+  definition        String
+  contentDefinition String?
+  audioDefinition   String?
+  contentTerm       String?
+  audioTerm         String?
+
+  set          Set            @relation(fields: [setId], references: [setId], onDelete: Cascade)
+  userCardInfo UserCardInfo[]
+}
+
+model UserCardInfo {
+  cardId         Int
+  userId         Int
+  favorite       Boolean        @default(false)
+  learningStatus LearningStatus @default(NOT_LEARNED)
+
+  flashcard Flashcard @relation(fields: [cardId], references: [cardId], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([cardId, userId])
 }

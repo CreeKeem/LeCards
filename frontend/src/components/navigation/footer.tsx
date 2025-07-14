@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <div className="bg-[#552583] w-full font-oswald font-bold text-[#E9D5FF] px-6 md:px-[80px] py-[48px]">
+    <div className="bg-laker-purple w-full font-oswald font-bold text-[#E9D5FF] px-6 md:px-[80px] py-[48px]">
       {/* Footer content */}
       <div className="flex flex-wrap justify-between gap-y-10 md:gap-y-0">
         {/* Brand */}

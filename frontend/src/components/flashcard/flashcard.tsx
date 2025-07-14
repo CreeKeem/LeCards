@@ -138,7 +138,7 @@ export const Flashcard: React.FC<Flashcard> = ({ flashcardInfo }) => {
           return (
             <div
               key={side}
-              className="absolute w-full h-full bg-white rounded-2xl text-[#552583] p-4"
+              className="absolute w-full h-full bg-white rounded-2xl text-laker-purple p-4"
               style={{
                 transform: isFront ? "rotateY(0deg)" : "rotateY(180deg)",
                 backfaceVisibility: "hidden",

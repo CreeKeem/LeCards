@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SetInfo } from "./set-info";
+import { SetInfo, EditSetModal } from ".";
 import { useRouter } from "next/navigation";
 
 export function SetCard({ setInfo }: { setInfo: SetInfo }) {
@@ -26,7 +26,7 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
   }, [setInfo]);
 
   const handleStudyClick = () => {
-      router.push(`/study?setId=${setInfo.setId}`);
+      router.push(`/dashboard/study?setId=${setInfo.setId}`);
   };
   return (
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
@@ -71,7 +71,7 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
         {/* Action buttons */}
         <div className="flex gap-3 sm:gap-4">
           <button
-            className="flex flex-1 h-[42px] bg-[#552583] rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0"
+            className="flex flex-1 h-[42px] bg-laker-purple rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0"
             onClick={handleStudyClick}
           >
             <img

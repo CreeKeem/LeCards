@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function HomeNavbar() {
   return (
-    <div className="bg-[#552583] w-screen h-[72px] drop-shadow-xl px-[24px] md:px-[80px] font-oswald font-bold">
+    <div className="bg-laker-purple w-screen h-[72px] drop-shadow-xl px-[24px] md:px-[80px] font-oswald font-bold">
       <div className="h-full flex items-center justify-between text-white">
         {/* Logo + Brand */}
         <Link
@@ -22,7 +22,7 @@ export function HomeNavbar() {
           <Link href="/">About</Link>
           <Link
             href="/login"
-            className="bg-[#FDB927] text-[#552583] py-[6px] px-[20px] rounded-[8px] whitespace-nowrap hover:bg-[#B97C10] duration-300"
+            className="bg-laker-gold text-laker-purple py-[6px] px-[20px] rounded-[8px] whitespace-nowrap hover:bg-[#B97C10] duration-300"
           >
             Get Started
           </Link>

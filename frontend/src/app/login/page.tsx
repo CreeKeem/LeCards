@@ -21,7 +21,7 @@ export default function Login() {
   };
 
   return (
-    <div className=" flex items-center justify-center h-screen bg-gradient-to-r from-[#552583] via-[#6B21A8] to-[#552583]">
+    <div className=" flex items-center justify-center h-screen bg-gradient-to-r from-laker-purple via-[#6B21A8] to-laker-purple">
       <video
         autoPlay
         muted
@@ -35,7 +35,7 @@ export default function Login() {
 
       <div className="h-[800px] w-[448px] z-10">
         {/* Title */}
-        <div className="h-[20%] bg-gradient-to-r from-[#552583] to-[#7E22CE] rounded-t-[16px] flex flex-col items-center justify-center font-oswald text-white">
+        <div className="h-[20%] bg-gradient-to-r from-laker-purple to-[#7E22CE] rounded-t-[16px] flex flex-col items-center justify-center font-oswald text-white">
           <Image
             src={"/Logo.svg"}
             alt="Lebron James"
@@ -55,7 +55,7 @@ export default function Login() {
             onClick={() => setSignUp(false)}
             className={`h-full w-[50%] ${
               !signUp
-                ? "border-b-3 border-[#552583] border-solid text-[#552583]"
+                ? "border-b-3 border-laker-purple border-solid text-laker-purple"
                 : "text-[#4B5563]"
             }  cursor-pointer`}
             suppressHydrationWarning={true}
@@ -66,7 +66,7 @@ export default function Login() {
             onClick={() => setSignUp(true)}
             className={`h-full w-[50%] ${
               signUp
-                ? "border-b-3 border-[#552583] border-solid text-[#552583]"
+                ? "border-b-3 border-laker-purple border-solid text-laker-purple"
                 : "text-[#4B5563]"
             }  cursor-pointer`}
           >
@@ -155,7 +155,7 @@ export default function Login() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="bg-[#FDB927] h-[48px] rounded-2xl hover:bg-[#B97C10] duration-300 cursor-pointer"
+                className="bg-laker-gold h-[48px] rounded-2xl hover:bg-[#B97C10] duration-300 cursor-pointer"
               >
                 {signUp ? "Sign Up" : "Sign In"}
               </button>

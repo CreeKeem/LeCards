@@ -1,4 +1,4 @@
-export default function Recent() {
+export function Recent() {
     return (
         <div>
             <div></div>

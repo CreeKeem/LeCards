@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { SetInfo, ExampleSets, SetCard } from "./index";
 import { fetchSets } from "@/api/set";
 
-export default function SetGrid() {
+export function SetGrid() {
   const [sets, setSets] = useState<SetInfo[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 

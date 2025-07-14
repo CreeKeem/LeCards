@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --font-oswald: 'Oswald', sans-serif;
+  --font-oswald: "Oswald", sans-serif;
+
+  /* Colors */
+  --color-laker-purple: #552583;
+  --color-laker-gold: #FDB927;
 }
 
 body {
-   overflow-x: hidden;
+  overflow-x: hidden;
 }
