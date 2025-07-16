@@ -62,7 +62,7 @@ export function Ellipsis({
               </button>
             </MenuItem>
             <MenuItem>
-              <button className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+              <button className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>
                 Delete
               </button>
             </MenuItem>

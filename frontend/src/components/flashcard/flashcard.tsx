@@ -8,10 +8,12 @@ export const Flashcard = ({
   flashcard,
   userCardInfo,
   isEdit,
+  handleDelete,
 }: {
   flashcard: FlashcardInfo;
   userCardInfo?: UserCardInfo;
   isEdit?: boolean;
+  handleDelete: (id: number) => void;
 }) => {
   const [favorite, setFavorite] = useState<boolean>(
     userCardInfo?.favorite || false
@@ -33,13 +35,18 @@ export const Flashcard = ({
 
   const handleCancel = () => {
     setEdit(false);
-    setTerm(flashcard.term)
-    setDefinition(flashcard.definition)
+    setTerm(flashcard.term);
+    setDefinition(flashcard.definition);
   };
 
+  // *** TODO ***
   const handleSave = () => {
-    
-  }
+    setEdit(false);
+  };
+
+  const onDeleteClick = () => {
+    handleDelete(flashcard.card_id);
+  };
 
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (termRef.current) {
@@ -71,6 +78,12 @@ export const Flashcard = ({
             placeholder="Enter term"
             rows={1}
             className="w-full resize-none overflow-hidden rounded-md border border-gray-300 focus:outline-none p-2"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                e.preventDefault();
+                handleSave();
+              }
+            }}
           />
         ) : (
           <p className="text-center">{term}</p>
@@ -90,6 +103,12 @@ export const Flashcard = ({
             placeholder="Enter definition"
             rows={1}
             className="w-full resize-none overflow-hidden rounded-md border border-gray-300 focus:outline-none p-2"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                e.preventDefault();
+                handleSave();
+              }
+            }}
           />
         ) : (
           <p className="text-center">{definition}</p>
@@ -114,11 +133,21 @@ export const Flashcard = ({
         />
         {edit ? (
           <div className="flex flex-col text-sm gap-2 mt-1">
-            <button onClick={handleCancel} className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-purple text-white">Cancel</button>
-            <button className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-gold text-laker-purple">Save</button>
+            <button
+              onClick={handleCancel}
+              className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-purple text-white"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-gold text-laker-purple"
+            >
+              Save
+            </button>
           </div>
         ) : (
-          <Ellipsis handleDelete={() => {}} handleEdit={handleEdit} />
+          <Ellipsis handleDelete={onDeleteClick} handleEdit={handleEdit} />
         )}
       </div>
     </div>
