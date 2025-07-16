@@ -23,7 +23,7 @@ export default function Home() {
             </h2>
             <Link
               href="/login"
-              className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-laker-gold text-laker-purple rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#B97C10] duration-300 flex items-center justify-center gap-2"
+              className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-laker-gold text-laker-purple rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#E0A322] duration-300 flex items-center justify-center gap-2"
             >
               <Image src="/arrowPurple.svg" alt="Arrow" width={13.5} height={18} />
               <span>Start Learning</span>
@@ -256,7 +256,7 @@ export default function Home() {
 
           <Link
             href="/login"
-            className="bg-laker-gold text-laker-purple text-base sm:text-lg font-black h-14 w-48 rounded-lg cursor-pointer hover:bg-[#B97C10] transition duration-300 flex items-center justify-center gap-3"
+            className="bg-laker-gold text-laker-purple text-base sm:text-lg font-black h-14 w-48 rounded-lg cursor-pointer hover:bg-[#E0A322] transition duration-300 flex items-center justify-center gap-3"
           >
             <Image
               src="/rocketIcon.svg"

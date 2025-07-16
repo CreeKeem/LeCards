@@ -28,7 +28,7 @@ export default function Study() {
         {/* Four Options: Learn, Flashcards, Quiz, Match */}
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-[1248px] px-4">
           {/* Learn */}
-          <div className="bg-laker-purple rounded-2xl text-white flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
+          <div className="bg-laker-purple rounded-2xl text-white flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#7831B7] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-white opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/learnIcon.svg" alt="Learn Icon" />
@@ -38,7 +38,7 @@ export default function Study() {
           </div>
 
           {/* Flashcards */}
-          <div className="bg-laker-gold rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
+          <div className="bg-laker-gold rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#E0A322] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/flashcardIcon.svg" alt="Flashcard Icon" />
@@ -48,7 +48,7 @@ export default function Study() {
           </div>
 
           {/* Quiz */}
-          <div className="bg-white border-laker-purple border-2 rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
+          <div className="bg-white border-laker-purple border-2 rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#5625831c] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/quizIcon.svg" alt="Quiz Icon" />
@@ -58,7 +58,7 @@ export default function Study() {
           </div>
 
           {/* Match */}
-          <div className="bg-white border-laker-gold border-2 rounded-2xl text-laker-gold flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1">
+          <div className="bg-white border-laker-gold border-2 rounded-2xl text-laker-gold flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#fdb9271c] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-gold opacity-20 w-full h-full rounded-2xl"></div>
               <img src="/trophyIcon2.svg" alt="Trophy Icon" />

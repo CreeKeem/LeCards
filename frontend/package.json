@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fontsource/oswald": "^5.2.6",
+    "@headlessui/react": "^2.2.4",
     "@prisma/client": "^6.8.2",
     "next": "15.3.3",
     "next-auth": "^4.24.11",

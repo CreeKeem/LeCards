@@ -155,7 +155,7 @@ export default function Login() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="bg-laker-gold h-[48px] rounded-2xl hover:bg-[#B97C10] duration-300 cursor-pointer"
+                className="bg-laker-gold h-[48px] rounded-2xl hover:bg-[#E0A322] duration-300 cursor-pointer"
               >
                 {signUp ? "Sign Up" : "Sign In"}
               </button>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { SetInfo, EditSetModal } from ".";
 import { useRouter } from "next/navigation";
+import { Ellipsis } from "../flashcard";
 
 export function SetCard({ setInfo }: { setInfo: SetInfo }) {
   const [percentLearned, setPercentLearned] = useState<number>(NaN);
@@ -54,7 +55,7 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
               <h4 className="text-sm text-[#6B7280]">{setInfo.description}</h4>
             </div>
           </div>
-          <button className="cursor-pointer text-xl">⋯</button>
+          <Ellipsis handleDelete={() => {}} handleEdit={()=> {}}/>
         </div>
 
         {/* Card count & percent mastered */}
@@ -71,7 +72,7 @@ export function SetCard({ setInfo }: { setInfo: SetInfo }) {
         {/* Action buttons */}
         <div className="flex gap-3 sm:gap-4">
           <button
-            className="flex flex-1 h-[42px] bg-laker-purple rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0"
+            className="flex flex-1 h-[42px] bg-laker-purple rounded-xl items-center justify-center text-white gap-2 sm:gap-3 cursor-pointer min-w-0 hover:bg-[#7831B7] duration-300"
             onClick={handleStudyClick}
           >
             <img

@@ -70,7 +70,7 @@ export default function Dashboard() {
           {/* Create new + Quick Study */}
           <div className="w-full max-w-[1216px] flex flex-col md:flex-row justify-between h-auto md:h-[96px] gap-[16px] md:gap-[32px]">
             {/* Create New */}
-            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-gold h-[96px] rounded-[12px] cursor-pointer">
+            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-gold h-[96px] rounded-[12px] cursor-pointer hover:bg-[#E0A322] duration-300">
               <div className="text-white flex gap-5">
                 <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                   <Image
@@ -88,7 +88,7 @@ export default function Dashboard() {
             </button>
 
             {/* Quick Study */}
-            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-purple h-[96px] rounded-[12px] cursor-pointer">
+            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-purple h-[96px] rounded-[12px] cursor-pointer hover:bg-[#7831B7] duration-300">
               <div className="text-white flex gap-5">
                 <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                   <Image

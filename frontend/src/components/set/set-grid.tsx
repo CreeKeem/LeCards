@@ -58,17 +58,26 @@ export function SetGrid() {
 
         {/* Create new set card */}
         <div
-          className="bg-gradient-to-r from-[#FDB927] to-[#EAB308] min-h-[204px]
+          className="bg-laker-gold min-h-[204px]
         w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] 
         h-auto drop-shadow-lg rounded-[12px] flex items-center justify-center 
-        cursor-pointer"
+        cursor-pointer hover:bg-[#E0A322] duration-300"
         >
           <div className="flex flex-col items-center justify-center gap-2">
-            <div className="h-[64px] w-[64px] rounded-full bg-[#F5C545] flex items-center justify-center">
-              <img src="./plusIcon.svg" alt="Plus Icon" />
+            <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-full flex items-center justify-center">
+              <img
+                src="/plusIcon.svg"
+                width={17.5}
+                height={28}
+                alt="Plus Icon"
+              />
             </div>
-            <h1 className="text-white font-semibold text-[18px]">Create New Set</h1>
-            <h2 className="text-white text-[14px]">Start building your next study deck</h2>
+            <h1 className="text-white font-semibold text-[18px]">
+              Create New Set
+            </h1>
+            <h2 className="text-white text-[14px]">
+              Start building your next study deck
+            </h2>
           </div>
         </div>
       </div>
