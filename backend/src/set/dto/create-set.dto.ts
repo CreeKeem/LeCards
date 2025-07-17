@@ -14,7 +14,7 @@ export class CreateDto {
   description?: string;
 
   @IsString()
-  @IsNotEmpty()
-  color: string;
+  @IsOptional()
+  color?: string;
   
 }

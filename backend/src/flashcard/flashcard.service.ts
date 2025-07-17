@@ -11,20 +11,20 @@ export class FlashcardService {
       data: {
         term: dto.term,
         definition: dto.definition,
-        audio_definition: dto.audioDefinition,
-        content_definition: dto.contentDefinition,
-        audio_term: dto.audioTerm,
-        content_term: dto.contentTerm,
-        set: { connect: { set_id: dto.setId } },
+        audioDefinition: dto.audioDefinition,
+        contentDefinition: dto.contentDefinition,
+        audioTerm: dto.audioTerm,
+        contentTerm: dto.contentTerm,
+        set: { connect: { setId: dto.setId } },
       },
     });
 
     return flashcard;
   }
 
-  async read(id: number) {
+  async findOne(id: number) {
     const flashcard = await this.prisma.flashcard.findUnique({
-      where: { card_id: id },
+      where: { cardId: id },
     });
 
     if (!flashcard) {
@@ -34,10 +34,22 @@ export class FlashcardService {
     return flashcard;
   }
 
-  async update(card_id: number, dto: UpdateDto) {
+  async findSetCards(setId: number) {
+    const flashcards = await this.prisma.flashcard.findMany({
+      where: { setId },
+    });
+
+    if (!flashcards) {
+      throw new NotFoundException('Flashcards do not exist for set');
+    }
+
+    return flashcards;
+  }
+
+  async update(cardId: number, dto: UpdateDto) {
     try {
       const flashcard = await this.prisma.flashcard.update({
-        where: { card_id },
+        where: { cardId },
         data: dto,
       });
 
@@ -54,7 +66,7 @@ export class FlashcardService {
     try {
       const flashcard = await this.prisma.flashcard.delete({
         where: {
-          card_id: id,
+          cardId: id,
         },
       });
 

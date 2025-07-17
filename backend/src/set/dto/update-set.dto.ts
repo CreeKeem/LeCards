@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDto {
   @IsOptional()
@@ -16,4 +16,8 @@ export class UpdateDto {
   @IsOptional()
   @IsNumber()
   cardsLearned?: number;
+
+  @IsOptional()
+  @IsDate()
+  lastAccess?: Date;
 }

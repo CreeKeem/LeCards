@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
 }
 
 datasource db {
@@ -14,7 +13,7 @@ enum LearningStatus {
   MASTERED
 }
 
-model User {
+model Users {
   userId    Int      @id @default(autoincrement())
   email     String   @unique
   fName     String
@@ -26,11 +25,11 @@ model User {
   cardStudied Int @default(0)
   correct     Int @default(0)
 
-  sets         Set[]
+  sets         Sets[]
   userCardInfo UserCardInfo[]
 }
 
-model Set {
+model Sets {
   setId  Int @id @default(autoincrement())
   userId Int
 
@@ -43,8 +42,8 @@ model Set {
   numCards     Int      @default(0)
   cardsLearned Int      @default(0)
 
-  user       User        @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  flashcards Flashcard[]
+  user         Users          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  flashcards   Flashcard[]
 }
 
 model Flashcard {
@@ -58,7 +57,7 @@ model Flashcard {
   contentTerm       String?
   audioTerm         String?
 
-  set          Set            @relation(fields: [setId], references: [setId], onDelete: Cascade)
+  set          Sets           @relation(fields: [setId], references: [setId], onDelete: Cascade)
   userCardInfo UserCardInfo[]
 }
 
@@ -69,7 +68,7 @@ model UserCardInfo {
   learningStatus LearningStatus @default(NOT_LEARNED)
 
   flashcard Flashcard @relation(fields: [cardId], references: [cardId], onDelete: Cascade)
-  user      User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@id([cardId, userId])
 }

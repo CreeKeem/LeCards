@@ -4,6 +4,7 @@ import { SetModule } from './set/set.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { FlashcardModule } from './flashcard/flashcard.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserCardInfoModule } from './user-card-info/user-card-info.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    UserCardInfoModule,
   ],
 })
 export class AppModule {}

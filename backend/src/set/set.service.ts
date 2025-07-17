@@ -7,46 +7,64 @@ export class SetService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateDto) {
-    const set = await this.prisma.set.create({
+    const sets = await this.prisma.sets.create({
       data: {
-        user_id: dto.userId,
+        userId: dto.userId,
         name: dto.name,
         description: dto.description,
       },
     });
 
-    return set;
+    return sets;
   }
 
-  async read(id: number) {
+  async findOne(id: number) {
     try {
-      const set = await this.prisma.set.findUnique({
+      const sets = await this.prisma.sets.findUnique({
         where: {
-          set_id: id,
+          setId: id,
         },
       });
 
-      if (!set) {
-        throw new NotFoundException('Set does not exist');
+      if (!sets) {
+        throw new NotFoundException('Sets does not exist');
       }
 
-      return set;
+      return sets;
     } catch (error) {
-      throw new NotFoundException('Set does not exist');
+      throw new NotFoundException('Sets does not exist');
     }
   }
 
-  async update(set_id: number, dto: UpdateDto) {
+  async findUserSets(userId: number) {
     try {
-      const set = await this.prisma.set.update({
-        where: { set_id },
+      const sets = await this.prisma.sets.findMany({
+        where: {
+          userId,
+        },
+      });
+
+      if (!sets) {
+        throw new NotFoundException('Sets does not exist');
+      }
+
+      return sets;
+    } catch (error) {
+      throw new NotFoundException('Sets does not exist');
+    }
+  }
+
+  async update(setId: number, dto: UpdateDto) {
+    try {
+      const sets = await this.prisma.sets.update({
+        where: { setId },
         data: dto,
       });
 
-      return set;
+      return sets;
     } catch (error) {
       if (error.code === 'P2025') {
-        throw new NotFoundException('Set does not exist');
+        throw new NotFoundException('Sets does not exist');
       }
       throw error;
     }
@@ -54,12 +72,12 @@ export class SetService {
 
   async delete(id: number) {
     try {
-      return await this.prisma.set.delete({
-        where: { set_id: id },
+      return await this.prisma.sets.delete({
+        where: { setId: id },
       });
     } catch (error) {
       if (error.code === 'P2025') {
-        throw new NotFoundException('Set does not exist');
+        throw new NotFoundException('Sets does not exist');
       }
       throw error;
     }

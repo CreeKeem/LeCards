@@ -20,8 +20,13 @@ export class FlashcardController {
   }
 
   @Get(':id')
-  read(@Param('id') id: string) {
-    return this.flashcardService.read(+id);
+  findOne(@Param('id') id: string) {
+    return this.flashcardService.findOne(+id);
+  }
+
+  @Get('set/:setId')
+  findSetCards(@Param('setId') setId: string) {
+    return this.flashcardService.findSetCards(+setId);
   }
 
   @Patch(':id')

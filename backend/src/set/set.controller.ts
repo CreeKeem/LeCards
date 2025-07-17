@@ -20,8 +20,13 @@ export class SetController {
   }
 
   @Get(':id')
-  read(@Param('id') id: string) {
-    return this.setService.read(+id);
+  findOne(@Param('id') id: string) {
+    return this.setService.findOne(+id);
+  }
+
+  @Get('user/:userId')
+  findUserSets(@Param('userId') userId: string) {
+    return this.setService.findUserSets(+userId)
   }
 
   @Patch(':id')
