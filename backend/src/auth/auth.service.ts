@@ -2,7 +2,6 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignInDto, SignUpDto } from './dto';
 import * as argon from 'argon2';
-import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
 import { Tokens } from './types';
 import { JwtService } from '@nestjs/jwt';
 
@@ -22,25 +21,25 @@ export class AuthService {
       const user = await this.prisma.users.create({
         data: {
           email: dto.email,
-          f_name: dto.f_name,
-          l_name: dto.l_name,
+          fName: dto.fName,
+          lName: dto.lName,
           password: hash,
         },
         select: {
-          user_id: true,
+          userId: true,
           email: true,
-          f_name: true,
-          l_name: true,
+          fName: true,
+          lName: true,
         },
       });
       // const tokens = await this.getTokens(
-      //   user.user_id,
+      //   user.userid,
       //   user.email,
-      //   user.f_name,
-      //   user.l_name,
+      //   user.fname,
+      //   user.lname,
       // );
       // return the saved user
-      // await this.updateRtHash(user.user_id, tokens.refresh_token);
+      // await this.updateRtHash(user.userid, tokens.refreshtoken);
       return user;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
@@ -75,25 +74,25 @@ export class AuthService {
 
     // return user email
     // const tokens = await this.getTokens(
-    //   user.user_id,
+    //   user.userid,
     //   user.email,
-    //   user.f_name,
-    //   user.l_name,
+    //   user.fname,
+    //   user.lname,
     // );
     // return the saved user
-    // await this.updateRtHash(user.user_id, tokens.refresh_token);
+    // await this.updateRtHash(user.userid, tokens.refreshtoken);
     return {
-      user_id: user.user_id,
+      userid: user.userId,
       email: user.email,
-      f_name: user.f_name,
-      l_name: user.l_name,
+      fname: user.fName,
+      lname: user.lName,
     };
   }
 
   async logout(userId: number) {
     await this.prisma.users.updateMany({
       where: {
-        user_id: userId,
+        userId: userId,
         hashedRt: {
           not: null,
         },
@@ -110,7 +109,7 @@ export class AuthService {
     const hash = await argon.hash(rt);
     await this.prisma.users.update({
       where: {
-        user_id: userId,
+        userId: userId,
       },
       data: {
         hashedRt: hash,
@@ -118,42 +117,42 @@ export class AuthService {
     });
   }
 
-  async getTokens(
-    user_id: number,
-    email: string,
-    f_name: string,
-    l_name: string,
-  ): Promise<Tokens> {
-    const [at, rt] = await Promise.all([
-      this.jwwtService.signAsync(
-        {
-          sub: user_id,
-          email,
-          f_name,
-          l_name,
-        },
-        {
-          secret: 'at-secret',
-          expiresIn: 60 * 15,
-        },
-      ),
-      this.jwwtService.signAsync(
-        {
-          sub: user_id,
-          email,
-          f_name,
-          l_name,
-        },
-        {
-          secret: 'rt-secret',
-          expiresIn: 60 * 60 * 24 * 7,
-        },
-      ),
-    ]);
+  // async getTokens(
+  //   userid: number,
+  //   email: string,
+  //   fname: string,
+  //   lname: string,
+  // ): Promise<Tokens> {
+  //   const [at, rt] = await Promise.all([
+  //     this.jwwtService.signAsync(
+  //       {
+  //         sub: userid,
+  //         email,
+  //         fname,
+  //         lname,
+  //       },
+  //       {
+  //         secret: 'at-secret',
+  //         expiresIn: 60 * 15,
+  //       },
+  //     ),
+  //     this.jwwtService.signAsync(
+  //       {
+  //         sub: userid,
+  //         email,
+  //         fname,
+  //         lname,
+  //       },
+  //       {
+  //         secret: 'rt-secret',
+  //         expiresIn: 60 * 60 * 24 * 7,
+  //       },
+  //     ),
+  //   ]);
 
-    return {
-      access_token: at,
-      refresh_token: rt,
-    };
-  }
+  //   return {
+  //     accesstoken: at,
+  //     refreshtoken: rt,
+  //   };
+  // }
 }

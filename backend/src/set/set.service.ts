@@ -12,6 +12,7 @@ export class SetService {
         userId: dto.userId,
         name: dto.name,
         description: dto.description,
+        color: dto.color
       },
     });
 
