@@ -42,11 +42,6 @@ export class AuthService {
       // await this.updateRtHash(user.userid, tokens.refreshtoken);
       return user;
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ForbiddenException('Credenmtials taken');
-        }
-      }
       throw error;
     }
   }

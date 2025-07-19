@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { FlashcardInfo } from "./flashcard-info";
+import { FlashcardInfo } from "../../types/flashcards";
 import Image from "next/image";
 
 export const FlashcardFlip = ({

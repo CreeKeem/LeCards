@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SetInfo, EditSetModal } from ".";
+import { SetInfo } from "@/types/sets";
 import { useRouter } from "next/navigation";
 import { Ellipsis } from "../flashcard";
 

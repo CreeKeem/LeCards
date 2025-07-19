@@ -9,13 +9,6 @@ export type FlashcardInfo = {
   imageTerm?: string;
   videoTerm?: string;
   audioTerm?: string;
-}
+};
 
-enum LearningStatus {"NOT_LEARNED", "LEARNING", "MASTERED"}
-
-export type UserCardInfo = {
-  cardId: number;
-  userId: number;
-  favorite: boolean;
-  learningStatus: LearningStatus
-}
+export type CreateFlashcard = Omit<FlashcardInfo, "card_id">;

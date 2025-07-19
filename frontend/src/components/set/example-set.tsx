@@ -1,4 +1,4 @@
-import { SetInfo } from ".";
+import { SetInfo } from "@/types/sets";
 
 export const ExampleSet: SetInfo = {
   setId: 1,

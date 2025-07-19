@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { FlashcardInfo, UserCardInfo } from "./flashcard-info";
+import { FlashcardInfo } from "@/types/flashcards";
+import { UserCardInfo } from "@/types/user-card-info";
 import { Ellipsis } from "./ellipis";
 
 export const Flashcard = ({
