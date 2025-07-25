@@ -12,9 +12,5 @@ export class CreateDto {
   @IsOptional()
   @IsString()
   description?: string;
-
-  @IsString()
-  @IsOptional()
-  color?: string;
   
 }

@@ -4,9 +4,26 @@ export enum LearningStatus {
   MASTERED = "MASTERED",
 }
 
-export type UserCardInfo = {
+export type UserCardInfoDto = {
+  cardId: number;
+  userId: number;
+  favorite: boolean;
+  learningStatus: LearningStatus;
+  lastReviewed: Date;
+};
+
+export type CreateUserCardInfoDto = {
   cardId: number;
   userId: number;
   favorite?: boolean;
   learningStatus?: LearningStatus;
+  lastReviewed?: Date;
+};
+
+export type UpdateUserCardInfoDto = {
+  cardId: number;
+  userId: number;
+  favorite?: boolean;
+  learningStatus?: LearningStatus;
+  lastReviewed?: Date;
 };

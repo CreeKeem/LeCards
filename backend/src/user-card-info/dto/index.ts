@@ -1,2 +1,2 @@
-export * from './create-userCardInfo.dto'
-export * from './update-userCardInfo.dto'
+export * from './create.dto'
+export * from './update.dto'

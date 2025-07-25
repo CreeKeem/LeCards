@@ -29,13 +29,9 @@ export class UserCardInfoController {
     return this.userCardInfoService.findSet(+userId, +setId);
   }
 
-  @Patch('user/:userId/card/:cardId')
-  update(
-    @Param('userId') userId: string,
-    @Param('cardId') cardId: string,
-    @Body() dto: UpdateDto,
-  ) {
-    return this.userCardInfoService.update(+userId, +cardId, dto);
+  @Patch('')
+  update(@Body() dto: UpdateDto) {
+    return this.userCardInfoService.update(dto);
   }
 
   @Delete('user/:userId/card/:cardId')

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Filter, Flashcard, FlashcardInfo, exampleFlashCards } from ".";
+import { Filter, Flashcard, FlashcardDto, exampleFlashCards } from ".";
 
-export function FlashcardGrid() {
-  const [cards, setCards] = useState<FlashcardInfo[]>([]);
+export function FlashcardList() {
+  const [cards, setCards] = useState<FlashcardDto[]>([]);
   const [filter, setFilter] = useState({
     notLearned: false,
     learning: false,
@@ -21,7 +21,7 @@ export function FlashcardGrid() {
 
   // *** TODO ***
   const handleDelete = (id: number) => {
-    setCards((prev) => prev.filter((card) => card.card_id !== id));
+    setCards((prev) => prev.filter((card) => card.cardId !== id));
   };
 
   return (
@@ -47,9 +47,9 @@ export function FlashcardGrid() {
 
       {cards.map((flashcard) => (
         <Flashcard
-          key={flashcard.card_id}
+          key={flashcard.cardId}
           flashcard={flashcard}
-          handleDelete={() => handleDelete(flashcard.card_id)}
+          handleDelete={() => handleDelete(flashcard.cardId)}
         />
       ))}
 

@@ -1,21 +1,21 @@
 "use client";
 
 import { DashboardNavbar, Footer } from "@/components/navigation";
-import { SetInfo } from "@/components/set";
+import { SetDto } from "@/types/sets";
 import { useEffect, useState } from "react";
-import { fetchSet } from "@/api/set";
-import { FlashcardGrid } from "@/components/flashcard";
+import { fetchSetById } from "@/api/set";
+import { FlashcardList } from "@/components/flashcard";
 
 export default function Study() {
-  const [set, setSet] = useState<SetInfo>();
+  const [set, setSet] = useState<SetDto>();
   const [cardsLearned, setCardsLearned] = useState(0);
 
   useEffect(() => {
     const getSet = async () => {
-      const data = await fetchSet(1);
+      const data = await fetchSetById(1);
       if (data) {
         setSet(data);
-        setCardsLearned((data.cardsLearned / data.numCards) * 100);
+        setCardsLearned(100);
       }
     };
     getSet();
@@ -98,7 +98,7 @@ export default function Study() {
           </div>
         </div>
 
-        <FlashcardGrid />
+        <FlashcardList />
       </div>
       <Footer />
     </div>

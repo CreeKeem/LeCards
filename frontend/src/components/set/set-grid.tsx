@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExampleSets, SetCard } from ".";
-import { SetInfo } from "@/types/sets";
-import { fetchSets } from "@/api/set";
+import { ExampleSets, ExampleUserSetInfos, SetCard, UserSetInfoDto, SetDto } from ".";
+import { fetchSetsByUser } from "@/api/set";
 
 export function SetGrid() {
-  const [sets, setSets] = useState<SetInfo[]>([]);
+  const [sets, setSets] = useState<SetDto[]>([]);
+  const [userSetInfo, setUserSetInfo] = useState<UserSetInfoDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const getSets = async () => {
       try {
-        const data = await fetchSets(1);
-        setSets(data);
+        const data = await fetchSetsByUser(1);
+        if (data) {
+          setSets(data);
+        }
       } catch (err) {
         console.error("Failed to fetch sets:", err);
         setSets([]);
       }
     };
-
+    setUserSetInfo(ExampleUserSetInfos)
     setSets(ExampleSets);
     // getSets();
   }, []);
@@ -54,7 +56,7 @@ export function SetGrid() {
       {/* Filtered grid */}
       <div className="grid gap-x-0 sm:gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredSets.map((set) => (
-          <SetCard key={set.setId} setInfo={set} />
+          <SetCard key={set.setId} setDto={set} userSetInfoDto={userSetInfo.find(x => x.setId == set.setId)!} />
         ))}
 
         {/* Create new set card */}

@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsBoolean, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsBoolean, IsEnum, IsDate } from 'class-validator';
 import { LearningStatus } from '@prisma/client'; 
 
-export class UpdateDto {
+export class CreateDto {
   @IsNotEmpty()
   @IsNumber()
   userId: number;
@@ -17,4 +17,8 @@ export class UpdateDto {
   @IsOptional()
   @IsEnum(LearningStatus)
   learningStatus?: LearningStatus;
+
+  @IsDate()
+  @IsOptional()
+  lastReviewed: Date
 }

@@ -1,4 +1,4 @@
-import { UserCardInfo } from "@/types/user-card-info";
+import { UpdateUserCardInfoDto, UserCardInfo } from "@/types/user-card-info";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const updateUserCardInfo = async ({
@@ -6,7 +6,7 @@ export const updateUserCardInfo = async ({
   cardId,
   favorite,
   learningStatus,
-}: UserCardInfo) => {
+}: UpdateUserCardInfoDto): Promise<UserCardInfo | null> => {
   try {
     const res = await fetch(
       `${backendUrl}/user-card-info/user/${userId}/card/${cardId}`,

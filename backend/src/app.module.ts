@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { FlashcardModule } from './flashcard/flashcard.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserCardInfoModule } from './user-card-info/user-card-info.module';
+import { UserSetInfoModule } from './user-set-info/user-set-info.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserCardInfoModule } from './user-card-info/user-card-info.module';
       isGlobal: true,
     }),
     UserCardInfoModule,
+    UserSetInfoModule,
   ],
 })
 export class AppModule {}

@@ -29,9 +29,9 @@ export class SetController {
     return this.setService.findUserSets(+userId)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateDto) {
-    return this.setService.update(+id, dto);
+  @Patch('')
+  update(@Body() dto: UpdateDto) {
+    return this.setService.update(dto);
   }
 
   @Delete(':id')

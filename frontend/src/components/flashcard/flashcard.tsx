@@ -1,27 +1,26 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { FlashcardInfo } from "@/types/flashcards";
-import { UserCardInfo } from "@/types/user-card-info";
-import { Ellipsis } from "./ellipis";
+import { Ellipsis, FlashcardDto, UserCardInfoDto } from ".";
 
 export const Flashcard = ({
   flashcard,
-  userCardInfo,
+  userCardDto,
   isEdit,
   handleDelete,
 }: {
-  flashcard: FlashcardInfo;
-  userCardInfo?: UserCardInfo;
+  flashcard: FlashcardDto;
+  userCardDto?: UserCardInfoDto;
   isEdit?: boolean;
   handleDelete: (id: number) => void;
 }) => {
   const [favorite, setFavorite] = useState<boolean>(
-    userCardInfo?.favorite || false
+    userCardDto?.favorite || false
   );
   const [edit, setEdit] = useState<boolean>(isEdit || false);
   const [term, setTerm] = useState<string>(flashcard.term);
   const [definition, setDefinition] = useState<string>(flashcard.definition);
+  const [learningStatusBorder, setLearningStatusBorder] = useState<string>("")
 
   const termRef = useRef<HTMLTextAreaElement>(null);
   const defRef = useRef<HTMLTextAreaElement>(null);
@@ -46,7 +45,7 @@ export const Flashcard = ({
   };
 
   const onDeleteClick = () => {
-    handleDelete(flashcard.card_id);
+    handleDelete(flashcard.cardId);
   };
 
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

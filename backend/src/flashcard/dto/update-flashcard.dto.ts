@@ -1,6 +1,10 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsNumber, IsNotEmpty } from 'class-validator';
 
 export class UpdateDto {
+  @IsNumber()
+  @IsNotEmpty()
+  cardId: number;
+
   @IsOptional()
   @IsString()
   term?: string;

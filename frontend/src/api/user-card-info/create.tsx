@@ -1,7 +1,9 @@
-import type { UserCardInfo } from "@/types/user-card-info";
+import { UserCardInfo, CreateUserCardInfoDto } from "@/types/user-card-info";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const createUserCardInfo = async (data: UserCardInfo) => {
+export const createUserCardInfo = async (
+  data: CreateUserCardInfoDto
+): Promise<UserCardInfo | null> => {
   try {
     const response = await fetch(`${backendUrl}/user-card-info`, {
       method: "POST",
@@ -20,6 +22,6 @@ export const createUserCardInfo = async (data: UserCardInfo) => {
     return await response.json();
   } catch (error) {
     console.error("Error creating user card info:", error);
-    throw error;
+    return null;
   }
 };

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signup } from "@/api/auth/index";
+import { signup } from "@/api/auth";
 
 export default function Login() {
   const [signUp, setSignUp] = useState(true);

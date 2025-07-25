@@ -29,9 +29,9 @@ export class FlashcardController {
     return this.flashcardService.findSetCards(+setId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateDto) {
-    return this.flashcardService.update(+id, dto);
+  @Patch('')
+  update(@Body() dto: UpdateDto) {
+    return this.flashcardService.update(dto);
   }
 
   @Delete(':id')

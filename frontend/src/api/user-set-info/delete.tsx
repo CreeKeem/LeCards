@@ -2,7 +2,7 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const deleteSet = async (id: number): Promise<boolean> => {
   try {
-    const res = await fetch(`${backendUrl}/set/${id}`, {
+    const res = await fetch(`${backendUrl}/user-set-info/${id}`, {
       method: "DELETE",
     });
 

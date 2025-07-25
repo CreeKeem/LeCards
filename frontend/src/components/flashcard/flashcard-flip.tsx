@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { FlashcardInfo } from "../../types/flashcards";
+import { FlashcardDto } from ".";
 import Image from "next/image";
 
 export const FlashcardFlip = ({
-  flashcardInfo,
+  flashcardDto,
 }: {
-  flashcardInfo: FlashcardInfo;
+  flashcardDto: FlashcardDto;
 }) => {
   const [flip, setFlip] = useState(false);
   const frontRef = useRef<HTMLDivElement>(null);
@@ -57,10 +57,10 @@ export const FlashcardFlip = ({
 
           const content = isFront ? (
             <>
-              {flashcardInfo.imageTerm && (
+              {flashcardDto.contentTerm && (
                 <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
                   <Image
-                    src={flashcardInfo.imageTerm}
+                    src={flashcardDto.contentTerm}
                     alt="Image"
                     width={300}
                     height={300}
@@ -68,25 +68,12 @@ export const FlashcardFlip = ({
                   />
                 </div>
               )}
-              {flashcardInfo.videoTerm && (
-                <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-auto max-h-full rounded-xl"
-                  >
-                    <source src={flashcardInfo.videoTerm} type="video/mp4" />
-                  </video>
-                </div>
-              )}
-              {flashcardInfo.term && (
+              {flashcardDto.term && (
                 <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] font-semibold break-words text-center">
-                  {flashcardInfo.term}
+                  {flashcardDto.term}
                 </h1>
               )}
-              {flashcardInfo.audioTerm && (
+              {flashcardDto.audioTerm && (
                 <button className="flex-shrink-0">
                   <Image
                     src="/Logo.svg"
@@ -100,16 +87,16 @@ export const FlashcardFlip = ({
             </>
           ) : (
             <>
-              {flashcardInfo.imageDef && (
+              {flashcardDto.contentDefinition && (
                 <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
                   <img
-                    src={flashcardInfo.imageDef}
+                    src={flashcardDto.contentDefinition}
                     alt="Definition"
                     className="object-contain w-full h-auto max-h-full rounded-xl"
                   />
                 </div>
               )}
-              {flashcardInfo.audioDef && (
+              {flashcardDto.audioDefinition && (
                 <button className="flex-shrink-0">
                   <Image
                     src="/Logo.svg"
@@ -120,21 +107,8 @@ export const FlashcardFlip = ({
                   />
                 </button>
               )}
-              {flashcardInfo.videoDef && (
-                <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-auto max-h-full rounded-xl"
-                  >
-                    <source src={flashcardInfo.videoDef} type="video/mp4" />
-                  </video>
-                </div>
-              )}
               <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] break-words text-center font-semibold">
-                {flashcardInfo.definition}
+                {flashcardDto.definition}
               </h1>
             </>
           );

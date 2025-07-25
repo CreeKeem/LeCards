@@ -1,6 +1,11 @@
+import { UserCardInfo } from "@/types/user-card-info";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const fetchUserCardInfo = async (userId: number, cardId: number) => {
+export const fetchUserCardInfo = async (
+  userId: number,
+  cardId: number
+): Promise<UserCardInfo | null> => {
   try {
     const res = await fetch(
       `${backendUrl}/user-card-info/user/${userId}/card/${cardId}`
@@ -13,7 +18,10 @@ export const fetchUserCardInfo = async (userId: number, cardId: number) => {
   }
 };
 
-export const fetchSetUserCardInfo = async (userId: number, setId: number) => {
+export const fetchSetUserCardInfo = async (
+  userId: number,
+  setId: number
+): Promise<UserCardInfo[] | null> => {
   try {
     const res = await fetch(
       `${backendUrl}/user-card-info/user/${userId}/set/${setId}`

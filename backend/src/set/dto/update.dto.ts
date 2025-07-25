@@ -1,6 +1,10 @@
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString, IsNotEmpty } from 'class-validator';
 
 export class UpdateDto {
+  @IsNotEmpty()
+  @IsNumber()
+  setId: number;
+
   @IsOptional()
   @IsString()
   name?: string;
@@ -12,12 +16,4 @@ export class UpdateDto {
   @IsOptional()
   @IsNumber()
   numCards?: number;
-
-  @IsOptional()
-  @IsNumber()
-  cardsLearned?: number;
-
-  @IsOptional()
-  @IsDate()
-  lastAccess?: Date;
 }

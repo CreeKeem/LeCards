@@ -1,11 +1,11 @@
-import { UpdateSetDto, SetDto } from "@/types/sets";
+import { UserSetInfoDto, UpdateUserSetInfoDto } from "@/types/user-set-info";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const updateSet = async (
-  data: UpdateSetDto
-): Promise<SetDto | null> => {
+  data: UpdateUserSetInfoDto
+): Promise<UserSetInfoDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/set`, {
+    const res = await fetch(`${backendUrl}/user-set-info`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

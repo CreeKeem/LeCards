@@ -4,87 +4,84 @@ import { CreateDto, UpdateDto } from './dto';
 import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
-export class UserCardInfoService {
+export class UserSetInfoService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateDto) {
-    const userCardInfo = await this.prisma.userCardInfo.create({
+    const userSetInfo = await this.prisma.userSetInfo.create({
       data: {
         userId: dto.userId,
-        cardId: dto.cardId,
+        setId: dto.setId,
       },
     });
 
-    return userCardInfo;
+    return userSetInfo;
   }
 
-  async findOne(userId: number, cardId: number) {
-    const userCardInfo = await this.prisma.userCardInfo.findUnique({
+  async findOne(userId: number, setId: number) {
+    const userSetInfo = await this.prisma.userSetInfo.findUnique({
       where: {
-        cardId_userId: {
+        setId_userId: {
           userId: userId,
-          cardId: cardId,
+          setId: setId,
         },
       },
     });
 
-    if (!userCardInfo) {
+    if (!userSetInfo) {
       throw new NotFoundException('UserCardInfo not found');
     }
-    return userCardInfo;
+    return userSetInfo;
   }
 
-  async findSet(userId: number, setId: number) {
-    const userCardInfos = await this.prisma.userCardInfo.findMany({
+  async findSet(userId: number) {
+    const userSetInfos = await this.prisma.userSetInfo.findMany({
       where: {
         userId,
-        flashcard: {
-          setId,
-        },
       },
     });
 
-    if (!userCardInfos) {
+    if (!userSetInfos) {
       throw new NotFoundException('UserCardInfos not found');
     }
 
-    return userCardInfos;
+    return userSetInfos;
   }
 
   async update(dto: UpdateDto) {
     try {
-      const userCardInfo = await this.prisma.userCardInfo.update({
+      const userSetInfo = await this.prisma.userSetInfo.update({
         where: {
-          cardId_userId: {
+          setId_userId: {
             userId: dto.userId,
-            cardId: dto.cardId,
+            setId: dto.setId,
           },
         },
         data: dto,
       });
 
-      return userCardInfo;
+      return userSetInfo;
     } catch (error) {
       if (error.code === 'P2025') {
-        throw new NotFoundException('userCardInfo does not exist');
+        throw new NotFoundException('userSetInfo does not exist');
       }
       throw error;
     }
   }
 
-  async delete(userId: number, cardId: number) {
+  async delete(userId: number, setId: number) {
     try {
-      const userCardInfo = await this.prisma.userCardInfo.delete({
+      const userSetInfo = await this.prisma.userSetInfo.delete({
         where: {
-          cardId_userId: {
+          setId_userId: {
             userId: userId,
-            cardId: cardId,
+            setId: setId,
           },
         },
       });
     } catch (error) {
       if (error.code === 'P2025') {
-        throw new NotFoundException('userCardInfo does not exist');
+        throw new NotFoundException('userSetInfo does not exist');
       }
       throw error;
     }

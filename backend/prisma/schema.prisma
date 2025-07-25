@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -27,6 +27,7 @@ model Users {
 
   sets         Sets[]
   userCardInfo UserCardInfo[]
+  UserSetInfo  UserSetInfo[]
 }
 
 model Sets {
@@ -35,15 +36,13 @@ model Sets {
 
   name        String
   description String?
-  color       String  @default("#552583")
 
-  createdAt    DateTime @default(now())
-  lastAccess   DateTime @default(now())
-  numCards     Int      @default(0)
-  cardsLearned Int      @default(0)
+  numCards  Int      @default(0)
+  createdAt DateTime @default(now())
 
-  user         Users          @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  flashcards   Flashcard[]
+  user        Users         @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  flashcards  Flashcard[]
+  UserSetInfo UserSetInfo[]
 }
 
 model Flashcard {
@@ -66,9 +65,24 @@ model UserCardInfo {
   userId         Int
   favorite       Boolean        @default(false)
   learningStatus LearningStatus @default(NOT_LEARNED)
+  lastReviewed   DateTime       @default(now())
 
   flashcard Flashcard @relation(fields: [cardId], references: [cardId], onDelete: Cascade)
   user      Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@id([cardId, userId])
+}
+
+model UserSetInfo {
+  setId  Int
+  userId Int
+
+  color        String   @default("#FDB927")
+  lastAccess   DateTime @default(now())
+  cardsLearned Int      @default(0)
+
+  sets Sets  @relation(fields: [setId], references: [setId], onDelete: Cascade)
+  user Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([setId, userId])
 }

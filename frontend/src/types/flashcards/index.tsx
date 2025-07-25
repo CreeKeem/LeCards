@@ -1,14 +1,30 @@
-export type FlashcardInfo = {
-  card_id: number;
-  set_id: number;
+export type FlashcardDto = {
+  cardId: number;
+  setId: number;
   term: string;
   definition: string;
-  imageDef?: string;
-  videoDef?: string;
-  audioDef?: string;
-  imageTerm?: string;
-  videoTerm?: string;
+  contentDefinition?: string;
+  audioDefinition?: string;
+  contentTerm?: string;
   audioTerm?: string;
 };
 
-export type CreateFlashcard = Omit<FlashcardInfo, "card_id">;
+export type CreateFlashcardDto = {
+  set_id: number;
+  term: string;
+  definition: string;
+  contentDefinition?: string;
+  audioDefinition?: string;
+  contentTerm?: string;
+  audioTerm?: string;
+};
+
+export type UpdateFlashcardDto = {
+  cardId: number;
+  term?: string;
+  definition?: string;
+  contentDefinition?: string;
+  audioDefinition?: string;
+  contentTerm?: string;
+  audioTerm?: string;
+};

@@ -1,8 +1,8 @@
-import { CreateFlashcard } from "@/types/flashcards";
+import { CreateFlashcardDto } from "@/types/flashcards";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const createCard = async (cardData: CreateFlashcard) => {
+export const createCard = async (cardData: CreateFlashcardDto) => {
   try {
     const res = await fetch(`${backendUrl}/flashcard`, {
       method: "POST",

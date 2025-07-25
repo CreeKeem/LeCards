@@ -12,7 +12,6 @@ export class SetService {
         userId: dto.userId,
         name: dto.name,
         description: dto.description,
-        color: dto.color
       },
     });
 
@@ -55,10 +54,10 @@ export class SetService {
     }
   }
 
-  async update(setId: number, dto: UpdateDto) {
+  async update(dto: UpdateDto) {
     try {
       const sets = await this.prisma.sets.update({
-        where: { setId },
+        where: { setId: dto.setId },
         data: dto,
       });
 

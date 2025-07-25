@@ -46,10 +46,10 @@ export class FlashcardService {
     return flashcards;
   }
 
-  async update(cardId: number, dto: UpdateDto) {
+  async update(dto: UpdateDto) {
     try {
       const flashcard = await this.prisma.flashcard.update({
-        where: { cardId },
+        where: { cardId: dto.cardId },
         data: dto,
       });
 

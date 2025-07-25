@@ -117,7 +117,7 @@ export default function Home() {
 
           {/* Flashcard Box Placeholder */}
           <div className="h-[500px] sm:h-[360px] md:h-[420px] max-w-md sm:max-w-lg md:max-w-xl w-[600px]">
-            <FlashcardFlip flashcardInfo={exampleFlashCard} />
+            <FlashcardFlip flashcardDto={exampleFlashCard} />
           </div>
         </div>
       </div>
