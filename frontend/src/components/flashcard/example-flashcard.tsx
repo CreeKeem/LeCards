@@ -66,14 +66,14 @@ export const ExampleUserCardInfos: UserCardInfoDto[] = [
     cardId: 1,
     userId: 1,
     favorite: false,
-    learningStatus: LearningStatus.NOT_LEARNED,
+    learningStatus: LearningStatus.MASTERED,
     lastReviewed: new Date(),
   },
   {
     cardId: 2,
     userId: 1,
     favorite: false,
-    learningStatus: LearningStatus.NOT_LEARNED,
+    learningStatus: LearningStatus.LEARNING,
     lastReviewed: new Date(),
   },
   {

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Ellipsis, FlashcardDto, UserCardInfoDto } from ".";
+import { useState, useRef, useEffect } from "react";
+import { Ellipsis, FlashcardDto, LearningStatus, UserCardInfoDto } from ".";
 
 export const Flashcard = ({
   flashcard,
@@ -10,7 +10,7 @@ export const Flashcard = ({
   handleDelete,
 }: {
   flashcard: FlashcardDto;
-  userCardDto?: UserCardInfoDto;
+  userCardDto: UserCardInfoDto;
   isEdit?: boolean;
   handleDelete: (id: number) => void;
 }) => {
@@ -20,14 +20,18 @@ export const Flashcard = ({
   const [edit, setEdit] = useState<boolean>(isEdit || false);
   const [term, setTerm] = useState<string>(flashcard.term);
   const [definition, setDefinition] = useState<string>(flashcard.definition);
-  const [learningStatusBorder, setLearningStatusBorder] = useState<string>("")
+  const [learningStatusBorder, setLearningStatusBorder] = useState<string>("border-white");
 
   const termRef = useRef<HTMLTextAreaElement>(null);
   const defRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleEdit = () => {
-    setEdit(!edit);
-  };
+  useEffect(() => {
+    if (userCardDto.learningStatus == LearningStatus.MASTERED) {
+      setLearningStatusBorder("border-green-600");
+    } else if (userCardDto.learningStatus == LearningStatus.LEARNING) {
+      setLearningStatusBorder("border-yellow-400")
+    }
+  });
 
   const clickFavorite = () => {
     setFavorite(!favorite);
@@ -42,10 +46,6 @@ export const Flashcard = ({
   // *** TODO ***
   const handleSave = () => {
     setEdit(false);
-  };
-
-  const onDeleteClick = () => {
-    handleDelete(flashcard.cardId);
   };
 
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -67,10 +67,10 @@ export const Flashcard = ({
   };
 
   return (
-    <div className="flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl">
+    <div className={`flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl border-2 ${learningStatusBorder}`}>
       {/* Term */}
       <div className="basis-[30%] p-4 flex items-center justify-center">
-        {edit ? (
+        {edit || isEdit ? (
           <textarea
             ref={termRef}
             value={term}
@@ -95,7 +95,7 @@ export const Flashcard = ({
 
       {/* Definition */}
       <div className="basis-[60%] p-4 flex items-center justify-center">
-        {edit ? (
+        {edit || isEdit ? (
           <textarea
             ref={defRef}
             value={definition}
@@ -131,7 +131,9 @@ export const Flashcard = ({
           alt="Audio Icon"
           className="cursor-pointer -mb-2"
         />
-        {edit ? (
+        {isEdit ? (
+          <></>
+        ) : edit ? (
           <div className="flex flex-col text-sm gap-2 mt-1">
             <button
               onClick={handleCancel}
@@ -141,13 +143,16 @@ export const Flashcard = ({
             </button>
             <button
               onClick={handleSave}
-              className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-gold text-laker-purple"
+              className="cursor-pointer rounded-2xl p-1 px-2 bg-laker-gold text-laker-purple"
             >
               Save
             </button>
           </div>
         ) : (
-          <Ellipsis handleDelete={onDeleteClick} handleEdit={handleEdit} />
+          <Ellipsis
+            handleDelete={() => handleDelete(flashcard.cardId)}
+            handleEdit={() => setEdit(!edit)}
+          />
         )}
       </div>
     </div>

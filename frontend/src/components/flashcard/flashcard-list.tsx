@@ -1,9 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Filter, Flashcard, FlashcardDto, exampleFlashCards } from ".";
+import {
+  ExampleUserCardInfos,
+  Filter,
+  Flashcard,
+  FlashcardDto,
+  UserCardInfoDto,
+  exampleFlashCards,
+} from ".";
 
-export function FlashcardList() {
+export function FlashcardList({
+  edit,
+  setId,
+}: {
+  edit: boolean;
+  setId: number;
+}) {
   const [cards, setCards] = useState<FlashcardDto[]>([]);
   const [filter, setFilter] = useState({
     notLearned: false,
@@ -12,9 +25,11 @@ export function FlashcardList() {
     favorite: false,
   });
   const [sort, setSort] = useState("");
+  const [userCardInfo, setUserCardInfo] = useState<UserCardInfoDto[]>([]);
 
   useEffect(() => {
     setCards(exampleFlashCards);
+    setUserCardInfo(ExampleUserCardInfos);
   }, []);
 
   const handleCreate = async () => {};
@@ -30,7 +45,7 @@ export function FlashcardList() {
       <div className="flex justify-between items-center mb-3">
         <h1 className="font-bold text-xl">All Flashcards</h1>
         <div className="flex gap-6">
-          <Filter filter={filter} setFilter={setFilter}/>
+          <Filter filter={filter} setFilter={setFilter} />
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
@@ -50,6 +65,8 @@ export function FlashcardList() {
           key={flashcard.cardId}
           flashcard={flashcard}
           handleDelete={() => handleDelete(flashcard.cardId)}
+          userCardDto={userCardInfo.find((e) => e.cardId == flashcard.cardId)!}
+          isEdit={edit}
         />
       ))}
 

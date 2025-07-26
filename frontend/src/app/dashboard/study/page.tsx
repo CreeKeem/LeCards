@@ -4,22 +4,57 @@ import { DashboardNavbar, Footer } from "@/components/navigation";
 import { SetDto } from "@/types/sets";
 import { useEffect, useState } from "react";
 import { fetchSetById } from "@/api/set";
-import { FlashcardList } from "@/components/flashcard";
+import {
+  ExampleUserCardInfos,
+  FlashcardList,
+  LearningStatus,
+} from "@/components/flashcard";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Study() {
   const [set, setSet] = useState<SetDto>();
+  const [cardsMastered, setCardsMastered] = useState(0);
   const [cardsLearned, setCardsLearned] = useState(0);
+  const [cardsStudying, setCardsStudying] = useState(0);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const setId = searchParams.get("setId");
 
   useEffect(() => {
-    const getSet = async () => {
-      const data = await fetchSetById(1);
+    const getSetAndStats = async () => {
+      if (!setId) return;
+
+      const data = await fetchSetById(+setId);
       if (data) {
         setSet(data);
-        setCardsLearned(100);
+      } else {
+        return
       }
+
+      // Simulated or fetched data
+      const data2 = ExampleUserCardInfos;
+
+      let mastered = 0;
+      let learned = 0;
+      let studying = 0;
+
+      for (let i = 0; i < data2.length; i++) {
+        if (data2[i].learningStatus === LearningStatus.NOT_LEARNED) {
+          studying++;
+        } else if (data2[i].learningStatus === LearningStatus.LEARNING) {
+          learned++;
+        } else {
+          mastered++;
+        }
+      }
+
+      setCardsMastered(mastered);
+      setCardsLearned(learned);
+      setCardsStudying(studying);
     };
-    getSet();
-  });
+
+    getSetAndStats();
+  }, []);
 
   return (
     <div>
@@ -81,7 +116,7 @@ export default function Study() {
           <div className="flex justify-around items-center w-full text-[#374151]">
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-2xl font-bold text-laker-purple">
-                {cardsLearned}%
+                {cardsMastered}
               </h1>
               <h2>Mastered</h2>
             </div>
@@ -92,13 +127,13 @@ export default function Study() {
               <h2>Studied</h2>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold">{cardsLearned}</h1>
+              <h1 className="text-2xl font-bold">{cardsStudying}</h1>
               <h2>Remaining</h2>
             </div>
           </div>
         </div>
 
-        <FlashcardList />
+        <FlashcardList setId={+setId!} edit={false} />
       </div>
       <Footer />
     </div>
