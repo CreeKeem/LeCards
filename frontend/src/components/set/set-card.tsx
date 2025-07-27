@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SetDto, UserSetInfoDto } from ".";
 import { useRouter } from "next/navigation";
 import { Ellipsis } from "../flashcard";
+import { updateUserSetInfo } from "@/api/user-set-info";
 
 export function SetCard({
   setDto,
@@ -47,7 +48,9 @@ export function SetCard({
       .replace(/--+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-  const handleStudyClick = () => {
+  const handleStudyClick = async () => {
+    const update = await updateUserSetInfo({userId: 1, setId:setDto.setId, lastAccess: new Date()})
+    if (!update) return
     const slug = slugify(setDto.name);
     router.push(`/study/${setDto.setId}/${slug}`);
   };

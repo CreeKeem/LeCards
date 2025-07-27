@@ -1,7 +1,7 @@
 import { UserSetInfoDto, UpdateUserSetInfoDto } from "@/types/user-set-info";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const updateSet = async (
+export const updateUserSetInfo = async (
   data: UpdateUserSetInfoDto
 ): Promise<UserSetInfoDto | null> => {
   try {

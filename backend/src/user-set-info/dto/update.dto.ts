@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsDate,
   IsNotEmpty,
@@ -25,5 +26,6 @@ export class UpdateDto {
 
   @IsOptional()
   @IsDate()
+  @Type(() => Date)
   lastAccess?: Date;
 }
