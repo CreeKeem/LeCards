@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwwtService: JwtService,
+    private jwtService: JwtService,
   ) {}
 
   async signup(dto: SignUpDto) {
@@ -110,6 +110,13 @@ export class AuthService {
         hashedRt: hash,
       },
     });
+  }
+
+  async getUser(id: number) {
+    const user = await this.prisma.users.findUnique({
+      where: { userId: id },
+    });
+    return user
   }
 
   // async getTokens(

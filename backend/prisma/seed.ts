@@ -1,14 +1,17 @@
 import { PrismaClient, LearningStatus } from '@prisma/client';
+import * as argon from 'argon2';
+
 const prisma = new PrismaClient();
 
 async function main() {
   // Create user
+  const hash = await argon.hash("password");
   const user = await prisma.users.create({
     data: {
       email: 'lbj23@goat.com',
       fName: 'LeBron',
       lName: 'James',
-      password: 'password',
+      password: hash,
     },
   });
 

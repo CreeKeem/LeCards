@@ -1,8 +1,8 @@
-import { SignInDto } from "@/types/auth";
+import { SignInDto, UserInfo } from "@/types/auth";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const signin = async (data: SignInDto) => {
+export const signin = async (data: SignInDto): Promise<UserInfo | null> => {
   try {
     const res = await fetch(`${backendUrl}/auth/signin`, {
       method: "POST",

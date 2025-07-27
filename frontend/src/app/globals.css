@@ -13,3 +13,14 @@
 body {
   overflow-x: hidden;
 }
+
+.input {
+  height: 50px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.75rem;
+  outline: none;
+}
+.input::placeholder {
+  color: #adaebc;
+}

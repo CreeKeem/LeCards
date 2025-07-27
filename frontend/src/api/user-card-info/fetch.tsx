@@ -1,11 +1,11 @@
-import { UserCardInfo } from "@/types/user-card-info";
+import { UserCardInfoDto } from "@/types/user-card-info";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const fetchUserCardInfo = async (
   userId: number,
   cardId: number
-): Promise<UserCardInfo | null> => {
+): Promise<UserCardInfoDto | null> => {
   try {
     const res = await fetch(
       `${backendUrl}/user-card-info/user/${userId}/card/${cardId}`
@@ -21,7 +21,7 @@ export const fetchUserCardInfo = async (
 export const fetchSetUserCardInfo = async (
   userId: number,
   setId: number
-): Promise<UserCardInfo[] | null> => {
+): Promise<UserCardInfoDto[]> => {
   try {
     const res = await fetch(
       `${backendUrl}/user-card-info/user/${userId}/set/${setId}`
@@ -30,6 +30,20 @@ export const fetchSetUserCardInfo = async (
     return await res.json();
   } catch (error) {
     console.error("Error fetching set user card info:", error);
-    return null;
+    return [];
   }
 };
+
+export const fetchUserMasteredCardCount = async (userId: number): Promise<number> => {
+  try {
+    const res = await fetch(
+      `${backendUrl}/user-card-info/user/${userId}/mastered/count`
+    );
+    if (!res.ok) throw new Error("Failed to fetch set user card info");
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching set user card info:", error);
+    return 0;
+  }
+};
+

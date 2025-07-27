@@ -2,16 +2,44 @@
 
 import { DashboardNavbar, Footer } from "@/components/navigation";
 import Image from "next/image";
-import {SetGrid, Recent, EditSetModal} from "@/components/set/";
+import { SetGrid, Recent, EditSetModal } from "@/components/set/";
+import { unstable_startGestureTransition, useEffect, useState } from "react";
+import { UserInfo } from "@/types/auth";
+import { fetchUser } from "@/api/auth";
+import { fetchUserSetCount } from "@/api/set";
+import { fetchUserCardCount } from "@/api/flashcard";
+import { fetchUserMasteredCardCount } from "@/api/user-card-info";
 
 export default function Dashboard() {
-  const userName = "LeBron James";
-  const totalSet = 1;
-  const successRate = 100;
-  const cardsStudied = 50;
+  const [user, setUser] = useState<UserInfo>();
+  const [userSetCount, setUserSetCount] = useState<number>(0);
+  const [userCardCount, setUserCardCount] = useState<number>(0);
+  const [masteredPercent, setMasteredPercent] = useState<number>(0);
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await fetchUser(1);
+      if (!user) return;
+      setUser(user);
+    };
+    const getUserStats = async () => {
+      const setCount = await fetchUserSetCount(1);
+      const cardCount = await fetchUserCardCount(1);
+      const masteredCount = await fetchUserMasteredCardCount(1);
+      const percent = (masteredCount / cardCount) * 100;
+      setUserSetCount(setCount);
+      setUserCardCount(cardCount);
+      setMasteredPercent(percent);
+    };
+    getUser();
+    getUserStats();
+  }, []);
+
   return (
     <div>
-      <DashboardNavbar userName={userName} dashboardHome={true} />
+      <DashboardNavbar
+        userName={user?.fName + " " + user?.lName}
+        dashboardHome={true}
+      />
       <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
         <div className="min-h-screen p-4 sm:p-6 md:p-8 lg:p-[32px] w-full flex flex-col items-center gap-[32px] max-w-[1216px]">
           {/* Welcome Back Banner */}
@@ -32,7 +60,7 @@ export default function Dashboard() {
                   alt="Trophy"
                 />
                 <h1 className="text-white font-bold text-[24px] sm:text-[24px]">
-                  Welcome back, {userName}!
+                  Welcome back, {user?.fName} {user?.lName}!
                 </h1>
               </div>
               <h2 className="text-white font-normal text-[16px] sm:text-[16px]">
@@ -41,7 +69,7 @@ export default function Dashboard() {
               <div className="flex gap-6 flex-wrap">
                 <div className="flex flex-col items-center">
                   <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
-                    {totalSet}
+                    {userSetCount}
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
                     Total Sets
@@ -49,18 +77,18 @@ export default function Dashboard() {
                 </div>
                 <div className="flex flex-col items-center">
                   <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
-                    {cardsStudied}
+                    {userCardCount}
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
-                    Cards Studied
+                    Total Cards
                   </h4>
                 </div>
                 <div className="flex flex-col items-center">
                   <h3 className="font-bold text-[20px] sm:text-[20px] text-laker-gold">
-                    {successRate}%
+                    {masteredPercent}%
                   </h3>
                   <h4 className="font-normal text-[12px] sm:text-[12px] text-[#E9D5FF]">
-                    Success Rate
+                    Mastered
                   </h4>
                 </div>
               </div>
@@ -107,7 +135,7 @@ export default function Dashboard() {
           </div>
 
           {/* Sets */}
-          <SetGrid />
+          <SetGrid userId={1} />
 
           {/* Recent Activity */}
           <Recent />

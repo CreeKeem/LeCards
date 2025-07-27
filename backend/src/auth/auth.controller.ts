@@ -6,6 +6,8 @@ import {
   HttpStatus,
   UseGuards,
   Req,
+  Get,
+  Param
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto, SignUpDto } from './dto';
@@ -25,6 +27,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   signin(@Body() dto: SignInDto) {
     return this.authService.signin(dto);
+  }
+
+  @Get('user/:id')
+  getUser(@Param('id') id: string) {
+    return this.authService.getUser(+id)
   }
 
   // @UseGuards(AuthGuard('jwt'))

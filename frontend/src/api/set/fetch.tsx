@@ -28,3 +28,17 @@ export const fetchSetById = async (id: number): Promise<SetDto | null> => {
     return null;
   }
 };
+
+export const fetchUserSetCount = async (id: number): Promise<number> => {
+  try {
+    const res = await fetch(`${backendUrl}/set/user/${id}/count`);
+
+    if (!res.ok) throw new Error("Failed to fetch set");
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching set:", error);
+    return 0;
+  }
+};
+

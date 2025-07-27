@@ -78,4 +78,16 @@ export class FlashcardService {
       throw error;
     }
   }
+
+  async findUserCardCount(userId: number) {
+    const flashcard = await this.prisma.userCardInfo.count({
+      where: { userId },
+    });
+
+    if (!flashcard) {
+      throw new NotFoundException('Flashcard does not exist');
+    }
+
+    return flashcard;
+  }
 }

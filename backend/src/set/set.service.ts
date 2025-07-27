@@ -82,4 +82,17 @@ export class SetService {
       throw error;
     }
   }
+
+  async findUserSetCount(userId: number) {
+    try {
+      return await this.prisma.sets.count({
+        where: { userId },
+      });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException('Sets does not exist');
+      }
+      throw error;
+    }
+  }
 }

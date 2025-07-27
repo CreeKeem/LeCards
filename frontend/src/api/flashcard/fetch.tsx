@@ -23,3 +23,16 @@ export const fetchFlashcardsBySetId = async (setId: number): Promise<FlashcardDt
     return [];
   }
 };
+
+export const fetchUserCardCount = async (id: number): Promise<number> => {
+  try {
+    const res = await fetch(`${backendUrl}/flashcard/user/${id}/count`);
+
+    if (!res.ok) throw new Error("Failed to fetch set");
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching set:", error);
+    return 0;
+  }
+};

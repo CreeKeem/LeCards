@@ -1,31 +1,41 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExampleSets, ExampleUserSetInfos, SetCard, UserSetInfoDto, SetDto } from ".";
+import {
+  ExampleSets,
+  ExampleUserSetInfos,
+  SetCard,
+  UserSetInfoDto,
+  SetDto,
+} from ".";
 import { fetchSetsByUser } from "@/api/set";
+import { fetchUserSetInfosByUser } from "@/api/user-set-info";
 
-export function SetGrid() {
+export function SetGrid({ userId }: { userId: number }) {
   const [sets, setSets] = useState<SetDto[]>([]);
-  const [userSetInfo, setUserSetInfo] = useState<UserSetInfoDto[]>([]);
+  const [userSetInfos, setUserSetInfos] = useState<UserSetInfoDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const getSets = async () => {
       try {
-        const data = await fetchSetsByUser(1);
-        if (data) {
-          setSets(data);
+        const sets = await fetchSetsByUser(userId);
+        if (sets) {
+          setSets(sets);
+        }
+        const setInfos = await fetchUserSetInfosByUser(userId);
+        if (setInfos) {
+          setUserSetInfos(setInfos);
         }
       } catch (err) {
         console.error("Failed to fetch sets:", err);
         setSets([]);
+        setUserSetInfos([]);
       }
     };
-    setUserSetInfo(ExampleUserSetInfos)
-    setSets(ExampleSets);
-    // getSets();
-  }, []);
 
+    getSets();
+  }, []);
   const filteredSets = sets.filter((set) =>
     set.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -56,7 +66,11 @@ export function SetGrid() {
       {/* Filtered grid */}
       <div className="grid gap-x-0 sm:gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredSets.map((set) => (
-          <SetCard key={set.setId} setDto={set} userSetInfoDto={userSetInfo.find(x => x.setId == set.setId)!} />
+          <SetCard
+            key={set.setId}
+            setDto={set}
+            userSetInfoDto={userSetInfos.find((x) => x.setId == set.setId)!}
+          />
         ))}
 
         {/* Create new set card */}

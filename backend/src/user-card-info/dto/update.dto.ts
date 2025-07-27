@@ -4,8 +4,9 @@ import {
   IsOptional,
   IsBoolean,
   IsEnum,
-  IsDate
+  IsDate,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { LearningStatus } from '@prisma/client';
 
 export class UpdateDto {
@@ -26,6 +27,7 @@ export class UpdateDto {
   learningStatus?: LearningStatus;
 
   @IsDate()
+  @Type(() => Date)
   @IsOptional()
   lastReviewed?: Date;
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDto, UpdateDto } from './dto';
 import { NotFoundException } from '@nestjs/common';
+import { LearningStatus } from '@prisma/client';
 
 @Injectable()
 export class UserCardInfoService {
@@ -88,5 +89,15 @@ export class UserCardInfoService {
       }
       throw error;
     }
+  }
+
+  async findUserMasteredCardCount(userId: number) {
+    const userCardInfo = await this.prisma.userCardInfo.count({
+      where: {
+        userId,
+        learningStatus: LearningStatus.MASTERED
+      },
+    });
+    return userCardInfo;
   }
 }

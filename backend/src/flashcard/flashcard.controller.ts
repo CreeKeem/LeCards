@@ -38,4 +38,9 @@ export class FlashcardController {
   delete(@Param('id') id: string) {
     return this.flashcardService.delete(+id);
   }
+
+  @Get('user/:userId/count')
+  findUserCardCount(@Param('userId') userId: string) {
+    return this.flashcardService.findUserCardCount(+userId);
+  }
 }

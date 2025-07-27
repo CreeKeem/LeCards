@@ -4,6 +4,7 @@ import { DashboardNavbar, Footer } from "@/components/navigation";
 import { SetDto } from "@/types/sets";
 import { useEffect, useState } from "react";
 import { fetchSetById } from "@/api/set";
+import { fetchSetUserCardInfo } from "@/api/user-card-info";
 import {
   ExampleUserCardInfos,
   FlashcardList,
@@ -24,27 +25,28 @@ export default function Study() {
     const getSetAndStats = async () => {
       if (!setId) return;
 
-      const data = await fetchSetById(+setId);
-      if (data) {
-        setSet(data);
+      const set = await fetchSetById(+setId);
+      if (set) {
+        setSet(set);
       } else {
-        return
+        return;
       }
-
-      // Simulated or fetched data
-      const data2 = ExampleUserCardInfos;
-
+      
+      const userCardInfo = await fetchSetUserCardInfo(1, +setId);
       let mastered = 0;
       let learned = 0;
       let studying = 0;
-
-      for (let i = 0; i < data2.length; i++) {
-        if (data2[i].learningStatus === LearningStatus.NOT_LEARNED) {
-          studying++;
-        } else if (data2[i].learningStatus === LearningStatus.LEARNING) {
-          learned++;
-        } else {
-          mastered++;
+      if (userCardInfo) {
+        for (let i = 0; i < userCardInfo.length; i++) {
+          if (userCardInfo[i].learningStatus === LearningStatus.NOT_LEARNED) {
+            studying++;
+          } else if (
+            userCardInfo[i].learningStatus === LearningStatus.LEARNING
+          ) {
+            learned++;
+          } else {
+            mastered++;
+          }
         }
       }
 

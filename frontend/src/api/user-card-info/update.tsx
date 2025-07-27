@@ -1,4 +1,4 @@
-import { UpdateUserCardInfoDto, UserCardInfo } from "@/types/user-card-info";
+import { UpdateUserCardInfoDto, UserCardInfoDto } from "@/types/user-card-info";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const updateUserCardInfo = async ({
@@ -6,16 +6,28 @@ export const updateUserCardInfo = async ({
   cardId,
   favorite,
   learningStatus,
-}: UpdateUserCardInfoDto): Promise<UserCardInfo | null> => {
+  lastReviewed
+}: UpdateUserCardInfoDto): Promise<UserCardInfoDto | null> => {
   try {
+    const body: any = {
+      userId,
+      cardId,
+      favorite,
+      learningStatus,
+    };
+
+    if (lastReviewed) {
+      body.lastReviewed = lastReviewed.toISOString();
+    }
+
     const res = await fetch(
-      `${backendUrl}/user-card-info/user/${userId}/card/${cardId}`,
+      `${backendUrl}/user-card-info`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ favorite, learningStatus }),
+        body: JSON.stringify(body),
       }
     );
 

@@ -9,3 +9,10 @@ export type SignUpDto = {
   lName: string;
   password: string;
 };
+
+export type UserInfo = {
+    userId: number,
+    email: string,
+    fName: string,
+    lName: string
+}

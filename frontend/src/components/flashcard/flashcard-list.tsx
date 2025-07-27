@@ -9,6 +9,8 @@ import {
   UserCardInfoDto,
   exampleFlashCards,
 } from ".";
+import { fetchFlashcardsBySetId } from "@/api/flashcard";
+import { fetchSetUserCardInfo } from "@/api/user-card-info";
 
 export function FlashcardList({
   edit,
@@ -28,8 +30,13 @@ export function FlashcardList({
   const [userCardInfo, setUserCardInfo] = useState<UserCardInfoDto[]>([]);
 
   useEffect(() => {
-    setCards(exampleFlashCards);
-    setUserCardInfo(ExampleUserCardInfos);
+    const getSetCards = async () => {
+      const flashcards = await fetchFlashcardsBySetId(setId)
+      const cardInfo = await fetchSetUserCardInfo(1, setId)
+      setCards(flashcards);
+      setUserCardInfo(cardInfo);
+    };
+    getSetCards()
   }, []);
 
   const handleCreate = async () => {};

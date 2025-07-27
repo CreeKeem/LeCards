@@ -15,10 +15,18 @@ export function SetCard({
   const [percentLearned, setPercentLearned] = useState<number>(NaN);
   const [learnedColorBg, setLearnedColorBg] = useState("#FEE2E2");
   const [learnedColorText, setLearnedColorText] = useState("#991B1B");
+  const [setColor, setSetColor] = useState<string>("#");
   const router = useRouter();
 
+  useEffect(() => {}, [userSetInfoDto]);
+
   useEffect(() => {
-    const percent = 100;
+    let percent = 100
+    if (userSetInfoDto) {
+      setSetColor(userSetInfoDto.color);
+      percent = (userSetInfoDto.cardsLearned / setDto.numCards) * 100;
+      
+    }
     setPercentLearned(Math.round(percent));
     if (percent >= 90) {
       setLearnedColorBg("#DCFCE7");
@@ -30,7 +38,7 @@ export function SetCard({
       setLearnedColorBg("#FEE2E2");
       setLearnedColorText("#991B1B");
     }
-  }, [setDto]);
+  }, [setDto, userSetInfoDto]);
 
   const handleStudyClick = () => {
     router.push(`/dashboard/study?setId=${setDto.setId}`);
@@ -39,21 +47,22 @@ export function SetCard({
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
       {/* Colored top bar */}
       <div
-        className="w-full h-[12px] rounded-t-[12px]"
-        style={{ backgroundColor: userSetInfoDto.color }}
+        className={`w-full h-[12px] rounded-t-[12px] bg-[${setColor}]`}
       ></div>
 
       <div className="flex flex-col px-4 py-5 sm:py-6 gap-4">
         {/* Header: Avatar + Title/Description + Ellipsis */}
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3 relative">
-            <div
-              className="h-10 w-10 rounded-[8px] absolute opacity-20"
-              style={{ backgroundColor: userSetInfoDto.color }}
-            ></div>
-            <div className="h-10 w-10 flex items-center justify-center relative z-10">
-              <img src="./Lebron.svg" alt="" className="h-6 w-6 rounded-full" />
+            <div>
+              <div
+                className={`h-10 w-10 rounded-[8px] absolute opacity-20 bg-[${setColor}]`}
+              ></div>
+              <div className="h-10 w-10 flex items-center justify-center relative z-10">
+                <img src="./logo.svg" alt="" className="h-6 w-6 rounded-full" />
+              </div>
             </div>
+
             <div className="flex flex-col">
               <h3 className="text-base font-semibold text-[#111827]">
                 {setDto.name}
@@ -69,7 +78,7 @@ export function SetCard({
           <p>{setDto.numCards} cards</p>
           <p
             style={{ backgroundColor: learnedColorBg, color: learnedColorText }}
-            className="rounded-2xl px-2 py-0.5"
+            className={`rounded-2xl px-2 py-0.5 bg-[${learnedColorBg}] text-[${learnedColorText}]`}
           >
             {percentLearned}% mastered
           </p>

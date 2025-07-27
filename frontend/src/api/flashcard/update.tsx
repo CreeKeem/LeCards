@@ -1,9 +1,9 @@
 import { UpdateFlashcardDto } from "@/types/flashcards";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const updateFlashcard = async (cardId: number, data: UpdateFlashcardDto) => {
+export const updateFlashcard = async (data: UpdateFlashcardDto) => {
   try {
-    const res = await fetch(`${backendUrl}/flashcard/${cardId}`, {
+    const res = await fetch(`${backendUrl}/flashcard`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

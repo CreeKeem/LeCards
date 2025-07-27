@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Ellipsis, FlashcardDto, LearningStatus, UserCardInfoDto } from ".";
+import { updateUserCardInfo } from "@/api/user-card-info";
+import { updateFlashcard } from "@/api/flashcard";
 
 export const Flashcard = ({
   flashcard,
@@ -20,7 +22,8 @@ export const Flashcard = ({
   const [edit, setEdit] = useState<boolean>(isEdit || false);
   const [term, setTerm] = useState<string>(flashcard.term);
   const [definition, setDefinition] = useState<string>(flashcard.definition);
-  const [learningStatusBorder, setLearningStatusBorder] = useState<string>("border-white");
+  const [learningStatusBorder, setLearningStatusBorder] =
+    useState<string>("border-white");
 
   const termRef = useRef<HTMLTextAreaElement>(null);
   const defRef = useRef<HTMLTextAreaElement>(null);
@@ -29,11 +32,17 @@ export const Flashcard = ({
     if (userCardDto.learningStatus == LearningStatus.MASTERED) {
       setLearningStatusBorder("border-green-600");
     } else if (userCardDto.learningStatus == LearningStatus.LEARNING) {
-      setLearningStatusBorder("border-yellow-400")
+      setLearningStatusBorder("border-yellow-400");
     }
   });
 
-  const clickFavorite = () => {
+  const clickFavorite = async () => {
+    const update = await updateUserCardInfo({
+      userId: 1,
+      cardId: flashcard.cardId,
+      favorite: !favorite,
+    });
+    if (!update) return;
     setFavorite(!favorite);
   };
 
@@ -43,11 +52,20 @@ export const Flashcard = ({
     setDefinition(flashcard.definition);
   };
 
-  // *** TODO ***
-  const handleSave = () => {
+  const handleSave = async () => {
+    const save = await updateFlashcard({
+      cardId: flashcard.cardId,
+      term: term,
+      definition: definition,
+    });
+    if (!save) return
     setEdit(false);
   };
 
+  const deleteCard = async () => {
+     
+    handleDelete(flashcard.cardId)
+  }
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (termRef.current) {
       termRef.current.style.height = "auto";
@@ -67,7 +85,9 @@ export const Flashcard = ({
   };
 
   return (
-    <div className={`flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl border-2 ${learningStatusBorder}`}>
+    <div
+      className={`flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl border-2 ${learningStatusBorder}`}
+    >
       {/* Term */}
       <div className="basis-[30%] p-4 flex items-center justify-center">
         {edit || isEdit ? (
@@ -150,7 +170,7 @@ export const Flashcard = ({
           </div>
         ) : (
           <Ellipsis
-            handleDelete={() => handleDelete(flashcard.cardId)}
+            handleDelete={deleteCard}
             handleEdit={() => setEdit(!edit)}
           />
         )}

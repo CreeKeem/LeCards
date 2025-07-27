@@ -38,4 +38,9 @@ export class UserCardInfoController {
   delete(@Param('userId') userId: string, @Param('cardId') cardId: string) {
     return this.userCardInfoService.delete(+userId, +cardId);
   }
+
+  @Get('user/:userId/mastered/count')
+  findUserMasteredCardCount(@Param('userId') userId: string) {
+    return this.userCardInfoService.findUserMasteredCardCount(+userId);
+  }
 }

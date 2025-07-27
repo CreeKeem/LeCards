@@ -38,4 +38,9 @@ export class SetController {
   delete(@Param('id') id: string) {
     return this.setService.delete(+id);
   }
+
+  @Get('user/:userId/count')
+  findUserSetCount(@Param('userId') userId: string) {
+    return this.setService.findUserSetCount(+userId)
+  }
 }
