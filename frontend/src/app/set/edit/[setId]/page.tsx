@@ -9,7 +9,7 @@ const slugify = (text: string) =>
       .replace(/--+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-export default async function StudyRedirectPage({
+export default async function EditRedirectPage({
   params,
 }: {
   params: { setId: string };
@@ -19,5 +19,5 @@ export default async function StudyRedirectPage({
     redirect("/not-found");
   }
 
-  redirect(`/study/${params.setId}/${slugify(set.name)}`);
+  redirect(`/set/edit/${params.setId}/${slugify(set.name)}`);
 }

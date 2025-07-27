@@ -3,18 +3,20 @@
 import { DashboardNavbar, Footer } from "@/components/navigation";
 import Image from "next/image";
 import { SetGrid, Recent, EditSetModal } from "@/components/set/";
-import { unstable_startGestureTransition, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserInfo } from "@/types/auth";
 import { fetchUser } from "@/api/auth";
 import { fetchUserSetCount } from "@/api/set";
 import { fetchUserCardCount } from "@/api/flashcard";
 import { fetchUserMasteredCardCount } from "@/api/user-card-info";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const [user, setUser] = useState<UserInfo>();
   const [userSetCount, setUserSetCount] = useState<number>(0);
   const [userCardCount, setUserCardCount] = useState<number>(0);
   const [masteredPercent, setMasteredPercent] = useState<number>(0);
+  const router = useRouter();
   useEffect(() => {
     const getUser = async () => {
       const user = await fetchUser(1);
@@ -98,7 +100,10 @@ export default function Dashboard() {
           {/* Create new + Quick Study */}
           <div className="w-full max-w-[1216px] flex flex-col md:flex-row justify-between h-auto md:h-[96px] gap-[16px] md:gap-[32px]">
             {/* Create New */}
-            <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-gold h-[96px] rounded-[12px] cursor-pointer hover:bg-[#E0A322] duration-300">
+            <button
+              className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-gold h-[96px] rounded-[12px] cursor-pointer hover:bg-[#E0A322] duration-300"
+              onClick={() => router.push("set/create")}
+            >
               <div className="text-white flex gap-5">
                 <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                   <Image

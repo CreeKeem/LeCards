@@ -5,13 +5,8 @@ import { SetDto } from "@/types/sets";
 import { useEffect, useState } from "react";
 import { fetchSetById } from "@/api/set";
 import { fetchSetUserCardInfo } from "@/api/user-card-info";
-import {
-  ExampleUserCardInfos,
-  FlashcardList,
-  LearningStatus,
-} from "@/components/flashcard";
+import { FlashcardList, LearningStatus } from "@/components/flashcard";
 import { useRouter, useParams } from "next/navigation";
-import { UserSetInfoDto } from "@/types/user-set-info";
 import { fetchUserSetInfo } from "@/api/user-set-info";
 
 const options: Intl.DateTimeFormatOptions = {
@@ -72,36 +67,46 @@ export default function Study() {
     getSetAndStats();
   }, []);
 
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const handleProfileClick = () => {
+    router.push(`/profile/${1}/${slugify("LeBron James")}`);
+  };
+
   return (
     <div>
-      <DashboardNavbar userName="Lebron" dashboardHome={false} />
+      <DashboardNavbar userName="Lebron" dashboardHome={false} setDto={set} />
       <div className="min-h-screen flex flex-col items-center py-10 bg-[#F9FAFB] gap-8">
-        {/* Title + Description */}
-        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[280px] rounded-2xl drop-shadow-lg gap-8">
-          {/* Top Color */}
-          <div
-            className={`w-full h-[15px] rounded-t-[12px] bg-[${userSetColor}]`}
-          ></div>
-
-          <div className=" p-6 pt-0 flex flex-col h-full justify-between">
-            <div className="flex flex-col gap-3">
-              {/* Title */}
-              <h1 className="font-semibold text-4xl">{set?.name}</h1>
-
-              {/* Other descriptions */}
-
-              <h2></h2>
-              <h2>
+        {/* Author */}
+        <div className="w-full max-w-[1216px]">
+          <button
+            className="flex items-center gap-2 sm:gap-3  p-2 px-3 rounded-2xl drop-shadow-lg hover:bg-gray-100 duration-100 cursor-pointer justify-center"
+            onClick={handleProfileClick}
+          >
+            <img
+              src="/Lebron.svg"
+              alt="User Profile"
+              width={32}
+              height={32}
+              className="rounded-full object-cover"
+            />
+            <div className="flex flex-col items-baseline">
+              <h2 className="text-s">Created by LeBron James</h2>
+              <h2 className="text-xs">
+                Created{" "}
                 {set?.createdAt
                   ? new Date(set.createdAt).toLocaleDateString("en-US", options)
                   : ""}
               </h2>
             </div>
-
-            <p>{set?.description}</p>
-          </div>
+          </button>
         </div>
-
         {/* Set Overview */}
         <div className="flex flex-col w-full max-w-[1216px] bg-white h-[180px] p-6 rounded-2xl drop-shadow-lg gap-8">
           {/* Heading */}

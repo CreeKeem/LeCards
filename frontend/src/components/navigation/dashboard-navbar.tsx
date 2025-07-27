@@ -1,18 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SetInfo } from "../set";
+import { SetDto } from "@/components/set";
 
 export function DashboardNavbar({
   userName,
   dashboardHome,
-  setInfo,
+  setDto,
 }: {
   userName: string;
   dashboardHome: boolean;
-  setInfo?: SetInfo;
+  setDto?: SetDto;
 }) {
   return (
     <div className="bg-white w-full h-[72px] drop-shadow-sm px-4 sm:px-6 md:px-[80px]">
+      {!dashboardHome && (
+        <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+          <h1 className="font-semibold text-2xl sm:text-3xl text-center">
+            {setDto?.name}
+          </h1>
+        </div>
+      )}
+
       <div className="h-full flex items-center justify-between flex-wrap gap-y-2">
         {/* Logo + Brand */}
 

@@ -66,6 +66,7 @@ export const Flashcard = ({
   const deleteCard = async () => {
     handleDelete(flashcard.cardId);
   };
+  
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (termRef.current) {
       termRef.current.style.height = "auto";

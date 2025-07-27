@@ -51,6 +51,11 @@ export function SetCard({
     const slug = slugify(setDto.name);
     router.push(`/study/${setDto.setId}/${slug}`);
   };
+
+  const handleEditClick = () => {
+    const slug = slugify(setDto.name);
+    router.push(`/study/${setDto.setId}/${slug}`);
+  };
   return (
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
       {/* Colored top bar */}
@@ -59,8 +64,8 @@ export function SetCard({
       ></div>
 
       <div className="flex flex-col px-4 py-5 sm:py-6 gap-4">
-        {/* Header: Avatar + Title/Description + Ellipsis */}
-        <div className="flex justify-between items-center">
+        {/* Header: Image + Title/Description + Ellipsis */}
+        <div className="flex justify-between items-center min-h-[70px] -mt-2">
           <div className="flex items-center gap-3 relative">
             <div>
               <div
@@ -105,7 +110,10 @@ export function SetCard({
             />
             <p>Study</p>
           </button>
-          <button className="h-[42px] w-[42px] sm:w-[50px] border border-[#D1D5DB] flex items-center justify-center rounded-xl cursor-pointer hover:bg-gray-100 duration-300">
+          <button
+            className="h-[42px] w-[42px] sm:w-[50px] border border-[#D1D5DB] flex items-center justify-center rounded-xl cursor-pointer hover:bg-gray-100 duration-300"
+            onClick={handleEditClick}
+          >
             <img
               src="./editIcon.svg"
               alt="Edit icon"
