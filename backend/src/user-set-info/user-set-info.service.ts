@@ -22,8 +22,8 @@ export class UserSetInfoService {
     const userSetInfo = await this.prisma.userSetInfo.findUnique({
       where: {
         setId_userId: {
-          userId: userId,
-          setId: setId,
+          userId,
+          setId,
         },
       },
     });

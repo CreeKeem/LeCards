@@ -19,6 +19,7 @@ export const Flashcard = ({
   const [favorite, setFavorite] = useState<boolean>(
     userCardDto?.favorite || false
   );
+  const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(isEdit || false);
   const [term, setTerm] = useState<string>(flashcard.term);
   const [definition, setDefinition] = useState<string>(flashcard.definition);
@@ -58,14 +59,13 @@ export const Flashcard = ({
       term: term,
       definition: definition,
     });
-    if (!save) return
+    if (!save) return;
     setEdit(false);
   };
 
   const deleteCard = async () => {
-     
-    handleDelete(flashcard.cardId)
-  }
+    handleDelete(flashcard.cardId);
+  };
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (termRef.current) {
       termRef.current.style.height = "auto";
@@ -82,6 +82,11 @@ export const Flashcard = ({
       defRef.current.style.height = defRef.current.scrollHeight + "px";
     }
     setDefinition(e.target.value);
+  };
+
+  // ADD LEBRON VOICE OVER
+  const playAudio = () => {
+    setAudioPlaying(!audioPlaying);
   };
 
   return (
@@ -146,15 +151,11 @@ export const Flashcard = ({
           className="cursor-pointer"
           onClick={clickFavorite}
         />
-        <img
-          src="/audioIcon.svg"
-          alt="Audio Icon"
-          className="cursor-pointer -mb-2"
-        />
+
         {isEdit ? (
           <></>
         ) : edit ? (
-          <div className="flex flex-col text-sm gap-2 mt-1">
+          <div className="flex flex-col text-sm gap-5 mt-1">
             <button
               onClick={handleCancel}
               className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-purple text-white"
@@ -169,10 +170,18 @@ export const Flashcard = ({
             </button>
           </div>
         ) : (
-          <Ellipsis
-            handleDelete={deleteCard}
-            handleEdit={() => setEdit(!edit)}
-          />
+          <div className="flex flex-col gap-5">
+            <img
+              src={audioPlaying ? "/audioIconClicked.svg" : "/audioIcon.svg"}
+              alt="Audio Icon"
+              className="cursor-pointer -mb-2"
+              onClick={playAudio}
+            />
+            <Ellipsis
+              handleDelete={deleteCard}
+              handleEdit={() => setEdit(!edit)}
+            />
+          </div>
         )}
       </div>
     </div>

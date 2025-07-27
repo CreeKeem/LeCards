@@ -16,9 +16,9 @@ export const fetchUserSetInfosByUser = async (
   }
 };
 
-export const fetchUserSetInfoById = async (id: number): Promise<UserSetInfoDto | null> => {
+export const fetchUserSetInfo = async (userId: number, setId: number): Promise<UserSetInfoDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/user-set-info/${id}`);
+    const res = await fetch(`${backendUrl}/user-set-info/user/${userId}/set/${setId}`);
 
     if (!res.ok) throw new Error("Failed to fetch set");
 

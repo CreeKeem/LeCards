@@ -10,28 +10,42 @@ import {
   FlashcardList,
   LearningStatus,
 } from "@/components/flashcard";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+import { UserSetInfoDto } from "@/types/user-set-info";
+import { fetchUserSetInfo } from "@/api/user-set-info";
+
+const options: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
 
 export default function Study() {
   const [set, setSet] = useState<SetDto>();
+  const [userSetColor, setUserSetColor] = useState<string>("");
   const [cardsMastered, setCardsMastered] = useState(0);
   const [cardsLearned, setCardsLearned] = useState(0);
   const [cardsStudying, setCardsStudying] = useState(0);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const setId = searchParams.get("setId");
+  const params = useParams();
+  const setId = params?.setId;
 
   useEffect(() => {
     const getSetAndStats = async () => {
       if (!setId) return;
 
       const set = await fetchSetById(+setId);
+      const setInfo = await fetchUserSetInfo(1, +setId);
       if (set) {
         setSet(set);
       } else {
         return;
       }
-      
+      if (setInfo) {
+        console.log(setInfo.color);
+        setUserSetColor(setInfo.color);
+      } else return;
+
       const userCardInfo = await fetchSetUserCardInfo(1, +setId);
       let mastered = 0;
       let learned = 0;
@@ -62,6 +76,62 @@ export default function Study() {
     <div>
       <DashboardNavbar userName="Lebron" dashboardHome={false} />
       <div className="min-h-screen flex flex-col items-center py-10 bg-[#F9FAFB] gap-8">
+        {/* Title + Description */}
+        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[280px] rounded-2xl drop-shadow-lg gap-8">
+          {/* Top Color */}
+          <div
+            className={`w-full h-[15px] rounded-t-[12px] bg-[${userSetColor}]`}
+          ></div>
+
+          <div className=" p-6 pt-0 flex flex-col h-full justify-between">
+            <div className="flex flex-col gap-3">
+              {/* Title */}
+              <h1 className="font-semibold text-4xl">{set?.name}</h1>
+
+              {/* Other descriptions */}
+
+              <h2></h2>
+              <h2>
+                {set?.createdAt
+                  ? new Date(set.createdAt).toLocaleDateString("en-US", options)
+                  : ""}
+              </h2>
+            </div>
+
+            <p>{set?.description}</p>
+          </div>
+        </div>
+
+        {/* Set Overview */}
+        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[180px] p-6 rounded-2xl drop-shadow-lg gap-8">
+          {/* Heading */}
+          <div className="flex justify-between">
+            <h1 className="font-semibold text-xl">Set Overview</h1>
+            <h2 className="bg-laker-gold text-laker-purple px-2 rounded-2xl">
+              {set?.numCards} cards
+            </h2>
+          </div>
+          {/* Stats */}
+          <div className="flex justify-around items-center w-full text-[#374151]">
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-2xl font-bold text-laker-purple">
+                {cardsMastered}
+              </h1>
+              <h2>Mastered</h2>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-2xl font-bold text-laker-gold">
+                {cardsLearned}
+              </h1>
+              <h2>Studied</h2>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="text-2xl font-bold">{cardsStudying}</h1>
+              <h2>Remaining</h2>
+            </div>
+          </div>
+        </div>
+
         {/* Four Options: Learn, Flashcards, Quiz, Match */}
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-[1248px] px-4">
           {/* Learn */}
@@ -102,36 +172,6 @@ export default function Study() {
             </div>
             <h1 className="font-semibold text-xl">Match</h1>
             <h2 className="text-sm">Memory Game</h2>
-          </div>
-        </div>
-
-        {/* Set Overview */}
-        <div className="flex flex-col w-full max-w-[1216px] bg-white h-[180px] p-6 rounded-2xl drop-shadow-lg gap-8">
-          {/* Heading */}
-          <div className="flex justify-between">
-            <h1 className="font-semibold text-xl">Set Overview</h1>
-            <h2 className="bg-laker-gold text-laker-purple px-2 rounded-2xl">
-              {set?.numCards} cards
-            </h2>
-          </div>
-          {/* Stats */}
-          <div className="flex justify-around items-center w-full text-[#374151]">
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold text-laker-purple">
-                {cardsMastered}
-              </h1>
-              <h2>Mastered</h2>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold text-laker-gold">
-                {cardsLearned}
-              </h1>
-              <h2>Studied</h2>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold">{cardsStudying}</h1>
-              <h2>Remaining</h2>
-            </div>
           </div>
         </div>
 

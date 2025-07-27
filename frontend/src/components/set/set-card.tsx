@@ -21,11 +21,10 @@ export function SetCard({
   useEffect(() => {}, [userSetInfoDto]);
 
   useEffect(() => {
-    let percent = 100
+    let percent = 100;
     if (userSetInfoDto) {
       setSetColor(userSetInfoDto.color);
       percent = (userSetInfoDto.cardsLearned / setDto.numCards) * 100;
-      
     }
     setPercentLearned(Math.round(percent));
     if (percent >= 90) {
@@ -40,8 +39,17 @@ export function SetCard({
     }
   }, [setDto, userSetInfoDto]);
 
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
   const handleStudyClick = () => {
-    router.push(`/dashboard/study?setId=${setDto.setId}`);
+    const slug = slugify(setDto.name);
+    router.push(`/study/${setDto.setId}/${slug}`);
   };
   return (
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
