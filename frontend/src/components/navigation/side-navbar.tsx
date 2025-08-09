@@ -12,7 +12,7 @@ export function SideNavbar() {
     >
       {/* Logo + Text */}
       <div className="flex items-center select-none">
-        <img src="./logo.svg" alt="LeCards Logo" className="h-[40px]" />
+        <img src="/logo.svg" alt="LeCards Logo" className="h-[40px]" />
         <h1
           className={`text-[20px] sm:text-[24px] ml-[12px] whitespace-nowrap text-laker-purple font-oswald font-bold transform transition-all duration-300 ease-in-out
             ${

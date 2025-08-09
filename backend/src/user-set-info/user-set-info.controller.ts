@@ -38,4 +38,9 @@ export class UserSetInfoController {
   delete(@Param('userId') userId: string, @Param('setId') setId: string) {
     return this.userSetInfoService.delete(+userId, +setId);
   }
+
+  @Get('/recent/:userId')
+  recent(@Param('userId') userId: string) {
+    return this.userSetInfoService.recent(+userId)
+  }
 }

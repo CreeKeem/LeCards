@@ -79,7 +79,7 @@ export function FlashcardList({
 
       <div className="flex max-w-[1216px] w-full bg-linear-to-r from-laker-purple to-laker-gold h-[120px] shadow-sm rounded-2xl items-center justify-center gap-6 cursor-pointer">
         <h1 className="text-white font-semibold text-2xl">Create New Card</h1>
-        <img src="/plusIcon.svg" alt="Plus Icon" />
+        <img src="/utility/plusIcon.svg" alt="Plus Icon" />
       </div>
     </div>
   );

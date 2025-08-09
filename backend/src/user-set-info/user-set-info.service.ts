@@ -86,4 +86,15 @@ export class UserSetInfoService {
       throw error;
     }
   }
+
+  async recent(userId: number) {
+    try {
+      
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException('userSetInfo does not exist');
+      }
+      throw error;
+    }
+  }
 }

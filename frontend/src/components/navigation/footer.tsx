@@ -41,7 +41,7 @@ export function Footer() {
           <ul className="flex space-x-4">
             <li>
               <Image
-                src="social-media/twitter.svg"
+                src="/social-media/twitter.svg"
                 alt="Twitter"
                 width={20}
                 height={20}
@@ -49,7 +49,7 @@ export function Footer() {
             </li>
             <li>
               <Image
-                src="social-media/instagram.svg"
+                src="/social-media/instagram.svg"
                 alt="Instagram"
                 width={20}
                 height={20}
@@ -57,7 +57,7 @@ export function Footer() {
             </li>
             <li>
               <Image
-                src="social-media/facebook.svg"
+                src="/social-media/facebook.svg"
                 alt="Facebook"
                 width={20}
                 height={20}
