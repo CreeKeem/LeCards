@@ -29,7 +29,7 @@ export function SideNavbar() {
         onClick={() => setExtend(!extend)}
       >
         <img
-          src="./extendArrow.svg"
+          src="/arrows/extendArrow.svg"
           alt="Toggle Arrow"
           className={`${extend ? "rotate-180" : "rotate-360" } transition-transform duration-300 ease-in-out select-none h-[15px]`}
         />

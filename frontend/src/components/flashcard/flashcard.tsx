@@ -147,7 +147,7 @@ export const Flashcard = ({
       {/* Options */}
       <div className="basis-[10%] p-4 flex items-center justify-center flex-col gap-5">
         <img
-          src={favorite ? "/favoriteIcon.svg" : "/nonFavoriteIcon.svg"}
+          src={favorite ? "/flashcard/favoriteIcon.svg" : "/flashcard/nonFavoriteIcon.svg"}
           alt="Favorite Icon"
           className="cursor-pointer"
           onClick={clickFavorite}
@@ -173,7 +173,7 @@ export const Flashcard = ({
         ) : (
           <div className="flex flex-col gap-5">
             <img
-              src={audioPlaying ? "/audioIconClicked.svg" : "/audioIcon.svg"}
+              src={audioPlaying ? "/flashcard/audioIconClicked.svg" : "/flashcard/audioIcon.svg"}
               alt="Audio Icon"
               className="cursor-pointer -mb-2"
               onClick={playAudio}

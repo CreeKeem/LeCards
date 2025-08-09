@@ -25,7 +25,7 @@ export default function Home() {
               href="/login"
               className="h-[56px] w-[170px] md:h-[64px] md:w-[190px] bg-laker-gold text-laker-purple rounded-[8px] font-bold text-[16px] md:text-[18px] cursor-pointer hover:bg-[#E0A322] duration-300 flex items-center justify-center gap-2"
             >
-              <Image src="/arrowPurple.svg" alt="Arrow" width={13.5} height={18} />
+              <Image src="/arrows/arrowPurple.svg" alt="Arrow" width={13.5} height={18} />
               <span>Start Learning</span>
             </Link>
           </div>
@@ -60,7 +60,7 @@ export default function Home() {
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Reason 1 */}
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
-              <Image src="/brainIcon.svg" alt="Brain" width={64} height={64} />
+              <Image src="/landing/brainIcon.svg" alt="Brain" width={64} height={64} />
               <h4 className="text-laker-purple text-xl sm:text-2xl font-bold mt-4">
                 Smart Learning
               </h4>
@@ -73,7 +73,7 @@ export default function Home() {
             {/* Reason 2 */}
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
               <Image
-                src="/trophyIcon.svg"
+                src="/landing/trophyIcon.svg"
                 alt="Trophy"
                 width={64}
                 height={64}
@@ -89,7 +89,7 @@ export default function Home() {
 
             {/* Reason 3 */}
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col items-center p-8 text-center">
-              <Image src="/teamIcon.svg" alt="Team" width={64} height={64} />
+              <Image src="/landing/teamIcon.svg" alt="Team" width={64} height={64} />
               <h4 className="text-laker-purple text-xl sm:text-2xl font-bold mt-4">
                 Team Learning
               </h4>
@@ -171,7 +171,7 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/bronny.svg"
+                  src="/landing/bronny.svg"
                   alt="Bornny James"
                   width={64}
                   height={64}
@@ -193,7 +193,7 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/michael.svg"
+                  src="/landing/michael.svg"
                   alt="Michael Jordan"
                   width={64}
                   height={64}
@@ -218,7 +218,7 @@ export default function Home() {
             <div className="bg-[#F0F0F0] rounded-xl flex flex-col p-6 sm:p-8 text-left gap-4 min-h-[220px]">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/john.svg"
+                  src="/landing/john.svg"
                   alt="Random White Man"
                   width={64}
                   height={64}
@@ -259,7 +259,7 @@ export default function Home() {
             className="bg-laker-gold text-laker-purple text-base sm:text-lg font-black h-14 w-48 rounded-lg cursor-pointer hover:bg-[#E0A322] transition duration-300 flex items-center justify-center gap-3"
           >
             <Image
-              src="/rocketIcon.svg"
+              src="/landing/rocketIcon.svg"
               alt="Rocket Ship"
               width={18}
               height={26}

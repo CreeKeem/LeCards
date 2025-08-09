@@ -55,7 +55,7 @@ export default function Dashboard() {
               <div className="w-full h-full flex flex-col gap-2">
                 <div className="flex items-center gap-3 flex-wrap">
                   <Image
-                    src={"/trophyIcon2.svg"}
+                    src={"/utility/trophyIcon2.svg"}
                     width={27}
                     height={24}
                     alt="Trophy"
@@ -107,7 +107,7 @@ export default function Dashboard() {
                 <div className="text-white flex gap-5">
                   <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                     <Image
-                      src="/plusIcon.svg"
+                      src="/utility/plusIcon.svg"
                       width={17.5}
                       height={28}
                       alt="Plus Icon"
@@ -125,7 +125,7 @@ export default function Dashboard() {
                 <div className="text-white flex gap-5">
                   <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                     <Image
-                      src="/shuffleIcon.svg"
+                      src="/utility/shuffleIcon.svg"
                       width={20}
                       height={28}
                       alt="Shuffle Icon"

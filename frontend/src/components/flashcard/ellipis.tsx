@@ -44,7 +44,7 @@ export function Ellipsis({
           onClick={handleClick}
           className="text-[#9CA3AF] cursor-pointer focus:outline-none rounded-full p-1 py-2 hover:bg-gray-100"
         >
-          <img src="/ellipsisIcon.svg" alt="..." />
+          <img src="/utility/ellipsisIcon.svg" alt="..." />
         </MenuButton>
       </div>
 

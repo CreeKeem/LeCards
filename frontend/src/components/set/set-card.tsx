@@ -73,7 +73,7 @@ export function SetCard({
                 className={`h-10 w-10 rounded-[8px] absolute opacity-20 bg-[${setColor}]`}
               ></div>
               <div className="h-10 w-10 flex items-center justify-center relative z-10">
-                <img src="./logo.svg" alt="" className="h-6 w-6 rounded-full" />
+                <img src="logo.svg" alt="" className="h-6 w-6 rounded-full" />
               </div>
             </div>
 
@@ -105,7 +105,7 @@ export function SetCard({
             onClick={handleStudyClick}
           >
             <img
-              src="./arrowWhite.svg"
+              src="arrows/arrowWhite.svg"
               alt="White Arrow Icon"
               className="h-4 w-4 sm:h-5 sm:w-5"
             />
@@ -116,7 +116,7 @@ export function SetCard({
             onClick={handleEditClick}
           >
             <img
-              src="./editIcon.svg"
+              src="/utility/editIcon.svg"
               alt="Edit icon"
               className="h-4 w-4 sm:h-5 sm:w-5"
             />

@@ -4,7 +4,7 @@ export function Header() {
         
       <div className="flex w-[400px] h-[50px] bg-white border border-[#D1D5DB] items-center rounded-2xl px-3 py-1">
         <img
-          src="./searchIcon.svg"
+          src="/utility/searchIcon.svg"
           alt="Search Icon"
           className="h-[16px] w-[16px]"
         />

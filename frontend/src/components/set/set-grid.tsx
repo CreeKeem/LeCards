@@ -49,7 +49,7 @@ export function SetGrid({ userId }: { userId: number }) {
         </h1>
         <div className="flex w-[400px] bg-white border border-[#D1D5DB] items-center rounded-2xl px-3 py-1">
           <img
-            src="./searchIcon.svg"
+            src="/utility/searchIcon.svg"
             alt="Search Icon"
             className="h-[16px] w-[16px]"
           />
@@ -84,7 +84,7 @@ export function SetGrid({ userId }: { userId: number }) {
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-full flex items-center justify-center">
               <img
-                src="/plusIcon.svg"
+                src="/utility/plusIcon.svg"
                 width={17.5}
                 height={28}
                 alt="Plus Icon"

@@ -148,7 +148,7 @@ export default function Study() {
           <div className="bg-laker-purple rounded-2xl text-white flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#7831B7] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-white opacity-20 w-full h-full rounded-2xl"></div>
-              <img src="/learnIcon.svg" alt="Learn Icon" />
+              <img src="/set/learnIcon.svg" alt="Learn Icon" />
             </div>
             <h1 className="font-semibold text-xl">Learn</h1>
             <h2 className="text-sm">Study Mode</h2>
@@ -158,7 +158,7 @@ export default function Study() {
           <div className="bg-laker-gold rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#E0A322] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
-              <img src="/flashcardIcon.svg" alt="Flashcard Icon" />
+              <img src="/set/flashcardIcon.svg" alt="Flashcard Icon" />
             </div>
             <h1 className="font-semibold text-xl">Flashcards</h1>
             <h2 className="text-sm">Flip & Review</h2>
@@ -168,7 +168,7 @@ export default function Study() {
           <div className="bg-white border-laker-purple border-2 rounded-2xl text-laker-purple flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#5625831c] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-purple opacity-20 w-full h-full rounded-2xl"></div>
-              <img src="/quizIcon.svg" alt="Quiz Icon" />
+              <img src="/set/quizIcon.svg" alt="Quiz Icon" />
             </div>
             <h1 className="font-semibold text-xl">Quiz</h1>
             <h2 className="text-sm">Test Yourself</h2>
@@ -178,7 +178,7 @@ export default function Study() {
           <div className="bg-white border-laker-gold border-2 rounded-2xl text-laker-gold flex flex-col items-center justify-center cursor-pointer h-[164px] gap-1 hover:bg-[#fdb9271c] duration-300">
             <div className="flex items-center justify-center w-[48px] h-[48px] relative">
               <div className="absolute bg-laker-gold opacity-20 w-full h-full rounded-2xl"></div>
-              <img src="/trophyIcon2.svg" alt="Trophy Icon" />
+              <img src="/utility/trophyIcon2.svg" alt="Trophy Icon" />
             </div>
             <h1 className="font-semibold text-xl">Match</h1>
             <h2 className="text-sm">Memory Game</h2>
