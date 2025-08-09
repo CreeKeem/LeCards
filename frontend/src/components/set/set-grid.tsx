@@ -55,7 +55,7 @@ export function SetGrid({ userId }: { userId: number }) {
           />
           <input
             type="text"
-            placeholder="Search sets..."
+            placeholder="Search your sets"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 outline-none px-2 py-2 text-sm"

@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardNavbar, Footer } from "@/components/navigation";
+import { Footer } from "@/components/navigation";
 import { SetDto } from "@/types/sets";
 import { useEffect, useState } from "react";
 import { fetchSetById } from "@/api/set";
@@ -87,7 +87,6 @@ export default function Study() {
 
   return (
     <div>
-      <DashboardNavbar userName="Lebron" dashboardHome={false} setDto={set} />
       <div className="min-h-screen flex flex-col items-center py-10 bg-[#F9FAFB] gap-8">
         {/* Author */}
         <div className="w-full max-w-[1216px]">

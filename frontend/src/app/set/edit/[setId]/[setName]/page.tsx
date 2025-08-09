@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardNavbar, Footer } from "@/components/navigation";
+import { Footer } from "@/components/navigation";
 import { useEffect, useState, useRef } from "react";
 import { FlashcardList, LearningStatus } from "@/components/flashcard";
 import { useRouter, useParams } from "next/navigation";
@@ -38,7 +38,6 @@ export default function Edit() {
 
   return (
     <div>
-      <DashboardNavbar userName="Lebron" dashboardHome={false} />
       <div className="min-h-screen flex flex-col items-center py-10 bg-[#F9FAFB] gap-8">
         {/* Title + Description */}
         <div className="flex flex-col w-full max-w-[1216px] bg-white min-h-[180px] rounded-2xl drop-shadow-lg gap-8 p-6">
