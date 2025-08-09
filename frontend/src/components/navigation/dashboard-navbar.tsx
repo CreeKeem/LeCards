@@ -12,7 +12,7 @@ export function DashboardNavbar({
   setDto?: SetDto;
 }) {
   return (
-    <div className="bg-white w-full h-[72px] drop-shadow-sm px-4 sm:px-6 md:px-[80px]">
+    <div className="bg-[#F9FAFB] w-full h-[72px] px-4 sm:px-6 md:px-[80px]">
       {!dashboardHome && (
         <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
           <h1 className="font-semibold text-2xl sm:text-3xl text-center">

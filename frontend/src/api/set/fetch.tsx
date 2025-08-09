@@ -1,4 +1,4 @@
-import { SetDto } from "@/types/sets";
+import { SetDto } from ".";
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const fetchSetsByUser = async (

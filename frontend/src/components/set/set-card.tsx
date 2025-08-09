@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { SetDto, UserSetInfoDto } from ".";
 import { useRouter } from "next/navigation";
 import { Ellipsis } from "../flashcard";
-import { updateUserSetInfo } from "@/api/user-set-info";
 
 export function SetCard({
   setDto,
@@ -49,8 +48,6 @@ export function SetCard({
       .replace(/^-+|-+$/g, "");
 
   const handleStudyClick = async () => {
-    const update = await updateUserSetInfo({userId: 1, setId:setDto.setId, lastAccess: new Date()})
-    if (!update) return
     const slug = slugify(setDto.name);
     router.push(`/study/${setDto.setId}/${slug}`);
   };
@@ -63,7 +60,8 @@ export function SetCard({
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">
       {/* Colored top bar */}
       <div
-        className={`w-full h-[12px] rounded-t-[12px] bg-[${setColor}]`}
+        className="w-full h-[12px] rounded-t-[12px]"
+        style={{ backgroundColor: setColor }}
       ></div>
 
       <div className="flex flex-col px-4 py-5 sm:py-6 gap-4">
@@ -94,7 +92,7 @@ export function SetCard({
           <p>{setDto.numCards} cards</p>
           <p
             style={{ backgroundColor: learnedColorBg, color: learnedColorText }}
-            className={`rounded-2xl px-2 py-0.5 bg-[${learnedColorBg}] text-[${learnedColorText}]`}
+            className="rounded-2xl px-2 py-0.5"
           >
             {percentLearned}% mastered
           </p>

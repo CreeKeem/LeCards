@@ -16,28 +16,26 @@ export function SetGrid({ userId }: { userId: number }) {
   const [sets, setSets] = useState<SetDto[]>([]);
   const [userSetInfos, setUserSetInfos] = useState<UserSetInfoDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    const getSets = async () => {
-      try {
-        const sets = await fetchSetsByUser(userId);
-        if (sets) {
-          setSets(sets);
-        }
-        const setInfos = await fetchUserSetInfosByUser(userId);
-        if (setInfos) {
-          setUserSetInfos(setInfos);
-        }
-      } catch (err) {
-        console.error("Failed to fetch sets:", err);
-        setSets([]);
-        setUserSetInfos([]);
-      }
-    };
+  const getSetsAndInfos = async () => {
+    try {
+      const [sets, setInfos] = await Promise.all([
+        fetchSetsByUser(userId),
+        fetchUserSetInfosByUser(userId),
+      ]);
+      console.log(setInfos)
+      setSets(sets ?? []);
+      setUserSetInfos(setInfos ?? []);
+    } catch (err) {
+      console.error("Failed to fetch sets:", err);
+    }
+  };
 
-    getSets();
-  }, []);
+  getSetsAndInfos();
+}, [userId]);
+
   const filteredSets = sets.filter((set) =>
     set.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -81,7 +79,7 @@ export function SetGrid({ userId }: { userId: number }) {
         w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] 
         h-auto drop-shadow-lg rounded-[12px] flex items-center justify-center 
         cursor-pointer hover:bg-[#E0A322] duration-300"
-        onClick={() => router.push('/set/create')}
+          onClick={() => router.push("/set/create")}
         >
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-full flex items-center justify-center">

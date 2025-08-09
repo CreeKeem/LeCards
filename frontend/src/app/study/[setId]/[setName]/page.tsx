@@ -7,7 +7,7 @@ import { fetchSetById } from "@/api/set";
 import { fetchSetUserCardInfo } from "@/api/user-card-info";
 import { FlashcardList, LearningStatus } from "@/components/flashcard";
 import { useRouter, useParams } from "next/navigation";
-import { fetchUserSetInfo } from "@/api/user-set-info";
+import { fetchUserSetInfo, updateUserSetInfo } from "@/api/user-set-info";
 
 const options: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -62,6 +62,12 @@ export default function Study() {
       setCardsMastered(mastered);
       setCardsLearned(learned);
       setCardsStudying(studying);
+      const update = await updateUserSetInfo({
+        userId: 1,
+        setId: +setId,
+        lastAccess: new Date(),
+      });
+      if (!update) return;
     };
 
     getSetAndStats();
