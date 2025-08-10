@@ -81,9 +81,30 @@ export function SetCard({
               <h3 className="text-base font-semibold text-[#111827]">
                 {setDto.name}
               </h3>
-              <h4 className="text-sm text-[#6B7280]">{setDto.description}</h4>
+              <div className="relative group inline-block">
+                <h4 className="text-sm text-[#6B7280]">
+                  {setDto.description.length > 36
+                    ? setDto.description.substring(0, 36) + "..."
+                    : setDto.description}
+                </h4>
+                {setDto.description.length > 36 && (
+                  <p
+                    className="
+                      absolute bottom-full left-1/2 -translate-x-1/2 mb-2 
+                      bg-gray-800 text-white text-sm px-2 py-1 rounded 
+                      opacity-0 group-hover:opacity-100 
+                      transition-opacity duration-300 ease-in-out
+                      pointer-events-none
+                      whitespace-nowrap z-10
+                    "
+                  >
+                    {setDto.description}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
+
           <Ellipsis handleDelete={() => {}} handleEdit={() => {}} />
         </div>
 
