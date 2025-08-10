@@ -1,16 +1,16 @@
 import { UpdateUserCardInfoDto, UserCardInfoDto } from "@/types/user-card-info";
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const updateUserCardInfo = async ({
-  userId,
   cardId,
   favorite,
   learningStatus,
-  lastReviewed
-}: UpdateUserCardInfoDto): Promise<UserCardInfoDto | null> => {
+  lastReviewed,
+}: Omit<UpdateUserCardInfoDto, "userId">): Promise<UserCardInfoDto | null> => {
   try {
     const body: any = {
-      userId,
       cardId,
       favorite,
       learningStatus,
@@ -20,20 +20,17 @@ export const updateUserCardInfo = async ({
       body.lastReviewed = lastReviewed.toISOString();
     }
 
-    const res = await fetch(
+    const response = await ApiClient.authenticatedFetch(
       `${backendUrl}/user-card-info`,
       {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(body),
       }
     );
 
-    if (!res.ok) throw new Error("Failed to update user card info");
+    if (!response.ok) throw new Error("Failed to update user card info");
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
     console.error("Error updating user card info:", error);
     return null;

@@ -1,18 +1,17 @@
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const deleteUserCardInfo = async (
-  userId: number,
-  cardId: number
-): Promise<boolean> => {
+export const deleteUserCardInfo = async (cardId: number): Promise<boolean> => {
   try {
-    const res = await fetch(
-      `${backendUrl}/user-card-info/user/${userId}/card/${cardId}`,
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/user-card-info/card/${cardId}`,
       {
         method: "DELETE",
       }
     );
 
-    if (!res.ok) throw new Error("Failed to delete user card info");
+    if (!response.ok) throw new Error("Failed to delete user card info");
 
     return true;
   } catch (error) {

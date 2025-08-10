@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signup, signin } from "@/api/auth";
 import { SignInDto, SignUpDto } from "@/types/auth";
+import { TokenService } from "@/lib/auth/token-service";
 
 export default function Login() {
-
   const [signUp, setSignUp] = useState(true);
   const [authError, setAuthError] = useState(false);
 
@@ -18,6 +18,13 @@ export default function Login() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const router = useRouter();
+
+  // Check if user is already authenticated
+  useEffect(() => {
+    if (TokenService.hasValidAccessToken()) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,8 +43,8 @@ export default function Login() {
         lName,
       };
 
-      const user = await signup(data);
-      if (!user) {
+      const success = await signup(data);
+      if (!success) {
         setAuthError(true);
         return;
       }
@@ -47,13 +54,12 @@ export default function Login() {
         email,
         password,
       };
-
-      const user = await signin(data);
-      if (!user) {
+      const success = await signin(data);
+      if (!success) {
         setAuthError(true);
         return;
       }
-      router.push("/dashboard");
+      // window.location.href = '/dashboard';
     }
   };
 
@@ -153,6 +159,7 @@ export default function Login() {
                     placeholder="LeBron"
                     value={fName}
                     onChange={(e) => setFName(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="flex flex-col w-[48%]">
@@ -163,6 +170,7 @@ export default function Login() {
                     placeholder="James"
                     value={lName}
                     onChange={(e) => setLName(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -177,6 +185,7 @@ export default function Login() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -189,6 +198,7 @@ export default function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
@@ -202,13 +212,24 @@ export default function Login() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                 />
+              </div>
+            )}
+
+            {authError && (
+              <div className="text-red-500 text-sm text-center">
+                {signUp
+                  ? password !== confirmPassword
+                    ? "Passwords do not match"
+                    : "Sign up failed. Please try again."
+                  : "Invalid credentials. Please try again."}
               </div>
             )}
 
             <button
               type="submit"
-              className="bg-laker-gold h-[48px] rounded-2xl hover:bg-[#E0A322] duration-300 cursor-pointer"
+              className="bg-laker-gold h-[48px] rounded-2xl hover:bg-[#E0A322] duration-300 cursor-pointer text-white font-semibold"
             >
               {signUp ? "Sign Up" : "Sign In"}
             </button>

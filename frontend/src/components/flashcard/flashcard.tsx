@@ -30,16 +30,15 @@ export const Flashcard = ({
   const defRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (userCardDto.learningStatus == LearningStatus.MASTERED) {
+    if (userCardDto?.learningStatus == LearningStatus.MASTERED) {
       setLearningStatusBorder("border-green-600");
-    } else if (userCardDto.learningStatus == LearningStatus.LEARNING) {
+    } else if (userCardDto?.learningStatus == LearningStatus.LEARNING) {
       setLearningStatusBorder("border-yellow-400");
     }
-  });
+  }, [userCardDto]);
 
   const clickFavorite = async () => {
     const update = await updateUserCardInfo({
-      userId: 1,
       cardId: flashcard.cardId,
       favorite: !favorite,
     });
@@ -61,12 +60,15 @@ export const Flashcard = ({
     });
     if (!save) return;
     setEdit(false);
+    // Update the flashcard object
+    flashcard.term = term;
+    flashcard.definition = definition;
   };
 
   const deleteCard = async () => {
     handleDelete(flashcard.cardId);
   };
-  
+
   const handleTermChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (termRef.current) {
       termRef.current.style.height = "auto";
@@ -147,7 +149,11 @@ export const Flashcard = ({
       {/* Options */}
       <div className="basis-[10%] p-4 flex items-center justify-center flex-col gap-5">
         <img
-          src={favorite ? "/flashcard/favoriteIcon.svg" : "/flashcard/nonFavoriteIcon.svg"}
+          src={
+            favorite
+              ? "/flashcard/favoriteIcon.svg"
+              : "/flashcard/nonFavoriteIcon.svg"
+          }
           alt="Favorite Icon"
           className="cursor-pointer"
           onClick={clickFavorite}
@@ -159,7 +165,7 @@ export const Flashcard = ({
           <div className="flex flex-col text-sm gap-5 mt-1">
             <button
               onClick={handleCancel}
-              className="cursor-pointer  rounded-2xl p-1 px-2 bg-laker-purple text-white"
+              className="cursor-pointer rounded-2xl p-1 px-2 bg-laker-purple text-white"
             >
               Cancel
             </button>
@@ -173,7 +179,11 @@ export const Flashcard = ({
         ) : (
           <div className="flex flex-col gap-5">
             <img
-              src={audioPlaying ? "/flashcard/audioIconClicked.svg" : "/flashcard/audioIcon.svg"}
+              src={
+                audioPlaying
+                  ? "/flashcard/audioIconClicked.svg"
+                  : "/flashcard/audioIcon.svg"
+              }
               alt="Audio Icon"
               className="cursor-pointer -mb-2"
               onClick={playAudio}

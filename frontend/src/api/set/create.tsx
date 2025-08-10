@@ -1,21 +1,20 @@
 import { CreateSetDto, SetDto } from "@/types/sets";
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const createSet = async (
-  data: CreateSetDto
-): Promise<SetDto | null> => {
+export const createSet = async (data: CreateSetDto): Promise<SetDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/set`, {
+    const response = await ApiClient.authenticatedFetch(`${backendUrl}/set`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(data),
     });
 
-    if (!res.ok) throw new Error("Failed to create set");
+    if (!response.ok) {
+      throw new Error("Failed to create set");
+    }
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
     console.error("Error creating set:", error);
     return null;

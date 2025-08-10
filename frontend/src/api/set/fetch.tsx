@@ -1,15 +1,19 @@
-import { SetDto } from ".";
+import { SetDto } from "@/types/sets";
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const fetchSetsByUser = async (
-  userId: number
-): Promise<SetDto[] | null> => {
+export const fetchUserSets = async (): Promise<SetDto[] | null> => {
   try {
-    const res = await fetch(`${backendUrl}/set/user/${userId}`);
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/set/user/my-sets`
+    );
 
-    if (!res.ok) throw new Error("Failed to fetch user's sets");
+    if (!response.ok) {
+      throw new Error("Failed to fetch user's sets");
+    }
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
     console.error("Error fetching user sets:", error);
     return null;
@@ -18,27 +22,35 @@ export const fetchSetsByUser = async (
 
 export const fetchSetById = async (id: number): Promise<SetDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/set/${id}`);
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/set/${id}`
+    );
 
-    if (!res.ok) throw new Error("Failed to fetch set");
+    if (!response.ok) {
+      throw new Error("Failed to fetch set");
+    }
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
     console.error("Error fetching set:", error);
     return null;
   }
 };
 
-export const fetchUserSetCount = async (id: number): Promise<number> => {
+export const fetchUserSetCount = async (): Promise<number> => {
   try {
-    const res = await fetch(`${backendUrl}/set/user/${id}/count`);
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/set/user/count`
+    );
 
-    if (!res.ok) throw new Error("Failed to fetch set");
+    if (!response.ok) {
+      throw new Error("Failed to fetch set count");
+    }
 
-    return await res.json();
+    const result = await response.json();
+    return result.count || result;
   } catch (error) {
-    console.error("Error fetching set:", error);
+    console.error("Error fetching set count:", error);
     return 0;
   }
 };
-

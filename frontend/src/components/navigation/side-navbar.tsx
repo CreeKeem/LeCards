@@ -1,9 +1,17 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useSidebar, HomeIcon, ProfileIcon, PlusIcon, ChevronIcon, LogoutIcon } from ".";
+import {
+  useSidebar,
+  HomeIcon,
+  ProfileIcon,
+  PlusIcon,
+  ChevronIcon,
+  LogoutIcon,
+} from ".";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { logout } from "@/api/auth";
 
 interface NavItemProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -61,7 +69,9 @@ function NavItem({ icon: Icon, label, extended, func }: NavItemProps) {
       </button>
 
       {/* Portal-based tooltip - rendered outside the sidebar */}
-      {isHovered && !extended && typeof window !== "undefined" &&
+      {isHovered &&
+        !extended &&
+        typeof window !== "undefined" &&
         createPortal(
           <div
             className="fixed pointer-events-none z-50 -translate-y-1/2"
@@ -93,6 +103,10 @@ export function SideNavbar() {
   const { extend, toggleExtend } = useSidebar();
   const router = useRouter();
 
+  const handleLogout = async () => {
+    await logout();
+  };
+
   const navItems = [
     {
       icon: HomeIcon,
@@ -106,9 +120,9 @@ export function SideNavbar() {
       func: () => router.push("/set/create"),
     },
     {
-      icon: LogoutIcon  ,
+      icon: LogoutIcon,
       label: "Logout",
-      func: () => router.push("/"),
+      func: handleLogout,
     },
     { icon: ChevronIcon, label: "Collapse", func: toggleExtend },
   ];
@@ -126,7 +140,7 @@ export function SideNavbar() {
         <div className="flex items-center justify-center w-[40px] h-[40px] flex-shrink-0">
           <img src="/logo.svg" alt="LeCards Logo" className="h-[40px]" />
         </div>
-        
+
         <h1
           className={`whitespace-nowrap text-laker-purple font-oswald font-bold text-[20px] sm:text-[24px]
             transition-all ease-out

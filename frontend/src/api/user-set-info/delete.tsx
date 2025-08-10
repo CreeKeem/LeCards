@@ -1,16 +1,21 @@
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const deleteSet = async (id: number): Promise<boolean> => {
+export const deleteUserSetInfo = async (setId: number): Promise<boolean> => {
   try {
-    const res = await fetch(`${backendUrl}/user-set-info/${id}`, {
-      method: "DELETE",
-    });
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/user-set-info/set/${setId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-    if (!res.ok) throw new Error("Failed to delete set");
+    if (!response.ok) throw new Error("Failed to delete user set info");
 
     return true;
   } catch (error) {
-    console.error("Error deleting set:", error);
+    console.error("Error deleting user set info:", error);
     return false;
   }
 };

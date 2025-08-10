@@ -8,33 +8,54 @@ import {
   UserSetInfoDto,
   SetDto,
 } from ".";
-import { fetchSetsByUser } from "@/api/set";
-import { fetchUserSetInfosByUser } from "@/api/user-set-info";
+import { fetchUserSets } from "@/api/set";
+import { fetchUserSetInfos } from "@/api/user-set-info";
 import { useRouter } from "next/navigation";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
-export function SetGrid({ userId }: { userId: number }) {
+export function SetGrid() {
   const [sets, setSets] = useState<SetDto[]>([]);
   const [userSetInfos, setUserSetInfos] = useState<UserSetInfoDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { isAuthenticated } = useAuthGuard();
 
   useEffect(() => {
-  const getSetsAndInfos = async () => {
-    try {
-      const [sets, setInfos] = await Promise.all([
-        fetchSetsByUser(userId),
-        fetchUserSetInfosByUser(userId),
-      ]);
-      console.log(setInfos)
-      setSets(sets ?? []);
-      setUserSetInfos(setInfos ?? []);
-    } catch (err) {
-      console.error("Failed to fetch sets:", err);
-    }
-  };
+    if (!isAuthenticated) return;
 
-  getSetsAndInfos();
-}, [userId]);
+    const getSetsAndInfos = async () => {
+      try {
+        const [sets, setInfos] = await Promise.all([
+          fetchUserSets(),
+          fetchUserSetInfos(),
+        ]);
+        setSets(sets ?? []);
+        setUserSetInfos(setInfos ?? []);
+      } catch (err) {
+        console.error("Failed to fetch sets:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getSetsAndInfos();
+  }, [isAuthenticated]);
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-[1216px] mx-auto px-0">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="font-bold text-[24px] text-[#111827]">
+            Your Flashcard Sets
+          </h1>
+        </div>
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-laker-purple"></div>
+        </div>
+      </div>
+    );
+  }
 
   const filteredSets = sets.filter((set) =>
     set.name.toLowerCase().includes(searchQuery.toLowerCase())

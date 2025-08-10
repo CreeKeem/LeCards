@@ -1,23 +1,25 @@
 import { UserSetInfoDto, UpdateUserSetInfoDto } from "@/types/user-set-info";
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const updateUserSetInfo = async (
-  data: UpdateUserSetInfoDto
+  data: Omit<UpdateUserSetInfoDto, "userId">
 ): Promise<UserSetInfoDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/user-set-info`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/user-set-info`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      }
+    );
 
-    if (!res.ok) throw new Error("Failed to update set");
+    if (!response.ok) throw new Error("Failed to update user set info");
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
-    console.error("Error updating set:", error);
+    console.error("Error updating user set info:", error);
     return null;
   }
 };

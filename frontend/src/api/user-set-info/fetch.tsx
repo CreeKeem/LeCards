@@ -1,32 +1,36 @@
 import { UserSetInfoDto } from "@/types/user-set-info";
+import { ApiClient } from "@/lib/api/api-client";
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const fetchUserSetInfosByUser = async (
-  userId: number
-): Promise<UserSetInfoDto[] | null> => {
+export const fetchUserSetInfos = async (): Promise<UserSetInfoDto[] | null> => {
   try {
-    const res = await fetch(`${backendUrl}/user-set-info/user/${userId}`);
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/user-set-info`
+    );
 
-    if (!res.ok) throw new Error("Failed to fetch user's sets");
+    if (!response.ok) throw new Error("Failed to fetch user set infos");
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
-    console.error("Error fetching user sets:", error);
+    console.error("Error fetching user set infos:", error);
     return null;
   }
 };
 
-export const fetchUserSetInfo = async (userId: number, setId: number): Promise<UserSetInfoDto | null> => {
+export const fetchUserSetInfo = async (
+  setId: number
+): Promise<UserSetInfoDto | null> => {
   try {
-    const res = await fetch(`${backendUrl}/user-set-info/user/${userId}/set/${setId}`);
+    const response = await ApiClient.authenticatedFetch(
+      `${backendUrl}/user-set-info/set/${setId}`
+    );
 
-    if (!res.ok) throw new Error("Failed to fetch set");
+    if (!response.ok) throw new Error("Failed to fetch user set info");
 
-    return await res.json();
+    return await response.json();
   } catch (error) {
-    console.error("Error fetching set:", error);
+    console.error("Error fetching user set info:", error);
     return null;
   }
 };
-
-

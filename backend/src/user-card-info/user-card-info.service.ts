@@ -249,7 +249,7 @@ export class UserCardInfoService {
         learningStatus: LearningStatus.MASTERED,
       },
     });
-    return { count: masteredCount };
+    return masteredCount;
   }
 
   async findLearningStatusCounts(userId: number) {

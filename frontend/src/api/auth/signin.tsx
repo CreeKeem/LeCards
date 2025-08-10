@@ -1,22 +1,24 @@
-import { SignInDto, UserInfo } from "@/types/auth";
+import { SignInDto } from "@/types/auth";
+import { TokenService, Tokens } from "@/lib/auth/token-service";
+import { ApiClient } from "@/lib/api/api-client";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export const signin = async (data: SignInDto): Promise<UserInfo | null> => {
+export const signin = async (data: SignInDto): Promise<boolean> => {
   try {
-    const res = await fetch(`${backendUrl}/auth/signin`, {
+    const response = await ApiClient.publicFetch(`${backendUrl}/auth/signin`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(data),
     });
+    if (!response.ok) {
+      throw new Error("Signin failed");
+    }
 
-    if (!res.ok) throw new Error("Signin failed");
-
-    return await res.json();
+    const tokens: Tokens = await response.json();
+    TokenService.setTokens(tokens);
+    return true;
   } catch (error) {
     console.error("Signin error:", error);
-    return null;
+    return false;
   }
 };
