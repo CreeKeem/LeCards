@@ -1,10 +1,6 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class CreateDto {
-  @IsNotEmpty()
-  @IsNumber()
-  userId: number;
-
+export class CreateDto {  
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -12,5 +8,4 @@ export class CreateDto {
   @IsOptional()
   @IsString()
   description?: string;
-  
 }

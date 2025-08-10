@@ -12,10 +12,6 @@ import { LearningStatus } from '@prisma/client';
 export class UpdateDto {
   @IsNotEmpty()
   @IsNumber()
-  userId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
   cardId: number;
 
   @IsOptional()

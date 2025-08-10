@@ -8,9 +8,6 @@ import {
 } from 'class-validator';
 
 export class CreateDto {
-  @IsNotEmpty()
-  @IsNumber()
-  userId: number;
 
   @IsNotEmpty()
   @IsNumber()

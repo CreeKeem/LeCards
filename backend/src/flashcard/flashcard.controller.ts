@@ -6,41 +6,48 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FlashcardService } from './flashcard.service';
 import { CreateDto, UpdateDto } from './dto/index';
+import { GetCurrentUserId } from '../auth/decorators';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('flashcard')
 export class FlashcardController {
   constructor(private flashcardService: FlashcardService) {}
 
   @Post('')
-  create(@Body() dto: CreateDto) {
-    return this.flashcardService.create(dto);
+  create(@Body() dto: CreateDto, @GetCurrentUserId() userId: number) {
+    return this.flashcardService.create(dto, userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.flashcardService.findOne(+id);
+  findOne(@Param('id') id: string, @GetCurrentUserId() userId: number) {
+    return this.flashcardService.findOne(+id, userId);
   }
 
   @Get('set/:setId')
-  findSetCards(@Param('setId') setId: string) {
-    return this.flashcardService.findSetCards(+setId);
+  findSetCards(
+    @Param('setId') setId: string,
+    @GetCurrentUserId() userId: number,
+  ) {
+    return this.flashcardService.findSetCards(+setId, userId);
   }
 
   @Patch('')
-  update(@Body() dto: UpdateDto) {
-    return this.flashcardService.update(dto);
+  update(@Body() dto: UpdateDto, @GetCurrentUserId() userId: number) {
+    return this.flashcardService.update(dto, userId);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.flashcardService.delete(+id);
+  delete(@Param('id') id: string, @GetCurrentUserId() userId: number) {
+    return this.flashcardService.delete(+id, userId);
   }
 
-  @Get('user/:userId/count')
-  findUserCardCount(@Param('userId') userId: string) {
-    return this.flashcardService.findUserCardCount(+userId);
+  @Get('user/count')
+  findUserCardCount(@GetCurrentUserId() userId: number) {
+    return this.flashcardService.findUserCardCount(userId);
   }
 }

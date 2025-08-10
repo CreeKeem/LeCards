@@ -6,41 +6,42 @@ import {
   Patch,
   Delete,
   Param,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserSetInfoService } from './user-set-info.service';
 import { CreateDto, UpdateDto } from './dto';
+import { GetCurrentUserId } from '../auth/decorators';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user-set-info')
 export class UserSetInfoController {
   constructor(private userSetInfoService: UserSetInfoService) {}
 
   @Post('')
-  create(@Body() dto: CreateDto) {
-    return this.userSetInfoService.create(dto);
+  create(@Body() dto: CreateDto, @GetCurrentUserId() userId: number) {
+    // Override userId from token for security
+    return this.userSetInfoService.create({ ...dto }, userId);
   }
 
-  @Get('user/:userId/set/:setId')
-  findOne(@Param('userId') userId: string, @Param('setId') setId: string) {
-    return this.userSetInfoService.findOne(+userId, +setId);
+  @Get('set/:setId')
+  findOne(@Param('setId') setId: string, @GetCurrentUserId() userId: number) {
+    return this.userSetInfoService.findOne(userId, +setId);
   }
 
-  @Get('user/:userId')
-  findUserSetInfos(@Param('userId') userId: string) {
-    return this.userSetInfoService.findSet(+userId);
+  @Get('')
+  findUserSetInfos(@GetCurrentUserId() userId: number) {
+    return this.userSetInfoService.findUserSetInfos(userId);
   }
 
   @Patch('')
-  update(@Body() dto: UpdateDto) {
-    return this.userSetInfoService.update(dto);
+  update(@Body() dto: UpdateDto, @GetCurrentUserId() userId: number) {
+    return this.userSetInfoService.update({ ...dto, }, userId);
   }
 
-  @Delete('user/:userId/set/:setId')
-  delete(@Param('userId') userId: string, @Param('setId') setId: string) {
-    return this.userSetInfoService.delete(+userId, +setId);
+  @Delete('set/:setId')
+  delete(@Param('setId') setId: string, @GetCurrentUserId() userId: number) {
+    return this.userSetInfoService.delete(userId, +setId)
   }
 
-  @Get('/recent/:userId')
-  recent(@Param('userId') userId: string) {
-    return this.userSetInfoService.recent(+userId)
-  }
 }

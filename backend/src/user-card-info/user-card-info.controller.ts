@@ -6,41 +6,57 @@ import {
   Patch,
   Delete,
   Param,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserCardInfoService } from './user-card-info.service';
 import { CreateDto, UpdateDto } from './dto';
+import { GetCurrentUserId } from '../auth/decorators';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user-card-info')
 export class UserCardInfoController {
   constructor(private userCardInfoService: UserCardInfoService) {}
 
   @Post('')
-  create(@Body() dto: CreateDto) {
-    return this.userCardInfoService.create(dto);
+  create(@Body() dto: CreateDto, @GetCurrentUserId() userId: number) {
+    // Override userId from token for security
+    return this.userCardInfoService.create({ ...dto }, userId);
   }
 
-  @Get('user/:userId/card/:cardId')
-  findOne(@Param('userId') userId: string, @Param('cardId') cardId: string) {
-    return this.userCardInfoService.findOne(+userId, +cardId);
+  @Get('card/:cardId')
+  findOne(@Param('cardId') cardId: string, @GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.findOne(userId, +cardId);
   }
 
-  @Get('user/:userId/set/:setId')
-  findSet(@Param('userId') userId: string, @Param('setId') setId: string) {
-    return this.userCardInfoService.findSet(+userId, +setId);
+  @Get('set/:setId')
+  findSet(@Param('setId') setId: string, @GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.findSet(userId, +setId);
   }
 
   @Patch('')
-  update(@Body() dto: UpdateDto) {
-    return this.userCardInfoService.update(dto);
+  update(@Body() dto: UpdateDto, @GetCurrentUserId() userId: number) {
+    // Override userId from token for security
+    return this.userCardInfoService.update({ ...dto }, userId);
   }
 
-  @Delete('user/:userId/card/:cardId')
-  delete(@Param('userId') userId: string, @Param('cardId') cardId: string) {
-    return this.userCardInfoService.delete(+userId, +cardId);
+  @Delete('card/:cardId')
+  delete(@Param('cardId') cardId: string, @GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.delete(userId, +cardId);
   }
 
-  @Get('user/:userId/mastered/count')
-  findUserMasteredCardCount(@Param('userId') userId: string) {
-    return this.userCardInfoService.findUserMasteredCardCount(+userId);
+  @Get('mastered/count')
+  findUserMasteredCardCount(@GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.findUserMasteredCardCount(userId);
+  }
+
+  @Get('learning-status/counts')
+  findLearningStatusCounts(@GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.findLearningStatusCounts(userId);
+  }
+
+  @Get('favorites')
+  findUserFavoriteCards(@GetCurrentUserId() userId: number) {
+    return this.userCardInfoService.findUserFavoriteCards(userId);
   }
 }

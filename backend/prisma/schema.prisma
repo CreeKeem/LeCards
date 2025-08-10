@@ -20,6 +20,7 @@ model Users {
   lName     String
   password  String
   createdAt DateTime @default(now())
+  hashedRt  String?
 
   cardStudied Int @default(0)
   correct     Int @default(0)

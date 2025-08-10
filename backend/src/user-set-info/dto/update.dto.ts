@@ -10,10 +10,6 @@ import {
 export class UpdateDto {
   @IsNotEmpty()
   @IsNumber()
-  userId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
   setId: number;
 
   @IsOptional()

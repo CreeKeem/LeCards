@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDto, UpdateDto } from './dto';
 
@@ -6,33 +10,66 @@ import { CreateDto, UpdateDto } from './dto';
 export class SetService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateDto) {
-    const sets = await this.prisma.sets.create({
+  async create(dto: CreateDto, userId: number) {
+    const set = await this.prisma.sets.create({
       data: {
-        userId: dto.userId,
+        userId: userId,
         name: dto.name,
         description: dto.description,
       },
     });
 
-    return sets;
+    // Create corresponding UserSetInfo record
+    await this.prisma.userSetInfo.create({
+      data: {
+        setId: set.setId,
+        userId: userId,
+        color: '#FDB927',
+        cardsLearned: 0,
+      },
+    });
+
+    return set;
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, requestingUserId: number) {
     try {
-      const sets = await this.prisma.sets.findUnique({
+      const set = await this.prisma.sets.findUnique({
         where: {
           setId: id,
         },
+        include: {
+          user: {
+            select: {
+              userId: true,
+              fName: true,
+              lName: true,
+              email: true,
+            },
+          },
+          UserSetInfo: {
+            where: {
+              userId: requestingUserId,
+            },
+          },
+        },
       });
 
-      if (!sets) {
-        throw new NotFoundException('Sets does not exist');
+      if (!set) {
+        throw new NotFoundException('Set does not exist');
       }
 
-      return sets;
+      // Check if user owns the set or has access to it
+      if (set.userId !== requestingUserId) {
+        throw new ForbiddenException('Access denied to this set');
+      }
+
+      return set;
     } catch (error) {
-      throw new NotFoundException('Sets does not exist');
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
+      throw new NotFoundException('Set does not exist');
     }
   }
 
@@ -42,42 +79,106 @@ export class SetService {
         where: {
           userId,
         },
+        include: {
+          UserSetInfo: {
+            where: {
+              userId,
+            },
+          },
+          _count: {
+            select: {
+              flashcards: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
       });
 
-      if (!sets) {
-        throw new NotFoundException('Sets does not exist');
-      }
+      // Update numCards for each set
+      const updatedSets = await Promise.all(
+        sets.map(async (set) => {
+          if (set._count.flashcards !== set.numCards) {
+            await this.prisma.sets.update({
+              where: { setId: set.setId },
+              data: { numCards: set._count.flashcards },
+            });
+          }
+          return {
+            ...set,
+            numCards: set._count.flashcards,
+          };
+        }),
+      );
 
-      return sets;
+      return updatedSets;
     } catch (error) {
-      throw new NotFoundException('Sets does not exist');
+      throw new NotFoundException('Sets do not exist');
     }
   }
 
-  async update(dto: UpdateDto) {
+  async update(dto: UpdateDto, requestingUserId: number) {
     try {
-      const sets = await this.prisma.sets.update({
+      // First check if the set exists and user owns it
+      const existingSet = await this.prisma.sets.findUnique({
         where: { setId: dto.setId },
-        data: dto,
       });
 
-      return sets;
+      if (!existingSet) {
+        throw new NotFoundException('Set does not exist');
+      }
+
+      if (existingSet.userId !== requestingUserId) {
+        throw new ForbiddenException('Access denied to this set');
+      }
+
+      const set = await this.prisma.sets.update({
+        where: { setId: dto.setId },
+        data: {
+          name: dto.name,
+          description: dto.description,
+          numCards: dto.numCards,
+        },
+      });
+
+      return set;
     } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
       if (error.code === 'P2025') {
-        throw new NotFoundException('Sets does not exist');
+        throw new NotFoundException('Set does not exist');
       }
       throw error;
     }
   }
 
-  async delete(id: number) {
+  async delete(id: number, requestingUserId: number) {
     try {
+      // First check if the set exists and user owns it
+      const existingSet = await this.prisma.sets.findUnique({
+        where: { setId: id },
+      });
+
+      if (!existingSet) {
+        throw new NotFoundException('Set does not exist');
+      }
+
+      if (existingSet.userId !== requestingUserId) {
+        throw new ForbiddenException('Access denied to this set');
+      }
+
+      // Delete the set (cascade will handle related records)
       return await this.prisma.sets.delete({
         where: { setId: id },
       });
     } catch (error) {
+      if (error instanceof ForbiddenException) {
+        throw error;
+      }
       if (error.code === 'P2025') {
-        throw new NotFoundException('Sets does not exist');
+        throw new NotFoundException('Set does not exist');
       }
       throw error;
     }
@@ -89,10 +190,7 @@ export class SetService {
         where: { userId },
       });
     } catch (error) {
-      if (error.code === 'P2025') {
-        throw new NotFoundException('Sets does not exist');
-      }
-      throw error;
+      throw new NotFoundException('Unable to count sets');
     }
   }
 }

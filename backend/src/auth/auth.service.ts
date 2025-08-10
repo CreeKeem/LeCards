@@ -4,15 +4,17 @@ import { SignInDto, SignUpDto } from './dto';
 import * as argon from 'argon2';
 import { Tokens } from './types';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
-  async signup(dto: SignUpDto) {
+  async signup(dto: SignUpDto): Promise<Tokens> {
     // generate the password hash
     const hash = await argon.hash(dto.password);
 
@@ -32,21 +34,23 @@ export class AuthService {
           lName: true,
         },
       });
-      // const tokens = await this.getTokens(
-      //   user.userid,
-      //   user.email,
-      //   user.fname,
-      //   user.lname,
-      // );
-      // return the saved user
-      // await this.updateRtHash(user.userid, tokens.refreshtoken);
-      return user;
+
+      const tokens = await this.getTokens(
+        user.userId,
+        user.email,
+        user.fName,
+        user.lName,
+      );
+
+      await this.updateRtHash(user.userId, tokens.refresh_token);
+
+      return tokens;
     } catch (error) {
       throw error;
     }
   }
 
-  async signin(dto: SignInDto) {
+  async signin(dto: SignInDto): Promise<Tokens> {
     // find user's email
     const user = await this.prisma.users.findUnique({
       where: {
@@ -67,24 +71,20 @@ export class AuthService {
       throw new ForbiddenException('Credentials incorrect');
     }
 
-    // return user email
-    // const tokens = await this.getTokens(
-    //   user.userid,
-    //   user.email,
-    //   user.fname,
-    //   user.lname,
-    // );
-    // return the saved user
-    // await this.updateRtHash(user.userid, tokens.refreshtoken);
-    return {
-      userid: user.userId,
-      email: user.email,
-      fname: user.fName,
-      lname: user.lName,
-    };
+    // generate and return tokens
+    const tokens = await this.getTokens(
+      user.userId,
+      user.email,
+      user.fName,
+      user.lName,
+    );
+
+    await this.updateRtHash(user.userId, tokens.refresh_token);
+
+    return tokens;
   }
 
-  async logout(userId: number) {
+  async logout(userId: number): Promise<boolean> {
     await this.prisma.users.updateMany({
       where: {
         userId: userId,
@@ -96,11 +96,42 @@ export class AuthService {
         hashedRt: null,
       },
     });
+    return true;
   }
 
-  async refreshTokens(userId: number, rt: string) {}
+  async refreshTokens(userId: number, rt: string): Promise<Tokens> {
+    const user = await this.prisma.users.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
 
-  async updateRtHash(userId: number, rt: string) {
+    // Check if user exists and has refresh token
+    if (!user || !user.hashedRt) {
+      throw new ForbiddenException('Access Denied');
+    }
+
+    // Verify refresh token
+    const rtMatches = await argon.verify(user.hashedRt, rt);
+    if (!rtMatches) {
+      throw new ForbiddenException('Access Denied');
+    }
+
+    // Generate new tokens
+    const tokens = await this.getTokens(
+      user.userId,
+      user.email,
+      user.fName,
+      user.lName,
+    );
+
+    // Update refresh token hash
+    await this.updateRtHash(user.userId, tokens.refresh_token);
+
+    return tokens;
+  }
+
+  async updateRtHash(userId: number, rt: string): Promise<void> {
     const hash = await argon.hash(rt);
     await this.prisma.users.update({
       where: {
@@ -115,46 +146,46 @@ export class AuthService {
   async getUser(id: number) {
     const user = await this.prisma.users.findUnique({
       where: { userId: id },
+      select: {
+        userId: true,
+        email: true,
+        fName: true,
+        lName: true,
+        createdAt: true,
+        cardStudied: true,
+        correct: true,
+      },
     });
-    return user
+    return user;
   }
 
-  // async getTokens(
-  //   userid: number,
-  //   email: string,
-  //   fname: string,
-  //   lname: string,
-  // ): Promise<Tokens> {
-  //   const [at, rt] = await Promise.all([
-  //     this.jwwtService.signAsync(
-  //       {
-  //         sub: userid,
-  //         email,
-  //         fname,
-  //         lname,
-  //       },
-  //       {
-  //         secret: 'at-secret',
-  //         expiresIn: 60 * 15,
-  //       },
-  //     ),
-  //     this.jwwtService.signAsync(
-  //       {
-  //         sub: userid,
-  //         email,
-  //         fname,
-  //         lname,
-  //       },
-  //       {
-  //         secret: 'rt-secret',
-  //         expiresIn: 60 * 60 * 24 * 7,
-  //       },
-  //     ),
-  //   ]);
+  async getTokens(
+    userId: number,
+    email: string,
+    fName: string,
+    lName: string,
+  ): Promise<Tokens> {
+    const payload = {
+      sub: userId,
+      email,
+      fName,
+      lName,
+    };
 
-  //   return {
-  //     accesstoken: at,
-  //     refreshtoken: rt,
-  //   };
-  // }
+    const [at, rt] = await Promise.all([
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('AT_SECRET') || 'at-secret',
+        expiresIn: '15m',
+      }),
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('RT_SECRET') || 'rt-secret',
+        expiresIn: '7d',
+      }),
+    ]);
+
+    return {
+      access_token: at,
+      refresh_token: rt,
+    };
+  }
 }

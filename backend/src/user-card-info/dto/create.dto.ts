@@ -12,10 +12,6 @@ import { Type } from 'class-transformer';
 export class CreateDto {
   @IsNotEmpty()
   @IsNumber()
-  userId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
   cardId: number;
 
   @IsOptional()
@@ -29,5 +25,5 @@ export class CreateDto {
   @IsDate()
   @IsOptional()
   @Type(() => Date)
-  lastReviewed: Date;
+  lastReviewed?: Date;
 }
