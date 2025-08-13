@@ -54,7 +54,7 @@ export function SetCard({
 
   const handleEditClick = () => {
     const slug = slugify(setDto.name);
-    router.push(`/study/${setDto.setId}/${slug}`);
+    router.push(`/set/edit/${setDto.setId}/${slug}`);
   };
   return (
     <div className="bg-white w-full max-w-sm sm:max-w-[390px] md:max-w-[390px] lg:max-w-[390px] h-auto drop-shadow-lg rounded-[12px]">

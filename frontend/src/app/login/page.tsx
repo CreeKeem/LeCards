@@ -8,7 +8,7 @@ import { SignInDto, SignUpDto } from "@/types/auth";
 import { TokenService } from "@/lib/auth/token-service";
 
 export default function Login() {
-  const [signUp, setSignUp] = useState(true);
+  const [signUp, setSignUp] = useState(false);
   const [authError, setAuthError] = useState(false);
 
   const [email, setEmail] = useState("");
@@ -54,12 +54,13 @@ export default function Login() {
         email,
         password,
       };
+
       const success = await signin(data);
       if (!success) {
         setAuthError(true);
         return;
       }
-      // window.location.href = '/dashboard';
+      router.push("/dashboard");
     }
   };
 

@@ -86,11 +86,11 @@ export function SetGrid() {
 
       {/* Filtered grid */}
       <div className="grid gap-x-0 sm:gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredSets.map((set) => (
+        {userSetInfos.map((set) => (
           <SetCard
             key={set.setId}
-            setDto={set}
-            userSetInfoDto={userSetInfos.find((x) => x.setId == set.setId)!}
+            setDto={sets.find((x) => x.setId == set.setId)!}
+            userSetInfoDto={set}
           />
         ))}
 

@@ -103,7 +103,7 @@ export function Ellipsis({
           <div className="py-1" role="none">
             <button
               type="button"
-              className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+              className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
               role="menuitem"
               onClick={editItem}
             >
@@ -111,7 +111,7 @@ export function Ellipsis({
             </button>
             <button
               type="button"
-              className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+              className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
               role="menuitem"
               onClick={deleteItem}
             >
