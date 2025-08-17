@@ -78,7 +78,7 @@ export default function Create() {
               className="w-full md:w-[50%] md:max-w-[600px bg-laker-gold h-[50px] rounded-[12px] cursor-pointer hover:bg-[#E0A322] duration-300"
               onClick={handleCreateSet}
             >
-              <h1 className="text-2xl font-bold text-white">Create Set</h1>
+              <h1 className="text-2xl text-white">Create Set</h1>
             </button>
 
             {/* Quick Study */}
@@ -86,7 +86,7 @@ export default function Create() {
               className="w-full md:w-[50%] md:max-w-[600px]  bg-laker-purple h-[50px] rounded-[12px] cursor-pointer hover:bg-[#7831B7] duration-300"
               onClick={() => router.push("/dashboard")}
             >
-              <h1 className="text-2xl font-bold text-white">Cancel</h1>
+              <h1 className="text-2xl text-white">Cancel</h1>
             </button>
           </div>
         </div>

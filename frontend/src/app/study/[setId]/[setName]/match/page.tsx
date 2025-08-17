@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TokenService } from "@/lib/auth/token-service";
 
+import { MatchGame } from "@/components/learn";
+
 export default function Match() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -47,6 +49,9 @@ export default function Match() {
         <SideNavbar />
         <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
           <Header />
+          <div className="h-[100%] flex items-center w-[100%] justify-center py-6">
+          <MatchGame />
+          </div>
         </div>
       </div>
     </div>

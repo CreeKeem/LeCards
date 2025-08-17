@@ -1,6 +1,7 @@
 export type SignInDto = {
   email: string;
   password: string;
+  rememberMe?: boolean;
 };
 
 export type SignUpDto = {
@@ -8,6 +9,7 @@ export type SignUpDto = {
   fName: string;
   lName: string;
   password: string;
+  rememberMe?: boolean;
 };
 
 export type UserInfo = {

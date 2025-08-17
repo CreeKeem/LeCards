@@ -24,3 +24,44 @@ body {
 .input::placeholder {
   color: #adaebc;
 }
+
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: #552583;
+  outline: none;
+  cursor: pointer;
+  
+}
+
+/* Chrome, Safari, Edge */
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: url("/utility/crownIcon.svg") no-repeat center;
+  background-size: contain;
+  height: 48px;
+  width: 48px;
+  
+  border: 0;
+  cursor: grab;
+}
+
+/* Firefox */
+.range-slider::-moz-range-thumb {
+  background: url("/utility/crownIcon.svg") no-repeat center;
+  background-size: contain;
+  height: 48px;
+  width: 48px;
+  border: none;
+  cursor: grab;
+}
+
+/* Fix Firefox so thumb can overlap edges */
+.range-slider::-moz-range-track {
+  background: #552583;
+  border-radius: 9999px;
+}

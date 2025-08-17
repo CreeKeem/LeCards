@@ -16,7 +16,7 @@ export const signup = async (data: SignUpDto): Promise<boolean> => {
     }
 
     const tokens: Tokens = await response.json();
-    TokenService.setTokens(tokens);
+    TokenService.setTokens(tokens, data.rememberMe || false);
     return true;
   } catch (error) {
     console.error("Signup error:", error);

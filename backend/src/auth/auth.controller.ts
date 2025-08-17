@@ -21,13 +21,13 @@ export class AuthController {
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   signup(@Body() dto: SignUpDto): Promise<Tokens> {
-    return this.authService.signup(dto);
+    return this.authService.signup(dto, dto.rememberMe || false);
   }
 
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   signin(@Body() dto: SignInDto): Promise<Tokens> {
-    return this.authService.signin(dto);
+    return this.authService.signin(dto, dto.rememberMe || false);
   }
 
   @UseGuards(AuthGuard('jwt'))

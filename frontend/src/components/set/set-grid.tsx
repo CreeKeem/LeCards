@@ -57,8 +57,11 @@ export function SetGrid() {
     );
   }
 
-  const filteredSets = sets.filter((set) =>
-    set.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredSets = userSetInfos.filter((set) =>
+    sets
+      .find((x) => set.setId == x.setId)!
+      .name.toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -86,7 +89,7 @@ export function SetGrid() {
 
       {/* Filtered grid */}
       <div className="grid gap-x-0 sm:gap-x-6 gap-y-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {userSetInfos.map((set) => (
+        {filteredSets.map((set) => (
           <SetCard
             key={set.setId}
             setDto={sets.find((x) => x.setId == set.setId)!}

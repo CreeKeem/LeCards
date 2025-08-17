@@ -10,12 +10,13 @@ export const signin = async (data: SignInDto): Promise<boolean> => {
       method: "POST",
       body: JSON.stringify(data),
     });
+
     if (!response.ok) {
       throw new Error("Signin failed");
     }
 
     const tokens: Tokens = await response.json();
-    TokenService.setTokens(tokens);
+    TokenService.setTokens(tokens, data.rememberMe || false);
     return true;
   } catch (error) {
     console.error("Signin error:", error);

@@ -14,11 +14,9 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async signup(dto: SignUpDto): Promise<Tokens> {
-    // generate the password hash
+  async signup(dto: SignUpDto, rememberMe: boolean = false): Promise<Tokens> {
     const hash = await argon.hash(dto.password);
 
-    // save new user in the db
     try {
       const user = await this.prisma.users.create({
         data: {
@@ -40,6 +38,7 @@ export class AuthService {
         user.email,
         user.fName,
         user.lName,
+        rememberMe,
       );
 
       await this.updateRtHash(user.userId, tokens.refresh_token);
@@ -50,33 +49,29 @@ export class AuthService {
     }
   }
 
-  async signin(dto: SignInDto): Promise<Tokens> {
-    // find user's email
+  async signin(dto: SignInDto, rememberMe: boolean = false): Promise<Tokens> {
     const user = await this.prisma.users.findUnique({
       where: {
         email: dto.email,
       },
     });
 
-    // throw exception if email is incorrect
     if (!user) {
       throw new ForbiddenException('Credentials incorrect');
     }
 
-    // checks if password is correct
     const pwMatches = await argon.verify(user.password, dto.password);
 
-    // throws exception if password is incorrect
     if (!pwMatches) {
       throw new ForbiddenException('Credentials incorrect');
     }
 
-    // generate and return tokens
     const tokens = await this.getTokens(
       user.userId,
       user.email,
       user.fName,
       user.lName,
+      rememberMe,
     );
 
     await this.updateRtHash(user.userId, tokens.refresh_token);
@@ -99,33 +94,34 @@ export class AuthService {
     return true;
   }
 
-  async refreshTokens(userId: number, rt: string): Promise<Tokens> {
+  async refreshTokens(
+    userId: number,
+    rt: string,
+    rememberMe: boolean = false,
+  ): Promise<Tokens> {
     const user = await this.prisma.users.findUnique({
       where: {
         userId: userId,
       },
     });
 
-    // Check if user exists and has refresh token
     if (!user || !user.hashedRt) {
       throw new ForbiddenException('Access Denied');
     }
 
-    // Verify refresh token
     const rtMatches = await argon.verify(user.hashedRt, rt);
     if (!rtMatches) {
       throw new ForbiddenException('Access Denied');
     }
 
-    // Generate new tokens
     const tokens = await this.getTokens(
       user.userId,
       user.email,
       user.fName,
       user.lName,
+      rememberMe,
     );
 
-    // Update refresh token hash
     await this.updateRtHash(user.userId, tokens.refresh_token);
 
     return tokens;
@@ -164,6 +160,7 @@ export class AuthService {
     email: string,
     fName: string,
     lName: string,
+    rememberMe: boolean = false,
   ): Promise<Tokens> {
     const payload = {
       sub: userId,
@@ -172,14 +169,18 @@ export class AuthService {
       lName,
     };
 
+    // Set longer expiration times if "remember me" is checked
+    const accessTokenExpiry = rememberMe ? '24h' : '15m';
+    const refreshTokenExpiry = rememberMe ? '30d' : '7d';
+
     const [at, rt] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('AT_SECRET') || 'at-secret',
-        expiresIn: '15m',
+        expiresIn: accessTokenExpiry,
       }),
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('RT_SECRET') || 'rt-secret',
-        expiresIn: '7d',
+        expiresIn: refreshTokenExpiry,
       }),
     ]);
 
