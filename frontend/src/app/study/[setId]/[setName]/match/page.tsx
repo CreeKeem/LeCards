@@ -3,7 +3,7 @@
 import { SideNavbar, Header } from "@/components/navigation";
 import { useEffect, useState } from "react";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { TokenService } from "@/lib/auth/token-service";
 
 import { MatchGame } from "@/components/learn";
@@ -11,6 +11,8 @@ import { MatchGame } from "@/components/learn";
 export default function Match() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const params = useParams();
+  const setId = +(params?.setId || '-1');
 
   useEffect(() => {
     // Check authentication
@@ -20,7 +22,6 @@ export default function Match() {
     }
 
     try {
-      
     } catch (error) {
       console.error("Error fetching user data:", error);
       // If there's an auth error, redirect to login
@@ -37,7 +38,7 @@ export default function Match() {
       <div className="flex items-center justify-center min-h-screen bg-[#F9FAFB]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-laker-purple mx-auto"></div>
-          <p className="mt-4 text-lg text-gray-600">Loading Learn...</p>
+          <p className="mt-4 text-lg text-gray-600">Loading Match...</p>
         </div>
       </div>
     );
@@ -49,8 +50,8 @@ export default function Match() {
         <SideNavbar />
         <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
           <Header />
-          <div className="h-[100%] flex items-center w-[100%] justify-center py-6">
-          <MatchGame />
+          <div className="h-full flex items-center w-full justify-center py-5">
+            <MatchGame setId={setId} />
           </div>
         </div>
       </div>

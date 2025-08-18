@@ -94,7 +94,8 @@ export const Flashcard = ({
 
   return (
     <div
-      className={`flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl border-2 ${learningStatusBorder}`}
+      className={`flex max-w-[1216px] w-full bg-white min-h-[200px] shadow-sm rounded-2xl border-2 cursor-pointer ${learningStatusBorder}`}
+      onClick={playAudio}
     >
       {/* Term */}
       <div className="basis-[30%] p-4 flex items-center justify-center">
