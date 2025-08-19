@@ -26,11 +26,14 @@ To Enter Backend Container
 docker compose -f 'docker-compose.dev.yml' up -d --build 'postgres'
 
 ### Prisma Commands:
-### Run a migration
+#### Run a migration
 docker exec -it flashcard-api-dev npx prisma migrate dev
 
-## Run Seed Job
+#### Run Seed Job
 docker exec -it flashcard-api-dev npx prisma db seed    
 
-### Open Prisma Studio
+#### Open Prisma Studio
 docker exec -it flashcard-api-dev npx prisma studio
+
+## Stop Services
+docker-compose -f docker-compose.dev.yml down
