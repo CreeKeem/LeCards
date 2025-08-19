@@ -13,6 +13,7 @@ export default function Match() {
   const router = useRouter();
   const params = useParams();
   const setId = +(params?.setId || '-1');
+  const setName = params?.setName + '';
 
   useEffect(() => {
     // Check authentication
@@ -51,7 +52,7 @@ export default function Match() {
         <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
           <Header />
           <div className="h-full flex items-center w-full justify-center py-5">
-            <MatchGame setId={setId} />
+            <MatchGame setId={setId} setName={setName} />
           </div>
         </div>
       </div>

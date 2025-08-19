@@ -44,6 +44,8 @@ services:
     networks:
       - flashcard-network-dev
     command: npm run start:dev
+    stdin_open: true
+    tty: true
 
   # Development Frontend with hot reload
   frontend-dev:
@@ -55,17 +57,22 @@ services:
       - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
       - NODE_ENV=${NODE_ENV}
       - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-      - /app/.next  # Cache Next.js build files
+      - /app/.next
+      - /app/.git
     networks:
       - flashcard-network-dev
     depends_on:
       - api-dev
     command: npm run dev
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres_data_dev:

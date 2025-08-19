@@ -9,10 +9,17 @@ export interface MatchCardProps {
   matched: boolean;
 }
 
-export function MatchGrid({ setId }: { setId: number }) {
+export function MatchGrid({
+  setId,
+  handleWin,
+}: {
+  setId: number;
+  handleWin: () => void;
+}) {
   const [cards, setCards] = useState<MatchCardProps[]>([]);
   const [selectedCards, setSelectedCards] = useState<MatchCardProps[]>([]);
 
+  // Getting the cards for the game
   useEffect(() => {
     const getCards = async () => {
       let flashcards = await fetchFlashcardsBySetId(setId);
@@ -40,12 +47,42 @@ export function MatchGrid({ setId }: { setId: number }) {
     getCards();
   }, []);
 
+  // Checking Selected Cards
   useEffect(() => {
-    if (!selectedCards) {
-        return
+    if (selectedCards.length === 2) {
+      const [first, second] = selectedCards;
+
+      if (
+        first.flashcardId === second.flashcardId &&
+        first.content !== second.content
+      ) {
+        setCards((prev) =>
+          prev.map((c) =>
+            c.flashcardId === first.flashcardId
+              ? { ...c, matched: true, selected: false }
+              : c
+          )
+        );
+        setSelectedCards([]);
+      } else {
+        setTimeout(() => {
+          setCards((prev) =>
+            prev.map((c) =>
+              c.selected && !c.matched ? { ...c, selected: false } : c
+            )
+          );
+          setSelectedCards([]);
+        }, 150);
+      }
     }
-    setSelectedCards([])
-  }, [selectedCards])
+  }, [selectedCards]);
+
+  // Check if user wins
+  useEffect(() => {
+    if (cards.length > 0 && !cards.find((c) => !c.matched)) {
+      handleWin();
+    }
+  }, [cards]);
 
   const handleSelect = (card: MatchCardProps) => {
     setCards((prev) =>
@@ -56,11 +93,7 @@ export function MatchGrid({ setId }: { setId: number }) {
         return c;
       })
     );
-    
-    setSelectedCards((prev) => [...prev, card])
-    
-    
-    return false;
+    setSelectedCards((prev) => [...prev, card]);
   };
 
   return (
