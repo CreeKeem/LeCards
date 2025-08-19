@@ -1,0 +1,53 @@
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    container_name: flashcard-db-dev
+    environment:
+      POSTGRES_USER: flashcard_user
+      POSTGRES_PASSWORD: flashcard_password
+      POSTGRES_DB: flashcard_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+
+  # Development Backend with hot reload
+  api-dev:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: flashcard-api-dev
+    environment:
+      DATABASE_URL: "postgresql://flashcard_user:flashcard_password@postgres:5432/flashcard_db"
+      AT_SECRET: "dev-access-token-secret"
+      RT_SECRET: "dev-refresh-token-secret"
+      BACKEND_PORT: 3000
+      FRONTEND_URL: "http://localhost:3000"
+    ports:
+      - "4002:3000"
+      - "5555:5555"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run start:dev
+
+  # Development Frontend with hot reload
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: flashcard-frontend-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:4002
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm start
+
+volumes:
+  postgres_data_dev:

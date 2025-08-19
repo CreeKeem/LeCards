@@ -1,0 +1,56 @@
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    container_name: flashcard-db
+    environment:
+      POSTGRES_USER: flashcard_user
+      POSTGRES_PASSWORD: flashcard_password
+      POSTGRES_DB: flashcard_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - flashcard-network
+
+  # Backend API
+  api:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: flashcard-api
+    environment:
+      DATABASE_URL: "postgresql://flashcard_user:flashcard_password@postgres:5432/flashcard_db"
+      AT_SECRET: "your-super-secret-access-token-key-change-in-production"
+      RT_SECRET: "your-super-secret-refresh-token-key-change-in-production"
+      BACKEND_PORT: 3000
+      FRONTEND_URL: "http://localhost:3000"
+    ports:
+      - "4002:3000"
+    depends_on:
+      - postgres
+    networks:
+      - flashcard-network
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: flashcard-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:4002
+    depends_on:
+      - api
+    networks:
+      - flashcard-network
+
+volumes:
+  postgres_data:
+
+networks:
+  flashcard-network:
+    driver: bridge
