@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { MatchCard } from "./match-card";
 import { fetchFlashcardsBySetId } from "@/api/flashcard";
-import { match } from "node:assert";
 
 export interface MatchCardProps {
   content: string;
   selected: boolean;
   flashcardId: number;
+  matched: boolean;
 }
 
 export function MatchGrid({ setId }: { setId: number }) {
@@ -24,11 +24,13 @@ export function MatchGrid({ setId }: { setId: number }) {
           content: flashcard.term,
           selected: false,
           flashcardId: flashcard.cardId,
+          matched: false,
         };
         const def: MatchCardProps = {
           content: flashcard.definition,
           selected: false,
           flashcardId: flashcard.cardId,
+          matched: false,
         };
         matchCards.push(term, def);
       }
@@ -38,28 +40,27 @@ export function MatchGrid({ setId }: { setId: number }) {
     getCards();
   }, []);
 
-  const handleSelect = (card: MatchCardProps) => {
-    setSelectedCards((prev) => {
-      const exists = prev.find(
-        (x) => x.flashcardId === card.flashcardId && x.content === card.content
-      );
-      if (exists) {
-        return prev.filter(
-          (x) =>
-            !(x.flashcardId === card.flashcardId && x.content === card.content)
-        );
-      } else {
-        return [...prev, card];
-      }
-    });
-
-    if (selectedCards.length === 2) {
-      const correct = selectedCards[0].flashcardId === selectedCards[1].flashcardId;
-      if (correct) {
-        setSelectedCards([])
-      }
+  useEffect(() => {
+    if (!selectedCards) {
+        return
     }
-    return false
+    setSelectedCards([])
+  }, [selectedCards])
+
+  const handleSelect = (card: MatchCardProps) => {
+    setCards((prev) =>
+      prev.map((c) => {
+        if (c.flashcardId === card.flashcardId && c.content === card.content) {
+          return { ...c, selected: !c.selected };
+        }
+        return c;
+      })
+    );
+    
+    setSelectedCards((prev) => [...prev, card])
+    
+    
+    return false;
   };
 
   return (
