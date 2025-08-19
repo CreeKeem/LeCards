@@ -3,10 +3,10 @@
 
 # For development:
 
-# Run all docker containers
+## Run all docker containers
 docker compose -f 'docker-compose.dev.yml' up -d --build
 
-# Frontend
+## Frontend
 
 To Run Frontend
 - docker compose -f 'docker-compose.dev.yml' up -d --build 'frontend-dev'
@@ -14,7 +14,7 @@ To Run Frontend
 To Enter Frontend Container
 - docker exec -it flashcard-api-dev sh
 
-# Backend
+## Backend
 
 To Run the backend
 - docker compose -f 'docker-compose.dev.yml' up -d --build 'api-dev'
@@ -22,12 +22,12 @@ To Run the backend
 To Enter Backend Container
 - docker exec -it flashcard-api-dev sh
 
-# Database
+## Database
 docker compose -f 'docker-compose.dev.yml' up -d --build 'postgres'
 
-# Prisma Commands:
-# Run a migration
+### Prisma Commands:
+### Run a migration
 docker exec -it flashcard-api-dev npx prisma migrate dev
 
-# Open Prisma Studio
+### Open Prisma Studio
 docker exec -it flashcard-api-dev npx prisma studio
