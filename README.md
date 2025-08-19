@@ -29,5 +29,8 @@ docker compose -f 'docker-compose.dev.yml' up -d --build 'postgres'
 ### Run a migration
 docker exec -it flashcard-api-dev npx prisma migrate dev
 
+## Run Seed Job
+docker exec -it flashcard-api-dev npx prisma db seed    
+
 ### Open Prisma Studio
 docker exec -it flashcard-api-dev npx prisma studio
