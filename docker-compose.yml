@@ -13,6 +13,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - flashcard-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flashcard_user -d flashcard_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   # Backend API
   api:
@@ -26,12 +31,15 @@ services:
       RT_SECRET: "your-super-secret-refresh-token-key-change-in-production"
       BACKEND_PORT: 3000
       FRONTEND_URL: "http://localhost:3000"
+      NODE_ENV: "production"
     ports:
       - "4002:3000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - flashcard-network
+    restart: unless-stopped
 
   # Frontend
   frontend:
@@ -39,14 +47,16 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: flashcard-frontend
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:4002
+      - NODE_ENV=production
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_URL=http://localhost:4002
     depends_on:
       - api
     networks:
       - flashcard-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:

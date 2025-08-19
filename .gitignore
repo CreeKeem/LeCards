@@ -1,0 +1,11 @@
+# Ignore Docker / Compose env
+.env
+.env.* 
+
+# Ignore backend envs
+/backend/.env
+/backend/.env.*
+
+# Ignore frontend envs
+/frontend/.env
+/frontend/.env.*
