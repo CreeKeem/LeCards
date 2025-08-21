@@ -158,7 +158,10 @@ export default function Dashboard() {
               </button>
 
               {/* Quick Study */}
-              <button className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-purple h-[96px] rounded-[12px] cursor-pointer hover:bg-[#7831B7] duration-300">
+              <button
+                className="w-full md:w-[50%] md:max-w-[600px] p-[24px] bg-laker-purple h-[96px] rounded-[12px] cursor-pointer hover:bg-[#7831B7] duration-300"
+                onClick={() => {}}
+              >
                 <div className="text-white flex gap-5">
                   <div className="bg-[rgba(255,255,255,0.2)] w-[48px] h-[48px] rounded-[8px] flex items-center justify-center">
                     <Image

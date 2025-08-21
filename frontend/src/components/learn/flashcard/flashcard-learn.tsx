@@ -2,11 +2,12 @@
 
 import { FlashcardDto, FlashcardFlip } from "@/components/flashcard";
 import { fetchFlashcardsBySetId } from "@/api/flashcard";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronIcon } from "@/components/navigation";
 import { LearningStatus } from "@/components/flashcard";
 import { updateUserCardInfo } from "@/api/user-card-info";
+import { updateCardsLearned } from "@/api/user-set-info";
 
 export const FlashcardLearn = ({
   setId,
@@ -46,6 +47,10 @@ export const FlashcardLearn = ({
       learningStatus: difficulty,
       lastReviewed: new Date(),
     });
+    await updateCardsLearned(setId);
+    if (index + 1 < cards.length) {
+      setIndex(index + 1);
+    }
   };
 
   const goToPrevious = () => {

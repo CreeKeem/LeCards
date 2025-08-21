@@ -30,7 +30,7 @@ export function SetCard({
     if (percent >= 90) {
       setLearnedColorBg("#DCFCE7");
       setLearnedColorText("#166534");
-    } else if (percent >= 70) {
+    } else if (percent >= 50) {
       setLearnedColorBg("#FEF9C3");
       setLearnedColorText("#854D0E");
     } else {

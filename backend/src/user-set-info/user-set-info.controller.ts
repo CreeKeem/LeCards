@@ -44,4 +44,9 @@ export class UserSetInfoController {
     return this.userSetInfoService.delete(userId, +setId)
   }
 
+  @Patch('set/:setId/cards-learned')
+  updateCardsLearned(@Param('setId') setId: string, @GetCurrentUserId() userId: number) {
+    return this.userSetInfoService.updateCardsLearned(userId, +setId)
+  }
+
 }
