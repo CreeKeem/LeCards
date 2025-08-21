@@ -2,19 +2,32 @@
 
 import { FlashcardDto, FlashcardFlip } from "@/components/flashcard";
 import { fetchFlashcardsBySetId } from "@/api/flashcard";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronIcon } from "@/components/navigation";
 import { LearningStatus } from "@/components/flashcard";
 import { updateUserCardInfo } from "@/api/user-card-info";
 
-export const FlashcardLearn = () => {
+export const FlashcardLearn = ({
+  setId,
+  setName,
+}: {
+  setId: number;
+  setName: string;
+}) => {
   const [cards, setCards] = useState<FlashcardDto[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [index, setIndex] = useState<number>(0);
 
-  const params = useParams();
-  const setId = +(params?.setId || "-1");
+  const router = useRouter();
+
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   useEffect(() => {
     const getFlashcards = async () => {
@@ -150,7 +163,12 @@ export const FlashcardLearn = () => {
           </button>
         </div>
         {/* Back Button */}
-        <button className=" flex justify-center items-center cursor-pointer hover:bg-gray-300 transition-all duration-300 rounded-xl p-1 w-48">
+        <button
+          className=" flex justify-center items-center cursor-pointer hover:bg-gray-300 transition-all duration-300 rounded-xl p-1 w-48"
+          onClick={() =>
+            router.push(`/study/${setId}/${slugify(`${setName}`)}`)
+          }
+        >
           Back
         </button>
       </div>

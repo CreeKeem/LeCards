@@ -3,7 +3,7 @@
 import { SideNavbar, Header } from "@/components/navigation";
 import { useEffect, useState } from "react";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { TokenService } from "@/lib/auth/token-service";
 
 import { FlashcardLearn } from "@/components/learn";
@@ -11,6 +11,9 @@ import { FlashcardLearn } from "@/components/learn";
 export default function Flashcards() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const params = useParams();
+  const setId = +(params?.setId || "-1");
+  const setName = params?.setName + "";
 
   useEffect(() => {
     // Check authentication
@@ -49,7 +52,7 @@ export default function Flashcards() {
         <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
           <Header />
           <div className="h-full flex items-center w-full justify-center py-5">
-            <FlashcardLearn />
+            <FlashcardLearn setId={setId} setName={setName} />
           </div>
         </div>
       </div>
