@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TokenService } from "@/lib/auth/token-service";
 
+import { FlashcardLearn } from "@/components/learn";
+
 export default function Flashcards() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -18,7 +20,6 @@ export default function Flashcards() {
     }
 
     try {
-      
     } catch (error) {
       console.error("Error fetching user data:", error);
       // If there's an auth error, redirect to login
@@ -47,6 +48,9 @@ export default function Flashcards() {
         <SideNavbar />
         <div className="min-h-screen px-4 sm:px-8 md:px-12 lg:px-[80px] w-full flex flex-col items-center bg-[#F9FAFB]">
           <Header />
+          <div className="h-full flex items-center w-full justify-center py-5">
+            <FlashcardLearn />
+          </div>
         </div>
       </div>
     </div>

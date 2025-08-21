@@ -30,38 +30,55 @@ export const FlashcardFlip = ({
 
   useEffect(() => {
     checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-    return () => window.removeEventListener("resize", checkOverflow);
+    const handleResize = () => {
+      setTimeout(checkOverflow, 100); // Small delay to ensure layout is updated
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [flashcardDto]); // Check when flashcard content changes
+
+  // Force a recheck after flip animation completes
+  useEffect(() => {
+    const timer = setTimeout(checkOverflow, 350); // Half of animation duration
+    return () => clearTimeout(timer);
   }, [flip]);
 
   return (
-    <div
-      className="w-full h-full flex items-center justify-center"
-      onClick={() => setFlip(!flip)}
-      style={{ perspective: "1000px" }}
-    >
+    <div className="w-full h-full flex items-center justify-center">
       <div
-        className="relative w-full h-full transition-transform duration-700"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: flip ? "rotateY(180deg)" : "rotateY(0deg)",
-        }}
+        className="relative w-full h-full cursor-pointer"
+        onClick={() => setFlip(!flip)}
+        style={{ perspective: "1000px" }}
       >
-        {/* Front & Back */}
-        {["front", "back"].map((side) => {
-          const isFront = side === "front";
-          const isOverflowing = isFront
-            ? isFrontOverflowing
-            : isBackOverflowing;
-          const ref = isFront ? frontRef : backRef;
-
-          const content = isFront ? (
-            <>
+        <div
+          className="relative w-full h-full transition-transform duration-700 ease-in-out"
+          style={{
+            transformStyle: "preserve-3d",
+            transform: flip ? "rotateY(180deg)" : "rotateY(0deg)",
+          }}
+        >
+          {/* Front Side */}
+          <div
+            className="absolute inset-0 w-full h-full bg-white rounded-2xl text-laker-purple p-4 shadow-lg"
+            style={{
+              transform: "rotateY(0deg)",
+              backfaceVisibility: "hidden",
+            }}
+          >
+            <div
+              ref={frontRef}
+              className={`flex flex-col items-center h-full w-full space-y-4 min-h-0 ${
+                isFrontOverflowing
+                  ? "justify-start overflow-y-auto"
+                  : "justify-center overflow-hidden"
+              }`}
+            >
               {flashcardDto.contentTerm && (
                 <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
                   <Image
                     src={flashcardDto.contentTerm}
-                    alt="Image"
+                    alt="Term Image"
                     width={300}
                     height={300}
                     className="object-contain w-full h-auto max-h-full rounded-xl"
@@ -69,24 +86,45 @@ export const FlashcardFlip = ({
                 </div>
               )}
               {flashcardDto.term && (
-                <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] font-semibold break-words text-center">
+                <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] font-semibold break-words text-center leading-tight">
                   {flashcardDto.term}
                 </h1>
               )}
               {flashcardDto.audioTerm && (
-                <button className="flex-shrink-0">
+                <button
+                  className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <Image
                     src="/Logo.svg"
-                    alt="Audio"
+                    alt="Play Audio"
                     width={40}
                     height={40}
                     className="object-contain"
                   />
                 </button>
               )}
-            </>
-          ) : (
-            <>
+            </div>
+          </div>
+
+          {/* Back Side */}
+          <div
+            className="absolute inset-0 w-full h-full bg-white rounded-2xl text-laker-purple p-4 shadow-lg"
+            style={{
+              transform: "rotateY(180deg)",
+              backfaceVisibility: "hidden",
+            }}
+          >
+            <div
+              ref={backRef}
+              className={`flex flex-col items-center h-full w-full space-y-4 min-h-0 ${
+                isBackOverflowing
+                  ? "justify-start overflow-y-auto"
+                  : "justify-center overflow-hidden"
+              }`}
+            >
               {flashcardDto.contentDefinition && (
                 <div className="flex-shrink-0 w-full max-h-[40%] rounded-xl overflow-hidden">
                   <img
@@ -97,42 +135,27 @@ export const FlashcardFlip = ({
                 </div>
               )}
               {flashcardDto.audioDefinition && (
-                <button className="flex-shrink-0">
+                <button
+                  className="flex-shrink-0 hover:scale-110 transition-transform duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <Image
                     src="/Logo.svg"
-                    alt="Audio"
+                    alt="Play Audio"
                     width={40}
                     height={40}
                     className="object-contain"
                   />
                 </button>
               )}
-              <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] break-words text-center font-semibold">
+              <h1 className="text-[clamp(1.5rem,4vw,2.8rem)] break-words text-center font-semibold leading-tight">
                 {flashcardDto.definition}
               </h1>
-            </>
-          );
-
-          return (
-            <div
-              key={side}
-              className="absolute w-full h-full bg-white rounded-2xl text-laker-purple p-4"
-              style={{
-                transform: isFront ? "rotateY(0deg)" : "rotateY(180deg)",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <div
-                ref={ref}
-                className={`flex flex-col items-center h-full w-full overflow-auto space-y-4 min-h-0 ${
-                  isOverflowing ? "justify-start" : "justify-center"
-                }`}
-              >
-                {content}
-              </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
     </div>
   );
