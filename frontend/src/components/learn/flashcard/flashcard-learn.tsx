@@ -33,7 +33,6 @@ export const FlashcardLearn = ({
   useEffect(() => {
     const getFlashcards = async () => {
       const data = await fetchFlashcardsBySetId(setId);
-      console.log(data);
       setCards(data);
       setLoading(false);
     };

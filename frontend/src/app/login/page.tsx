@@ -416,7 +416,7 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={loading || isTransitioning}
-                  className="w-full bg-laker-gold hover:bg-yellow-500 active:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 shadow-lg disabled:shadow-none flex items-center justify-center gap-2"
+                  className="w-full bg-laker-gold cursor-pointer hover:bg-yellow-500 active:bg-yellow-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 shadow-lg disabled:shadow-none flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>

@@ -6,6 +6,7 @@ import { FlashcardModule } from './flashcard/flashcard.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserCardInfoModule } from './user-card-info/user-card-info.module';
 import { UserSetInfoModule } from './user-set-info/user-set-info.module';
+import { GeminiModule } from './gemini/gemini.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserSetInfoModule } from './user-set-info/user-set-info.module';
     }),
     UserCardInfoModule,
     UserSetInfoModule,
+    GeminiModule,
   ],
 })
 export class AppModule {}
