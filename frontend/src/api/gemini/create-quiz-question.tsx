@@ -2,13 +2,13 @@ import { ApiClient } from "@/lib/api/api-client";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export interface CreateQuizQuestionDto {
+export interface CreateQuizQuestionReq {
   setName: string;
   term: string;
   definition: string;
 }
 
-export const CreateQuizQuestion = async (data: CreateQuizQuestionDto) => {
+export const CreateQuizQuestion = async (data: CreateQuizQuestionReq) => {
   try {
     const response = await ApiClient.authenticatedFetch(
       `${backendUrl}/gemini/create-quiz-question`,

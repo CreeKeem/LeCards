@@ -14,6 +14,11 @@ export class GeminiService {
     try {
       const model = this.genAI.getGenerativeModel({
         model: 'gemini-2.0-flash',
+        generationConfig: {
+          temperature: 1.3,
+          topP: 0.9,
+          topK: 40,
+        },
       });
 
       const prompt = `
